@@ -1,10 +1,11 @@
 import Carousel from "@/components/carousel";
-import MainLayout from "@/layouts/Main";
+import Today from "@/components/today";
 
 export default function Home() {
   return (
     <>
       <Carousel />
+      <Today /> 
     </>
   );
 }
