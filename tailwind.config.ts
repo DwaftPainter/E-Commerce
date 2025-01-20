@@ -6,6 +6,7 @@ export default {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/layouts/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
   	extend: {
@@ -13,7 +14,7 @@ export default {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
+  				DEFAULT: '#FFFFFF',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
   			primary1: '#363738',
@@ -98,7 +99,10 @@ export default {
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
+  		},
+		  flexBasis: {
+			'1/7': '14.2857143%', // Equivalent to 1/7 of 100%
+		  },
   	}
   },
   plugins: [require("tailwindcss-animate")],
