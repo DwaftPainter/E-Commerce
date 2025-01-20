@@ -1,13 +1,14 @@
 'use client'
 
-import HomeLayout from '@/layouts/HomeLayout'
 import React from 'react'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
+import HomeLayout from '@/layouts/HomeLayout'
+import { ArrowLeft, ArrowRight, Phone, Smartphone } from 'lucide-react'
 import { Button } from '../ui/button'
-import Product from './Product'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import Category from './category'
+import { Separator } from '../ui/separator'
 
-const Products = () => {
+const Categories = () => {
     const [api, setApi] = React.useState<CarouselApi>()
     const [current, setCurrent] = React.useState(0)
 
@@ -24,11 +25,17 @@ const Products = () => {
     }, [api])
 
     return (
-        <HomeLayout title='Our Products' className='flex flex-col gap-[65px] mb-[65px]'>
-            <Carousel setApi={setApi} className='w-full mt-[24px]'>
-                <div className='relative'>
+        <HomeLayout title='Categories' className='flex flex-col gap-[65px]'>
+            <Carousel
+                opts={{
+                    align: 'start'
+                }}
+                setApi={setApi}
+                className='w-full'
+            >
+                <div className='relative mt-[24px]'>
                     <div className='flex items-end gap-[87px] mb-[40px]'>
-                        <h1 className='text-[36px] font-semibold '>Explore Our Products</h1>
+                        <h1 className='text-[36px] font-semibold '>Browse By Category</h1>
                     </div>
                     <div className='absolute right-0 top-0 flex gap-[10px] z-10'>
                         <Button
@@ -45,23 +52,17 @@ const Products = () => {
                         </Button>
                     </div>
                 </div>
-                <CarouselContent className='gird grid-cols-5 grid-rows-2'>
+                <CarouselContent>
                     {Array.from({ length: 10 }).map((_, index) => (
-                        <CarouselItem key={index} className='lg:basis-1/5'>
-                            <div className='p-1'>
-                                <Product />
-                            </div>
+                        <CarouselItem key={index} className='lg:basis-1/7'>
+                            <Category name='Phones' icon={<Smartphone size={38}/>} />
                         </CarouselItem>
                     ))}
                 </CarouselContent>
             </Carousel>
-            <div className='w-full flex justify-center items-center'>
-                <Button className='bg-secondary2 hover:bg-hover2 rounded-[4px] h-[56px] px-[48px] py-[16px] font-medium'>
-                    View All Products
-                </Button>
-            </div>
+            <Separator className='mb-[80px]'/>
         </HomeLayout>
     )
 }
 
-export default Products
+export default Categories

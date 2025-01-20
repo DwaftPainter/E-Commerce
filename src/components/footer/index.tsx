@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { Input } from '../ui/input'
 import { Facebook, Instagram, Linkedin, SendHorizonal, Twitter } from 'lucide-react'
@@ -76,7 +78,7 @@ const Footer = () => {
         </div>
         <Separator className='bg-primary opacity-20'/>
         <div className='h-[65px] w-full flex items-center justify-center'>
-          <p className='text-primary opacity-20'>Copyright DwarfPainter 2022. All right reserved</p>
+          <p className='text-primary opacity-20'>&copy; Copyright Rimel 2022. All right reserved</p>
         </div>
       </div>
   )

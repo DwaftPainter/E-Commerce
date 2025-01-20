@@ -99,7 +99,10 @@ export default {
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
+  		},
+		  flexBasis: {
+			'1/7': '14.2857143%', // Equivalent to 1/7 of 100%
+		  },
   	}
   },
   plugins: [require("tailwindcss-animate")],

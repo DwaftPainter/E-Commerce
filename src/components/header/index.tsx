@@ -1,3 +1,5 @@
+'use client'
+
 import Layout from '@/layouts/layout'
 import Link from 'next/link'
 import React from 'react'
@@ -13,9 +15,9 @@ const Header = () => {
             <h1 className='font-bold text-[24px]'>Neo Store</h1>
         </div>
         <nav className="flex gap-[48px] text-[16px]">
-          <Link href={"#"}>Home</Link>
-          <Link href={"#"}>Contact</Link>
-          <Link href={"#"}>About</Link>
+          <Link href={"/"}>Home</Link>
+          <Link href={"/contact"}>Contact</Link>
+          <Link href={"/about"}>About</Link>
           <Link href={"#"}>Sign Up</Link>
         </nav>
         <div className='flex items-center gap-[24px]'>

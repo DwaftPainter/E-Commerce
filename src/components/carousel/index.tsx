@@ -1,3 +1,5 @@
+'use client'
+
 import Layout from '@/layouts/layout'
 import React from 'react'
 import Banner from './components/Banner'
