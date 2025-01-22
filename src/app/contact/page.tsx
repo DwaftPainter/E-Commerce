@@ -1,9 +1,11 @@
+'use client'
+
 import React from 'react'
 
-const page = () => {
+const Contact = () => {
   return (
-    <div>page</div>
+    <div className="min-h-[600px]"></div>
   )
 }
 
-export default page
+export default Contact
