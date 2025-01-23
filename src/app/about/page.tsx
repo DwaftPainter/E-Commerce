@@ -29,7 +29,7 @@ const About = () => {
                 />
             </div>
             <div className='flex justify-between items-center'>
-                <div className='border-[1px] border-opacity-30 rounded-[4px] w-[270px] h-[230px] flex flex-col justify-center items-center gap-[24px] cursor-pointer group hover:bg-secondary2 hover:text-text'>
+                <div className='border-[1px] border-opacity-30 rounded-[4px] w-[270px] h-[230px] flex flex-col justify-center items-center gap-[24px] cursor-pointer group hover:bg-secondary2 hover:text-text hover:shadow'>
                     <div
                         className='flex justify-center items-center h-[80px] w-[80px] bg-black group-hover:bg-white border-[11px] 
                      border-opacity-30 rounded-full'
@@ -46,7 +46,7 @@ const About = () => {
                         <p>Sallers active our site</p>
                     </div>
                 </div>
-                <div className='border-[1px] border-opacity-30 rounded-[4px] w-[270px] h-[230px] flex flex-col justify-center items-center gap-[24px] cursor-pointer group hover:bg-secondary2 hover:text-text'>
+                <div className='border-[1px] border-opacity-30 rounded-[4px] w-[270px] h-[230px] flex flex-col justify-center items-center gap-[24px] cursor-pointer group hover:bg-secondary2 hover:text-text hover:shadow'>
                     <div className='flex justify-center items-center h-[80px] w-[80px] bg-black group-hover:bg-white border-[11px] rounded-full '>
                         <Icon
                             icon='hugeicons:money-send-circle'
@@ -60,7 +60,7 @@ const About = () => {
                         <p>Monthly Product Sale</p>
                     </div>
                 </div>
-                <div className='border-[1px] border-opacity-30 rounded-[4px] w-[270px] h-[230px] flex flex-col justify-center items-center gap-[24px] cursor-pointer group hover:bg-secondary2 hover:text-text'>
+                <div className='border-[1px] border-opacity-30 rounded-[4px] w-[270px] h-[230px] flex flex-col justify-center items-center gap-[24px] cursor-pointer group hover:bg-secondary2 hover:text-text hover:shadow'>
                     <div className='flex justify-center items-center h-[80px] w-[80px] bg-black group-hover:bg-white border-[11px] rounded-full '>
                         <Icon
                             icon='hugeicons:shopping-bag-01'
@@ -74,7 +74,7 @@ const About = () => {
                         <p>Customer active in our site</p>
                     </div>
                 </div>
-                <div className='border-[1px] border-opacity-30 rounded-[4px] w-[270px] h-[230px] flex flex-col justify-center items-center gap-[24px] cursor-pointer group hover:bg-secondary2 hover:text-text'>
+                <div className='border-[1px] border-opacity-30 rounded-[4px] w-[270px] h-[230px] flex flex-col justify-center items-center gap-[24px] cursor-pointer group hover:bg-secondary2 hover:text-text hover:shadow'>
                     <div className='flex justify-center items-center h-[80px] w-[80px] bg-black group-hover:bg-white border-[11px] rounded-full '>
                         <Icon
                             icon='hugeicons:money-bag-02'
