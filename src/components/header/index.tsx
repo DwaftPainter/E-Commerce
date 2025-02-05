@@ -1,6 +1,5 @@
 'use client'
 
-import Layout from '@/layouts/layout'
 import Link from 'next/link'
 import React from 'react'
 import { Input } from '../ui/input'
