@@ -61,7 +61,7 @@ const Contact = () => {
     }
 
     return (
-        <div className='grid grid-cols-1 lg:grid-cols-4 gap-6 px-6 sm:px-10 lg:px-[135px]'>
+        <div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
             <div className='flex flex-col gap-8 h-auto lg:h-[450px] col-span-1 rounded-sm shadow-custom p-6'>
                 <div className='flex flex-col gap-6'>
                     <div className='flex gap-4 items-center'>

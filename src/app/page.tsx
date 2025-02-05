@@ -1,11 +1,11 @@
 'use client'
 
-import BestSeller from "@/components/bestseller";
-import Carousel from "@/components/carousel";
-import Categories from "@/components/categories";
-import Feature from "@/components/feature";
-import Products from "@/components/product";
-import Today from "@/components/today";
+import BestSeller from "@/components/home/bestseller";
+import Carousel from "@/components/home/carousel";
+import Categories from "@/components/home/categories";
+import Feature from "@/components/home/feature";
+import Products from "@/components/home/product";
+import Today from "@/components/home/today";
 import { Button } from "@/components/ui/button";
 import { ArrowUp } from "lucide-react";
 

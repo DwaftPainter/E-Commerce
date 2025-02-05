@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 const About = () => {
     return (
-        <div className='min-h-[400px] flex flex-col lg:gap-[135px] px-[135px]'>
+        <div className='min-h-[400px] flex flex-col lg:gap-[135px]'>
             <div className='w-full flex items-center justify-center gap-[80px]'>
                 <div className=' flex flex-col gap-[40px]'>
                     <h1 className='font-semibold text-[54px]'>Our Story</h1>
@@ -138,7 +138,7 @@ const About = () => {
                 </div>
                 <div className='flex flex-col gap-[25px] justify-center items-center'>
                     <div className='flex justify-center items-center h-[80px] w-[80px] bg-black border-[11px] rounded-full '>
-                        <img className='h-[40px]' src='assets/icons/icon-customer-service.png' alt='' />
+                        <img className='h-[40px]' src='assets/icons/icon_customer_service.png' alt='' />
                     </div>
                     <div className='flex flex-col gap-[20px] items-center'>
                         <p className='font-semibold text-[20px]'>24/7 CUSTOMER SERVICE</p>
@@ -147,7 +147,7 @@ const About = () => {
                 </div>
                 <div className='flex flex-col gap-[25px] justify-center items-center'>
                     <div className='flex justify-center items-center h-[80px] w-[80px] bg-black border-[11px] rounded-full '>
-                        <img className='h-[40px]' src='assets/icons/icon-secure.png' alt='' />
+                        <img className='h-[40px]' src='assets/icons/icon_secure.png' alt='' />
                     </div>
                     <div className='flex flex-col gap-[20px] items-center'>
                         <p className='font-semibold text-[20px]'>MONEY BACK GUARANTEE</p>

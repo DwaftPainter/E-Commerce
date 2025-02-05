@@ -1,15 +1,17 @@
 'use client'
 
 import HomeLayout from '@/layouts/HomeLayout'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 import Product from './Product'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 const Products = () => {
     const [api, setApi] = React.useState<CarouselApi>()
     const [current, setCurrent] = React.useState(0)
+    const [products, setProducts] = React.useState<any[]>([])  // Add state for products
+    const [loading, setLoading] = React.useState(true)  // Add loading state
 
     React.useEffect(() => {
         if (!api) {
@@ -23,6 +25,25 @@ const Products = () => {
         })
     }, [api])
 
+    React.useEffect(() => {
+        async function getData() {
+            try {
+                const response = await fetch('http://localhost:3000/api/product/explore')
+                const {data} = await response.json()  // Ensure response is parsed correctly
+                setProducts(data)  // Set products in state
+            } catch (error: any) {
+                console.log(error.message)
+            } finally {
+                setLoading(false)  // Set loading to false once data is fetched
+            }
+        }
+
+        getData()
+    }, [])
+
+    if (loading) {
+        return <div>Loading...</div>  // Render loading indicator until data is available
+    }
     return (
         <HomeLayout title='Our Products' className='flex flex-col gap-[65px] mb-[65px]'>
             <Carousel setApi={setApi} className='w-full mt-[24px]'>
@@ -46,10 +67,10 @@ const Products = () => {
                     </div>
                 </div>
                 <CarouselContent className='gird grid-cols-5 grid-rows-2'>
-                    {Array.from({ length: 10 }).map((_, index) => (
+                    {products?.map((product, index) => (
                         <CarouselItem key={index} className='lg:basis-1/5'>
                             <div className='p-1'>
-                                <Product />
+                                <Product product={product} />
                             </div>
                         </CarouselItem>
                     ))}

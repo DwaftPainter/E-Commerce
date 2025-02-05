@@ -8,15 +8,18 @@ import {
     CarouselItem,
 } from '@/components/ui/carousel'
 import HomeLayout from '@/layouts/HomeLayout'
-import { Button } from '../ui/button'
-import Product from '../product/Product'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import CountdownClock from './Clock'
-import { Separator } from '../ui/separator'
+import { Button } from '@/components/ui/button'
+import Product from '../product/Product'
+import { Separator } from '@/components/ui/separator'
 
 function Today() {
     const [api, setApi] = React.useState<CarouselApi>()
     const [current, setCurrent] = React.useState(0)
+    const [products, setProducts] = React.useState<any[]>([])
+    const [event, setEvent] = React.useState<any>({})
+    const [loading, setLoading] = React.useState(true)
 
     React.useEffect(() => {
         if (!api) {
@@ -30,10 +33,27 @@ function Today() {
         })
     }, [api])
 
-    const event  = {
-        startDate: "2025-01-18T19:00-05:00",
-        endDate: "2025-02-21T23:00-05:00",
+    React.useEffect(() => {
+        async function getData() {
+            try {
+                const response = await fetch('http://localhost:3000/api/event')
+                const {data, products} = await response.json()  // Ensure response is parsed correctly
+                setProducts(products)
+                setEvent(data[0])  // Set products in state
+            } catch (error: any) {
+                console.log(error.message)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        getData()
+    }, [])
+
+    if (loading) {
+        return <p>Loading...</p>
     }
+    
 
     return (
         <HomeLayout title="Today's" className='flex flex-col gap-[65px]'>
@@ -46,8 +66,8 @@ function Today() {
             >
                 <div className='relative'>
                     <div className='flex items-end gap-[87px] mb-[40px]'>
-                        <h1 className='text-[36px] font-semibold '>Flash Sales</h1>
-                        <CountdownClock startDate={event.startDate} endDate={event.endDate}/>
+                        <h1 className='text-[36px] font-semibold '>{event?.name}</h1>
+                        <CountdownClock startDate={event?.startDate} endDate={event?.endDate}/>
                     </div>
                     <div className='absolute right-0 top-0 flex gap-[10px] z-10'>
                         <Button
@@ -65,10 +85,10 @@ function Today() {
                     </div>
                 </div>
                 <CarouselContent>
-                    {Array.from({ length: 10 }).map((_, index) => (
+                    {products?.map((product, index) => (
                         <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/5'>
                             <div className='p-1'>
-                                <Product />
+                                <Product product={product}/>
                             </div>
                         </CarouselItem>
                     ))}

@@ -2,10 +2,11 @@
 
 import HomeLayout from '@/layouts/HomeLayout'
 import React from 'react'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 import { ArrowDown, ArrowUp } from 'lucide-react'
 
 const Feature = () => {
+    
 
     return (
         <HomeLayout title='Featured' className='flex flex-col gap-[135px] items-center justify-center'>

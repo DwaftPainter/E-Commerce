@@ -53,10 +53,10 @@ const Footer = () => {
             <div className='flex flex-col gap-[8px]'>
               <p className='text-[12px] opacity-70'>Save $3 with App New User Only</p>
               <div className='flex gap-[8px]'>
-                <img src={'assets/images/GitQR.png'} className='w-[76px]'/>
+                <img src={'/assets/images/GitQR.png'} className='w-[76px]'/>
                 <div className='flex flex-col gap-[8px] justify-center items-center'>
-                  <img src="assets/images/google-play.png" alt="" className='cursor-pointer h-[30px] w-[104px]'/>
-                  <img src="assets/images/app-store.png" alt="" className='cursor-pointer h-[34px] w-[104px]'/>
+                  <img src="/assets/images/google-play.png" alt="" className='cursor-pointer h-[30px] w-[104px]'/>
+                  <img src="/assets/images/app-store.png" alt="" className='cursor-pointer h-[34px] w-[104px]'/>
                 </div>
               </div>
             </div>

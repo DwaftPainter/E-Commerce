@@ -1,11 +1,12 @@
 'use client'
 
-import { TimeLeft } from "@/components/today/Clock";
+import { TimeLeft } from "@/components/home/today/Clock";
 
-export function calculateTimeLeft(start: string, end: string): TimeLeft | null  {
+
+export function calculateTimeLeft(start: Date, end: Date): TimeLeft | null  {
     const currentTime = new Date().getTime();
     const startTime = new Date(start).getTime();
-    const endTime = new Date(end).getTime();
+    const endTime =  new Date(end).getTime();
 
     if (currentTime < startTime) {
         const difference = startTime - currentTime;

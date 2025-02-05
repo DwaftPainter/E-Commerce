@@ -4,9 +4,10 @@ import React from 'react'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import HomeLayout from '@/layouts/HomeLayout'
 import { ArrowLeft, ArrowRight, Phone, Smartphone } from 'lucide-react'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 import Category from './category'
-import { Separator } from '../ui/separator'
+import { Separator } from '../../ui/separator'
+import { categories } from '@/utils/constants'
 
 const Categories = () => {
     const [api, setApi] = React.useState<CarouselApi>()
@@ -53,9 +54,9 @@ const Categories = () => {
                     </div>
                 </div>
                 <CarouselContent>
-                    {Array.from({ length: 10 }).map((_, index) => (
+                    {categories.map((category, index) => (
                         <CarouselItem key={index} className='lg:basis-1/7'>
-                            <Category name='Phones' icon={<Smartphone size={38}/>} />
+                            <Category name={category?.name} icon={category?.icon} />
                         </CarouselItem>
                     ))}
                 </CarouselContent>

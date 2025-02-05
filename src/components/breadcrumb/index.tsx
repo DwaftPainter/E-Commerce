@@ -6,7 +6,6 @@ import {
     BreadcrumbItem,
     BreadcrumbLink,
     BreadcrumbList,
-    BreadcrumbPage,
     BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import { Slash } from 'lucide-react'
@@ -24,7 +23,7 @@ const Breadcrumbs = ({ className } : BreadcrumbProps) => {
     }
 
     return (
-        <div className={cn('my-[80px] ml-[135px]', className)}>
+        <div className={cn('my-[80px]', className)}>
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>
@@ -39,7 +38,7 @@ const Breadcrumbs = ({ className } : BreadcrumbProps) => {
                             className='flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5'
                         >
                             <BreadcrumbItem>
-                                <BreadcrumbLink href={`/${part}`} className={`${index === part.length - 1 && "text-text2"}`}>
+                                <BreadcrumbLink href={`/${part}`} className={`${index === paths.length - 1 && "text-text2"}`}>
                                     {part.replace(/[-_]/g, ' ').replace(/\b\w/g, char => char.toUpperCase())}
                                 </BreadcrumbLink>
                             </BreadcrumbItem>

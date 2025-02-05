@@ -1,8 +1,8 @@
 import HomeLayout from '@/layouts/HomeLayout'
 import React from 'react'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 import Product from '../product/Product'
-import Image from 'next/image'
+import { products } from '@/mock_data'
 
 const BestSeller = () => {
     return (
@@ -14,10 +14,10 @@ const BestSeller = () => {
                     View All
                 </Button>
             </div>
-            <div className='flex -ml-6 '>
-              {Array.from({ length: 5 }).map((_, index) => (
+            <div className='flex -ml-6 overflow-x-hidden'>
+              {products?.map((product, index) => (
                 <div className='min-w-0 shrink-0 grow-0 lg:basis-1/5 pl-6' key={index}>
-                    <Product />
+                    <Product product={product}/>
                 </div>
               ))}
             </div>

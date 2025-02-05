@@ -1,12 +1,12 @@
 'use client'
 
 import React from 'react'
-import { Label } from '../ui/label'
 import { calculateTimeLeft } from '@/utils/calculateTimeLeft'
+import { Label } from '@/components/ui/label'
 
 interface CountdownProps {
-    startDate: string
-    endDate: string
+    startDate: Date
+    endDate: Date
 }
 
 export interface TimeLeft {
@@ -62,7 +62,7 @@ const CountdownClock = ({ startDate, endDate }: CountdownProps) => {
                     Seconds
                 </Label>
                 <h1 suppressHydrationWarning className='text-[32px] font-bold' id='second'>
-                    {timeLeft?.seconds.toString().padStart(2, "0")}
+                    {timeLeft?.seconds.toString().padStart(2, "0") || "00"}
                 </h1>
             </div>
         </div>
