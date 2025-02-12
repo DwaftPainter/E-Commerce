@@ -38,10 +38,7 @@ const page = () => {
     React.useEffect(() => {
         async function getData() {
             try {
-                const response = await fetch(`${
-                   process.env.NODE_ENV == 'production'
-                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
-                        : process.env.NEXT_PUBLIC_BASE_URL}/api/product/${slug}`)
+                const response = await fetch(`/api/product/${slug}`)
                 const { data } = await response.json()
                 setProduct(data)
                 console.log(product)
@@ -103,8 +100,14 @@ const page = () => {
                             )}
                         </div>
                         <div className='flex gap-5'>
-                            <h1 className='text-[24px]'>${(product?.price - product?.price * product?.discount / 100).toFixed(2)}</h1>
-                            {product?.discount && <h1 className='text-[24px] text-black opacity-50 line-through'>${(product?.price).toFixed(2)}</h1>}
+                            <h1 className='text-[24px]'>
+                                ${(product?.price - (product?.price * product?.discount) / 100).toFixed(2)}
+                            </h1>
+                            {product?.discount && (
+                                <h1 className='text-[24px] text-black opacity-50 line-through'>
+                                    ${(product?.price).toFixed(2)}
+                                </h1>
+                            )}
                         </div>
                         <p className='text-[14px]'>{product?.description}</p>
                     </div>
@@ -200,7 +203,9 @@ const page = () => {
                     <CarouselContent>
                         {products?.map((product, index) => (
                             <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/5'>
-                                <div className='p-1'><Product product={product}/></div>
+                                <div className='p-1'>
+                                    <Product product={product} />
+                                </div>
                             </CarouselItem>
                         ))}
                     </CarouselContent>

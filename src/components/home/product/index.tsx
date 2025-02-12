@@ -10,8 +10,8 @@ import { ArrowLeft, ArrowRight } from 'lucide-react'
 const Products = () => {
     const [api, setApi] = React.useState<CarouselApi>()
     const [current, setCurrent] = React.useState(0)
-    const [products, setProducts] = React.useState<any[]>([])  // Add state for products
-    const [loading, setLoading] = React.useState(true)  // Add loading state
+    const [products, setProducts] = React.useState<any[]>([]) // Add state for products
+    const [loading, setLoading] = React.useState(true) // Add loading state
 
     React.useEffect(() => {
         if (!api) {
@@ -28,16 +28,13 @@ const Products = () => {
     React.useEffect(() => {
         async function getData() {
             try {
-                const response = await fetch(`${
-                   process.env.NODE_ENV == 'production'
-                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
-                        : process.env.NEXT_PUBLIC_BASE_URL}/api/product/explore`)
-                const {data} = await response.json()  // Ensure response is parsed correctly
-                setProducts(data)  // Set products in state
+                const response = await fetch(`/api/product/explore`)
+                const { data } = await response.json() // Ensure response is parsed correctly
+                setProducts(data) // Set products in state
             } catch (error: any) {
                 console.log(error.message)
             } finally {
-                setLoading(false)  // Set loading to false once data is fetched
+                setLoading(false) // Set loading to false once data is fetched
             }
         }
 
@@ -45,7 +42,7 @@ const Products = () => {
     }, [])
 
     if (loading) {
-        return <div>Loading...</div>  // Render loading indicator until data is available
+        return <div>Loading...</div> // Render loading indicator until data is available
     }
     return (
         <HomeLayout title='Our Products' className='flex flex-col gap-[65px] mb-[65px]'>

@@ -1,12 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import {
-    Carousel,
-    CarouselApi,
-    CarouselContent,
-    CarouselItem,
-} from '@/components/ui/carousel'
+import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import HomeLayout from '@/layouts/HomeLayout'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import CountdownClock from './Clock'
@@ -36,13 +31,10 @@ function Today() {
     React.useEffect(() => {
         async function getData() {
             try {
-                const response = await fetch(`${
-                   process.env.NODE_ENV == 'production'
-                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
-                        : process.env.NEXT_PUBLIC_BASE_URL}/api/event`)
-                const {data, products} = await response.json()  // Ensure response is parsed correctly
+                const response = await fetch(`/api/event`)
+                const { data, products } = await response.json() // Ensure response is parsed correctly
                 setProducts(products)
-                setEvent(data[0])  // Set products in state
+                setEvent(data[0]) // Set products in state
             } catch (error: any) {
                 console.log(error.message)
             } finally {
@@ -56,7 +48,6 @@ function Today() {
     if (loading) {
         return <div className='flex justify-center items-center'>Loading...</div>
     }
-    
 
     return (
         <HomeLayout title="Today's" className='flex flex-col gap-[65px]'>
@@ -70,7 +61,7 @@ function Today() {
                 <div className='relative'>
                     <div className='flex items-end gap-[87px] mb-[40px]'>
                         <h1 className='text-[36px] font-semibold '>{event?.name}</h1>
-                        <CountdownClock startDate={event?.startDate} endDate={event?.endDate}/>
+                        <CountdownClock startDate={event?.startDate} endDate={event?.endDate} />
                     </div>
                     <div className='absolute right-0 top-0 flex gap-[10px] z-10'>
                         <Button
@@ -83,7 +74,7 @@ function Today() {
                             className='bg-secondary w-[46px] h-[46px] rounded-full p-0'
                             onClick={() => api?.scrollTo(current + 1)}
                         >
-                          <ArrowRight color='black' />
+                            <ArrowRight color='black' />
                         </Button>
                     </div>
                 </div>
@@ -91,7 +82,7 @@ function Today() {
                     {products?.map((product, index) => (
                         <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/5'>
                             <div className='p-1'>
-                                <Product product={product}/>
+                                <Product product={product} />
                             </div>
                         </CarouselItem>
                     ))}
@@ -102,7 +93,7 @@ function Today() {
                     View All Products
                 </Button>
             </div>
-            <Separator className='mb-[80px]'/>
+            <Separator className='mb-[80px]' />
         </HomeLayout>
     )
 }

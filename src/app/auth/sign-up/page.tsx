@@ -32,17 +32,14 @@ const page = () => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setLoading(true)
         try {
-            const response = await fetch(`${
-                   process.env.NODE_ENV == 'production'
-                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
-                        : process.env.NEXT_PUBLIC_BASE_URL}/api/auth/register`, {
+            const response = await fetch(`/api/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
                 body: JSON.stringify(values)
             })
             setLoading(false)
-            
+
             if (response.ok) {
                 route.push('/')
             }
