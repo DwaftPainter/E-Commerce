@@ -32,7 +32,7 @@ const page = () => {
         try {
             const response = await fetch(
                 `${
-                    process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                    process.env.NODE_ENV == 'production'
                         ? process.env.NEXT_PUBLIC_PRODUCTION_URL
                         : process.env.NEXT_PUBLIC_BASE_URL
                 }/api/auth/log-in`,

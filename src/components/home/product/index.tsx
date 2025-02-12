@@ -29,7 +29,7 @@ const Products = () => {
         async function getData() {
             try {
                 const response = await fetch(`${
-                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                   process.env.NODE_ENV == 'production'
                         ? process.env.NEXT_PUBLIC_PRODUCTION_URL
                         : process.env.NEXT_PUBLIC_BASE_URL}/api/product/explore`)
                 const {data} = await response.json()  // Ensure response is parsed correctly

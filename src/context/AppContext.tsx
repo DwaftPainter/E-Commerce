@@ -38,7 +38,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         async function getUser() {
             try {
                 const res = await fetch(`${
-                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                   process.env.NODE_ENV == 'production'
                         ? process.env.NEXT_PUBLIC_PRODUCTION_URL
                         : process.env.NEXT_PUBLIC_BASE_URL}/api/auth/log-in`)
                 if (res.ok) {
@@ -61,7 +61,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const handleLogout = async () => {
         route.push('/auth/sign-in')
         await fetch(`${
-                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                   process.env.NODE_ENV == 'production'
                         ? process.env.NEXT_PUBLIC_PRODUCTION_URL
                         : process.env.NEXT_PUBLIC_BASE_URL}/api/auth/log-out`, {
             method: 'POST',
@@ -88,7 +88,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
             setCartItems(updatedCartItems)
             await fetch(`${
-                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                   process.env.NODE_ENV == 'production'
                         ? process.env.NEXT_PUBLIC_PRODUCTION_URL
                         : process.env.NEXT_PUBLIC_BASE_URL}/api/product/cart`, {
                 method: 'POST',
@@ -100,7 +100,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             setCartItems(prevCartItems => [...prevCartItems, { product, quantity: 1 }])
             console.log(cartItems)
             await fetch(`${
-                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                   process.env.NODE_ENV == 'production'
                         ? process.env.NEXT_PUBLIC_PRODUCTION_URL
                         : process.env.NEXT_PUBLIC_BASE_URL}/api/product/cart`, {
                 method: 'POST',
@@ -115,7 +115,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         const updatedCartItems = cartItems?.filter(item => item.product._id !== productId)
         setCartItems(updatedCartItems)
         const res = await fetch(`${
-                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                   process.env.NODE_ENV == 'production'
                         ? process.env.NEXT_PUBLIC_PRODUCTION_URL
                         : process.env.NEXT_PUBLIC_BASE_URL}/api/product/cart`, {
             method: 'DELETE',
@@ -142,7 +142,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             updatedCartItems[productIndex] = updatedCartItem
             setCartItems(updatedCartItems)
             await fetch(`${
-                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                   process.env.NODE_ENV == 'production'
                         ? process.env.NEXT_PUBLIC_PRODUCTION_URL
                         : process.env.NEXT_PUBLIC_BASE_URL}/api/product/cart`, {
                 method: 'POST',
@@ -165,7 +165,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
             console.log('running')
             await fetch(`${
-                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                   process.env.NODE_ENV == 'production'
                         ? process.env.NEXT_PUBLIC_PRODUCTION_URL
                         : process.env.NEXT_PUBLIC_BASE_URL}/api/product/wishlist`, {
                 method: 'DELETE',
@@ -178,7 +178,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
         setWishItems(prevWishList => [...prevWishList, product])
         await fetch(`${
-                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                   process.env.NODE_ENV == 'production'
                         ? process.env.NEXT_PUBLIC_PRODUCTION_URL
                         : process.env.NEXT_PUBLIC_BASE_URL}/api/product/wishlist`, {
             method: 'PUT',
