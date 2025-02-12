@@ -38,7 +38,10 @@ const page = () => {
     React.useEffect(() => {
         async function getData() {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/${slug}`)
+                const response = await fetch(`${
+                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
+                        : process.env.NEXT_PUBLIC_BASE_URL}/api/product/${slug}`)
                 const { data } = await response.json()
                 setProduct(data)
                 console.log(product)

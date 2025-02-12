@@ -36,7 +36,10 @@ function Today() {
     React.useEffect(() => {
         async function getData() {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/event`)
+                const response = await fetch(`${
+                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
+                        : process.env.NEXT_PUBLIC_BASE_URL}/api/event`)
                 const {data, products} = await response.json()  // Ensure response is parsed correctly
                 setProducts(products)
                 setEvent(data[0])  // Set products in state

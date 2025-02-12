@@ -37,7 +37,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     React.useEffect(() => {
         async function getUser() {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/log-in`)
+                const res = await fetch(`${
+                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
+                        : process.env.NEXT_PUBLIC_BASE_URL}/api/auth/log-in`)
                 if (res.ok) {
                     const { data } = await res.json()
                     setUser(data)
@@ -57,7 +60,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     //Handle Log out
     const handleLogout = async () => {
         route.push('/auth/sign-in')
-        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/log-out`, {
+        await fetch(`${
+                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
+                        : process.env.NEXT_PUBLIC_BASE_URL}/api/auth/log-out`, {
             method: 'POST',
             credentials: 'include'
         })
@@ -81,7 +87,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             updatedCartItems[productIndex] = updatedCartItem
 
             setCartItems(updatedCartItems)
-            await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/cart`, {
+            await fetch(`${
+                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
+                        : process.env.NEXT_PUBLIC_BASE_URL}/api/product/cart`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -90,7 +99,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         } else {
             setCartItems(prevCartItems => [...prevCartItems, { product, quantity: 1 }])
             console.log(cartItems)
-            await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/cart`, {
+            await fetch(`${
+                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
+                        : process.env.NEXT_PUBLIC_BASE_URL}/api/product/cart`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -102,7 +114,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const removeFromCart = async (productId: string) => {
         const updatedCartItems = cartItems?.filter(item => item.product._id !== productId)
         setCartItems(updatedCartItems)
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/cart`, {
+        const res = await fetch(`${
+                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
+                        : process.env.NEXT_PUBLIC_BASE_URL}/api/product/cart`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -126,7 +141,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             const updatedCartItems = [...cartItems]
             updatedCartItems[productIndex] = updatedCartItem
             setCartItems(updatedCartItems)
-            await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/cart`, {
+            await fetch(`${
+                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
+                        : process.env.NEXT_PUBLIC_BASE_URL}/api/product/cart`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -146,7 +164,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             setWishItems(updatedWishList)
 
             console.log('running')
-            await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/wishlist`, {
+            await fetch(`${
+                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
+                        : process.env.NEXT_PUBLIC_BASE_URL}/api/product/wishlist`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -156,7 +177,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         }
 
         setWishItems(prevWishList => [...prevWishList, product])
-        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/wishlist`, {
+        await fetch(`${
+                   process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
+                        : process.env.NEXT_PUBLIC_BASE_URL}/api/product/wishlist`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

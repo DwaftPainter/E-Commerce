@@ -30,21 +30,28 @@ const page = () => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setLoading(true)
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/log-in`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify(values)
-            })
+            const response = await fetch(
+                `${
+                    process.env.NEXT_PUBLIC_NODE_ENV == 'production'
+                        ? process.env.NEXT_PUBLIC_PRODUCTION_URL
+                        : process.env.NEXT_PUBLIC_BASE_URL
+                }/api/auth/log-in`,
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify(values)
+                }
+            )
             if (response.ok) {
                 route.push('/')
                 route.refresh()
             }
             const { data } = await response.json()
             setLoading(false)
-            setUser(data)
-            setCartItems(data.cart)
-            setWishItems(data.wishlist)
+            setUser(data || null)
+            setCartItems(data?.cart)
+            setWishItems(data?.wishlist)
         } catch (error: any) {
             console.error(error)
             setLoading(false)
