@@ -2,8 +2,11 @@
 
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
+import { validate } from '@/config/message'
+import { passwordRegex } from '@/config/regex'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
+import { redirect, useRouter } from 'next/navigation'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -11,11 +14,12 @@ import { z } from 'zod'
 const formSchema = z.object({
     name: z.string().min(3, { message: 'Name must be at least 3 characters!' }),
     email: z.string().email({ message: 'Invald email!' }),
-    password: z.string()
+    password: z.string().regex(passwordRegex, { message: validate.format.password2 })
 })
 
 const page = () => {
     const [loading, setLoading] = React.useState(false)
+    const route = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -27,11 +31,18 @@ const page = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setLoading(true)
-        console.log("Hello")
         try {
-            console.log('Submit')
-            console.log(values)
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify(values)
+            })
             setLoading(false)
+            
+            if (response.ok) {
+                route.push('/')
+            }
         } catch (error: any) {
             console.error(error)
             setLoading(false)
@@ -81,7 +92,7 @@ const page = () => {
                                         {...field}
                                     />
                                 </FormControl>
-                                <FormMessage/>
+                                <FormMessage />
                             </FormItem>
                         )}
                     />
@@ -95,10 +106,11 @@ const page = () => {
                                         className='w-full border-b-[1px] border-b-black shadow-none rounded-none border-opacity-50 pl-0 pb-2 focus-visible:border-b-[1px] focus-visible:outline-0'
                                         placeholder='Password'
                                         type='password'
+                                        autoComplete='off'
                                         {...field}
                                     />
                                 </FormControl>
-                                <FormMessage/>
+                                <FormMessage />
                             </FormItem>
                         )}
                     />

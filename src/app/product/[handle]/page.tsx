@@ -38,7 +38,7 @@ const page = () => {
     React.useEffect(() => {
         async function getData() {
             try {
-                const response = await fetch(`http://localhost:3000/api/product/${slug}`)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/${slug}`)
                 const { data } = await response.json()
                 setProduct(data)
                 console.log(product)
@@ -61,8 +61,6 @@ const page = () => {
             setQuantity(prev => prev - 1)
         }
     }
-
-    console.log(product.sizes)
 
     if (loading) {
         return (
@@ -199,7 +197,7 @@ const page = () => {
                     <CarouselContent>
                         {products?.map((product, index) => (
                             <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/5'>
-                                <div className='p-1'>{/* <Product product={product}/> */}</div>
+                                <div className='p-1'><Product product={product}/></div>
                             </CarouselItem>
                         ))}
                     </CarouselContent>

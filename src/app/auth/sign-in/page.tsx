@@ -2,8 +2,10 @@
 
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
+import { useAppContext } from '@/context/AppContext'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -15,6 +17,8 @@ const formSchema = z.object({
 
 const page = () => {
     const [loading, setLoading] = React.useState(false)
+    const { setUser, setCartItems, setWishItems } = useAppContext()
+    const route = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -25,11 +29,22 @@ const page = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setLoading(true)
-        console.log('Hello')
         try {
-            console.log('Submit')
-            console.log(values)
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/log-in`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify(values)
+            })
+            if (response.ok) {
+                route.push('/')
+                route.refresh()
+            }
+            const { data } = await response.json()
             setLoading(false)
+            setUser(data)
+            setCartItems(data.cart)
+            setWishItems(data.wishlist)
         } catch (error: any) {
             console.error(error)
             setLoading(false)
@@ -76,6 +91,7 @@ const page = () => {
                                         className='w-full border-b-[1px] border-b-black shadow-none rounded-none border-opacity-50 pl-0 pb-2 focus-visible:border-b-[1px] focus-visible:outline-0'
                                         placeholder='Password'
                                         type='password'
+                                        autoComplete='off'
                                         {...field}
                                     />
                                 </FormControl>
@@ -92,10 +108,19 @@ const page = () => {
                             {loading ? 'Submiting' : 'Log in'}
                         </Button>
                         <div className='flex justify-center gap-4'>
-                            <Link href={'/auth/sign-in'} className='font-medium hover:underline text-secondary2'>
+                            <Link
+                                href={'/auth/sign-in'}
+                                className='font-medium hover:underline text-secondary2'
+                            >
                                 Forget Password?
                             </Link>
                         </div>
+                    </div>
+                    <div className='flex justify-center gap-4'>
+                        <p>Create a new account?</p>
+                        <Link href={'/auth/sign-up'} className='font-medium hover:underline'>
+                            Register
+                        </Link>
                     </div>
                 </form>
             </Form>

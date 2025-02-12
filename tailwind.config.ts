@@ -30,7 +30,7 @@ export default {
                 button: '#000000',
                 button1: '#47B486',
                 button2: '#DB4444',
-                hover1: '#E2B93B',
+                hover1: '#3a906d',
                 hover2: '#EB5757',
                 card: {
                     DEFAULT: 'hsl(var(--card))',

@@ -1,6 +1,31 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
 import { ROLES } from '@/utils/constants'
+import { passwordRegex } from '@/config/regex'
+import { validate } from '@/config/message'
 var validator = require('validator')
+
+export interface User extends mongoose.Document {
+    name: string
+    email: string
+    phone: string
+    password: string
+    cart: mongoose.Types.ObjectId[] | []
+    wishlist: mongoose.Types.ObjectId[] | []
+    role: string
+    deleted: boolean
+    deletedAt?: Date
+    DeletedBy?: mongoose.Types.ObjectId
+    isModified: (path: string) => boolean
+}
+
+const cartItemSchema = new mongoose.Schema(
+    {
+        product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
+        quantity: { type: Number, required: true, default: 1 }
+    },
+    { _id: false } // Disables automatic _id for cart items
+)
 
 const UserSchema = new mongoose.Schema(
     {
@@ -20,7 +45,7 @@ const UserSchema = new mongoose.Schema(
                 validator: function (v) {
                     return validator.isEmail(v)
                 },
-                message: 'Invalid email!'
+                message: validate.format.email
             }
         },
         phone: {
@@ -29,7 +54,7 @@ const UserSchema = new mongoose.Schema(
                 validator: function (v: any) {
                     return validator.isPhone(v)
                 },
-                message: 'Invalid phone number!'
+                message: validate.format.phone
             }
         },
         password: {
@@ -38,13 +63,21 @@ const UserSchema = new mongoose.Schema(
             trim: true,
             validate: {
                 validator: function (v: any) {
-                    return v.match('^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$')
+                    return v.match(passwordRegex)
                 },
-                message:
-                    'Password should have 8 characters, at least 1 letter, 1 number and 1 special character!'
+                message: validate.format.password2
             }
         },
-        cart: {},
+        cart: { type: [cartItemSchema], default: [] },
+        wishlist: {
+            type: [
+                {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Product'
+                }
+            ],
+            default: []
+        },
         role: {
             type: String,
             enum: ROLES,
@@ -66,6 +99,16 @@ const UserSchema = new mongoose.Schema(
         timestamps: true
     }
 )
+
+UserSchema.pre<User>('save', async function (next) {
+    if (!this.isModified('password')) return next()
+    try {
+        this.password = await bcrypt.hash(this.password, 10)
+        next()
+    } catch (err) {
+        next(err as any)
+    }
+})
 
 const UserModel = mongoose.models.User || mongoose.model('User', UserSchema)
 export default UserModel

@@ -12,12 +12,14 @@ import {
   CarouselPrevious,
   type CarouselApi
 } from "@/components/ui/carousel"
+import { cn } from "@/lib/utils"
 interface bannerProps {
     items?: string[],
-    interval?: number
+    interval?: number,
+    className?: string
 }
 
- function Banner({ items, interval } : bannerProps) {
+ function Banner({ items, interval, className } : bannerProps) {
   const [api, setApi] = React.useState<CarouselApi>()
   const [current, setCurrent] = React.useState(0)
   const [count, setCount] = React.useState(0)
@@ -39,7 +41,7 @@ interface bannerProps {
   }, [api, onSelect])
 
   return (
-    <div>
+    <div className={cn(className)}>
       <Carousel
         setApi={setApi}
         plugins={[plugin.current]}

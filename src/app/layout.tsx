@@ -5,6 +5,7 @@ import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { Separator } from '@/components/ui/separator'
 import Breadcrumbs from '@/components/breadcrumb'
+import { AppProvider } from '@/context/AppContext'
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -29,13 +30,15 @@ export default function RootLayout({
     return (
         <html lang='en'>
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased `}>
-                <div className='px-[135px]'>
-                    <Header />
-                    {/* <Breadcrumbs /> */}
-                </div>
-                <Separator />
-                <div className='px-[135px]'>{children}</div>
-                <Footer />
+                <AppProvider>
+                    <div className='px-[135px]'>
+                        <Header />
+                    </div>
+                    <div className='mt-[96px]'/>
+                    <Breadcrumbs />
+                    <div className='px-[135px]'>{children}</div>
+                    <Footer />
+                </AppProvider>
             </body>
         </html>
     )

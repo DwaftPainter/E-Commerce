@@ -1,7 +1,7 @@
 'use client'
 
 import HomeLayout from '@/layouts/HomeLayout'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { Button } from '../../ui/button'
 import Product from './Product'
@@ -28,7 +28,7 @@ const Products = () => {
     React.useEffect(() => {
         async function getData() {
             try {
-                const response = await fetch('http://localhost:3000/api/product/explore')
+                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/product/explore`)
                 const {data} = await response.json()  // Ensure response is parsed correctly
                 setProducts(data)  // Set products in state
             } catch (error: any) {

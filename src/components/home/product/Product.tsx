@@ -4,7 +4,9 @@ import { Eye, Heart, Trash2 } from 'lucide-react'
 import React from 'react'
 import StarRating from './StarRating'
 import Link from 'next/link'
-import { Product as ProductType } from '@/lib/models/ProductModel'
+import { useAppContext } from '@/context/AppContext'
+import { ProductType } from '@/types/product.type'
+import { motion } from 'framer-motion'
 
 interface ProductProps {
     product: ProductType
@@ -13,6 +15,17 @@ interface ProductProps {
 
 const Product = ({ product, isWishlist }: ProductProps) => {
     const [rating, setRating] = React.useState(0)
+    const { addToCart, addToWishList, wishItems } = useAppContext()
+
+    const handleAddToCartClick = (product: ProductType) => {
+        addToCart(product)
+    }
+    const handleAddToWishListClick = (product: ProductType, e: React.MouseEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
+
+        addToWishList(product)
+    }
 
     return (
         <div className='max-w-[270px] flex flex-col gap-[16px]'>
@@ -25,14 +38,40 @@ const Product = ({ product, isWishlist }: ProductProps) => {
                 )}
                 <div className='flex flex-col gap-[8px] absolute top-[12px] right-[12px] z-10'>
                     {isWishlist ? (
-                        <span className='w-[34px] h-[34px] rounded-full bg-primary flex items-center justify-center cursor-pointer'>
+                        <button
+                            className='w-[34px] h-[34px] rounded-full bg-primary flex items-center justify-center cursor-pointer'
+                            onClick={e => {
+                                handleAddToWishListClick(product, e)
+                            }}
+                        >
                             <Trash2 size={20} />
-                        </span>
+                        </button>
                     ) : (
                         <>
-                            <span className='w-[34px] h-[34px] rounded-full bg-primary flex items-center justify-center cursor-pointer'>
-                                <Heart size={20} />
-                            </span>
+                            <button
+                                className='w-[34px] h-[34px] rounded-full bg-primary flex items-center justify-center cursor-pointer'
+                                onClick={e => {
+                                    handleAddToWishListClick(product, e)
+                                }}
+                            >
+                                <motion.div
+                                    animate={{
+                                        scale: wishItems.find(item => item._id === product._id)
+                                            ? [1, 1.2, 1]
+                                            : 1,
+                                        transition: { duration: 0.3 }
+                                    }}
+                                >
+                                    <Heart
+                                        size={20}
+                                        className={`${
+                                            wishItems.find(item => item._id === product._id)
+                                                ? 'fill-red-500 stroke-red-500'
+                                                : 'stroke-black'
+                                        } transition-colors duration-300`}
+                                    />
+                                </motion.div>
+                            </button>
                             <Link href={`product/${product.slug}`}>
                                 <span className='w-[34px] h-[34px] rounded-full bg-primary flex items-center justify-center cursor-pointer'>
                                     <Eye size={20} />
@@ -41,7 +80,14 @@ const Product = ({ product, isWishlist }: ProductProps) => {
                         </>
                     )}
                 </div>
-                <div className='bg-black text-text text-center w-full font-medium py-[8.5px] absolute bottom-0 rounded-bl-[4px] rounded-br-[4px] cursor-pointer  hidden group-hover:block'>
+                <div
+                    className={`bg-black text-text text-center w-full font-medium py-[8.5px] absolute bottom-0 rounded-bl-[4px] rounded-br-[4px] cursor-pointer ${
+                        isWishlist ? 'visible' : 'invisible group-hover:visible'
+                    } `}
+                    onClick={() => {
+                        handleAddToCartClick(product)
+                    }}
+                >
                     Add To Cart
                 </div>
             </div>
@@ -60,9 +106,9 @@ const Product = ({ product, isWishlist }: ProductProps) => {
                 ) : (
                     <StarRating
                         totalStars={5}
-                        initialRating={product.rating}
+                        initialRating={product?.rating || 0}
                         readOnly={true}
-                        review={product.review}
+                        review={product?.review || 0}
                     />
                 )}
             </div>

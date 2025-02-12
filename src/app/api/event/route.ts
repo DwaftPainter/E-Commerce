@@ -13,17 +13,19 @@ export const POST = async (req: NextRequest) => {
         console.log(body)
         const event = await EventModel.create(body)
 
-        return NextResponse.json({ message: 'success', data: event, status: 200 })
+        return NextResponse.json({ message: 'success', data: event }, { status: 200 })
     } catch (error: any) {
-        return NextResponse.json({ message: error.message, status: 400 })
+        return NextResponse.json({ message: error.message, status: 500 })
     }
 }
 
 export const GET = async () => {
     try {
         await DBConnect()
-        const event = await EventModel.find({ startDate: { $lte: new Date() }, endDate: { $gt: new Date() } }).limit(1)
-        console.log(event)
+        const event = await EventModel.find({
+            startDate: { $lte: new Date() },
+            endDate: { $gt: new Date() }
+        }).limit(1)
 
         const products = (
             await Promise.all(
@@ -36,17 +38,4 @@ export const GET = async () => {
     } catch (error: any) {
         return NextResponse.json({ message: error.message, status: 400 }, { status: 400 })
     }
-}
-
-const eventData = {
-    products: [
-    "67949761ced51b3a59435f2",
-    "6794985bced51b3a59435f2",
-    "6794985bced51b3a59435f2",
-    "6794985bced51b3a59435f2",
-    "6794985bced51b3a59435f2",
-    "6794985bced51b3a59435f2"
-    ],
-    startDate:"2025-01-25T19:00-05:0",
-    endDate:"2025-02-21T23:00-05:0"
 }

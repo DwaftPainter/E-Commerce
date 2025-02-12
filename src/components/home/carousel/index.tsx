@@ -11,8 +11,7 @@ const Carousel = () => {
   return (
         <div className='flex w-full max-h-[450px] overflow-hidden mb-[125px]'>
             <SideBar/>
-            <Separator orientation='vertical' className='w-[1px] h-auto'/>
-            <Banner items={banners} interval={5000}/>
+            <Banner items={banners} interval={5000} className='w-[90%]'/>
         </div>
   )
 }

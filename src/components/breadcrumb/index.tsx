@@ -22,8 +22,12 @@ const Breadcrumbs = ({ className } : BreadcrumbProps) => {
         return null;
     }
 
+    if (paths[paths.length - 1] === "sign-up" || paths[paths.length - 1] === "sign-in" ) {
+        return null
+    }
+
     return (
-        <div className={cn('my-[80px]', className)}>
+        <div className={cn('mb-[80px] mt-[176px] ml-[135px]', className)}>
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>
