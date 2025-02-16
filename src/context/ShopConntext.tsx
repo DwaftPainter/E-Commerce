@@ -1,3 +1,5 @@
+'use client'
+
 import { ProductType } from '@/types/product.type'
 import { useSearchParams, useRouter } from 'next/navigation'
 import React from 'react'
@@ -28,12 +30,6 @@ interface ShopContextType {
 
 type SortType = 'popularity' | 'rating' | 'latest' | 'asc' | 'desc'
 type DisplayType = 'list-view' | 'compact-grid' | 'standard-grid' | 'dense-grid'
-const categoryMap: Record<string, number> = {
-    laptop: 50,
-    smartphone: 51,
-    headphones: 52,
-    smartwatch: 53
-}
 
 const ShopContext = React.createContext<ShopContextType | null>(null)
 

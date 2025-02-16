@@ -1,3 +1,5 @@
+'use client'
+
 import { cn } from '@/lib/utils'
 import { Slider } from '@mui/material'
 import React from 'react'
