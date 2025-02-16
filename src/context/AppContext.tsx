@@ -14,8 +14,10 @@ interface AppContextType {
     cartItems: CartType[]
     setCartItems: (cartItems: CartType[]) => void
     addToCart: (product: ProductType) => void
+    deleteFromCart: (productId: string) => void
     removeFromCart: (productId: string) => void
     updateToCart: (productId: string, quantity: number) => void
+    getCartItem: (productId: string) => CartType | null
     cartTotal: number
     cartCount: number
     wishItems: ProductType[]
@@ -99,6 +101,33 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         }
     }
 
+    const deleteFromCart = async (productId: string) => {
+        const productIndex = cartItems?.findIndex(item => item.product._id === productId)
+        if (productIndex !== -1) {
+            const cartItem = cartItems[productIndex]
+            const updatedCartItem = {
+                ...cartItem,
+                quantity: cartItem.quantity - 1
+            }
+
+            if (updatedCartItem.quantity === 0) {
+                removeFromCart(productId)
+                return
+            }
+
+            const updatedCartItems = [...cartItems]
+            updatedCartItems[productIndex] = updatedCartItem
+
+            setCartItems(updatedCartItems)
+            await fetch(`/api/product/cart`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ productId, quantity: cartItem.quantity - 1 })
+            })
+        }
+    }
+
     const removeFromCart = async (productId: string) => {
         const updatedCartItems = cartItems?.filter(item => item.product._id !== productId)
         setCartItems(updatedCartItems)
@@ -115,7 +144,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const updateToCart = async (productId: string, quantity: number) => {
         const productIndex = cartItems?.findIndex(item => item.product._id === productId)
-        console.log(productIndex)
         if (productIndex !== -1) {
             const cartItem = cartItems[productIndex]
             const updatedCartItem = {
@@ -133,6 +161,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 body: JSON.stringify({ productId: productId, quantity: quantity })
             })
         }
+
+        console.log(cartItems[productIndex])
+    }
+    const getCartItem = (productId: string) => {
+        const product = cartItems.find(item => item.product._id === productId)
+        return product || null
     }
 
     const cartCount = cartItems?.reduce((total, current) => total + current.quantity, 0)
@@ -175,8 +209,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 cartItems,
                 setCartItems,
                 addToCart,
+                deleteFromCart,
                 removeFromCart,
                 updateToCart,
+                getCartItem,
                 cartCount,
                 cartTotal,
                 wishItems,

@@ -22,16 +22,16 @@ const Header = () => {
             </div>
             <nav className='flex gap-20'>
                 {NAV_LINKS.map(link => (
-                    <Link href={link.path} key={link.path}>
-                        <p
+                    <Link href={link.path} key={link.path} className='cursor-pointer'>
+                        <div
                             className={`${
                                 link.path === pathname
                                     ? "after:content-[''] after:absolute after:h-[1px] after:w-full after:bg-slate-400 after:bottom-[-1px] after:mx-0 after:my-auto after:left-0 after:right-0"
                                     : ''
-                            } text-[16px] relative`}
+                            } text-[16px] relative cursor-pointer`}
                         >
                             {link.name}
-                        </p>
+                        </div>
                     </Link>
                 ))}
             </nav>
