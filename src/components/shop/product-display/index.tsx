@@ -48,7 +48,7 @@ const ProductDisplay = ({ className }: Props) => {
                 <div className='w-full flex items-center justify-center min-h-[500px]'>
                     <Loading2 />
                 </div>
-            ) : products.length === 0 ? (
+            ) : products?.length === 0 ? (
                 <div className='w-full flex items-center justify-center min-h-[500px]'>
                     {' '}
                     No products were found matching your selection.{' '}

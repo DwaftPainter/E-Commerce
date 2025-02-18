@@ -5,11 +5,12 @@ import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { useAppContext } from '@/context/AppContext'
 import { ChevronDown, ChevronUp, ShoppingCart, X } from 'lucide-react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { ChangeEvent } from 'react'
 
 const page = () => {
-    const { cartItems, updateToCart, removeFromCart } = useAppContext()
+    const { cartItems, updateToCart, removeFromCart, cartTotal } = useAppContext()
     const route = useRouter()
     const handleQuantityChange = (productId: string, qty: number) => {
         const quantity = Number(qty)
@@ -74,20 +75,24 @@ const page = () => {
                                     }
                                 />
                                 <div className='flex flex-col absolute top-[2px] left-12 z-50'>
-                                    <ChevronUp
-                                        size={16}
-                                        className='cursor-pointer'
-                                        onClick={() =>
-                                            handleQuantityChange(item.product._id, item.quantity + 1)
-                                        }
-                                    />
-                                    <ChevronDown
-                                        size={16}
-                                        className='cursor-pointer'
-                                        onClick={() =>
-                                            handleQuantityChange(item.product._id, item.quantity - 1)
-                                        }
-                                    />
+                                    <button>
+                                        <ChevronUp
+                                            size={16}
+                                            className='cursor-pointer'
+                                            onClick={() =>
+                                                handleQuantityChange(item.product._id, item.quantity + 1)
+                                            }
+                                        />
+                                    </button>
+                                    <button>
+                                        <ChevronDown
+                                            size={16}
+                                            className='cursor-pointer'
+                                            onClick={() =>
+                                                handleQuantityChange(item.product._id, item.quantity - 1)
+                                            }
+                                        />
+                                    </button>
                                 </div>
                             </div>
                             <div className='w-[62px] text-center'>
@@ -97,11 +102,11 @@ const page = () => {
                     ))
                 )}
                 <div className='flex w-full justify-between items-center'>
-                    <Button className='bg-transparent hover:bg-button2 rounded-[4px] h-[56px] px-[48px] py-[16px] text-black hover:text-white font-medium border-black border-opacity-50 border-[1px] hover:border-secondary2'>
-                        Return To Shop
+                    <Button className='bg-transparent hover:bg-button2 rounded-sm h-14 px-12 py-4 text-black hover:text-white font-medium border-black border-opacity-50 border-[1px] hover:border-secondary2'>
+                        <Link href='/shop'>Return To Shop</Link>
                     </Button>
                     <Button
-                        className='bg-transparent hover:bg-button2 rounded-[4px] h-[56px] px-[48px] py-[16px] text-black hover:text-white font-medium border-black border-opacity-50 border-[1px] hover:border-secondary2'
+                        className='bg-transparent hover:bg-button2 rounded-sm h-14 px-12 py-4 text-black hover:text-white font-medium border-black border-opacity-50 border-[1px] hover:border-secondary2'
                         onClick={() => route.refresh()}
                     >
                         Update Cart
@@ -123,7 +128,7 @@ const page = () => {
                     <div className='flex flex-col gap-5 w-full justify-center'>
                         <div className='flex justify-between'>
                             <p>Subtotal: </p>
-                            <p>$100</p>
+                            <p>${cartTotal}</p>
                         </div>
                         <Separator />
                         <div className='flex justify-between'>

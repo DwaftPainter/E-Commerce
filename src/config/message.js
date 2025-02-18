@@ -12,6 +12,10 @@ export const validate = {
         password2: 'Password must be at least 8 characters long and include at least one charater, and one number.',
         phone: 'Invalid phone number.',
         role: 'Invalid role.',
+        firstName: 'First name must have at least 1 character.',
+        lastName: 'Last name must have at least 1 character.',
+        companyName: 'Company name must have at least 1 character.',
+        streetAddress: 'Street address must have at least 1 character.',
     },
     empty: {
         email: 'Email cannot be empty.',

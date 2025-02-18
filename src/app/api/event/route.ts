@@ -1,6 +1,6 @@
 import DBConnect from '@/lib/db'
-import EventModel from '@/lib/models/EventModel'
-import ProductModel, { Product } from '@/lib/models/ProductModel'
+import EventModel from '@/lib/models/event.model'
+import ProductModel, { Product } from '@/lib/models/product.model'
 import mongoose from 'mongoose'
 import { NextRequest, NextResponse } from 'next/server'
 

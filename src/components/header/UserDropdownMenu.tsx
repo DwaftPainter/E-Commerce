@@ -22,10 +22,10 @@ interface DropdownMenuProps {
 }
 
 export default function UserDropdownMenu({ user }: DropdownMenuProps) {
-    const { setUser, handleLogout } = useAppContext()
+    const { handleLogout } = useAppContext()
 
     return (
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
             {!user ? (
                 <Link href='/auth/sign-up'>
                     <User className='cursor-pointer' />

@@ -13,7 +13,7 @@ interface AppContextType {
     handleLogout: () => void
     cartItems: CartType[]
     setCartItems: (cartItems: CartType[]) => void
-    addToCart: (product: ProductType) => void
+    addToCart: (product: ProductType, quantity: number) => void
     deleteFromCart: (productId: string) => void
     removeFromCart: (productId: string) => void
     updateToCart: (productId: string, quantity: number) => void
@@ -70,7 +70,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
 
     //Cart Modifify Function
-    const addToCart = async (product: ProductType) => {
+    const addToCart = async (product: ProductType, quantity: number) => {
         const productIndex = cartItems?.findIndex(item => item.product._id === product._id)
         if (productIndex !== -1) {
             const cartItem = cartItems[productIndex]
@@ -96,7 +96,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify({ productId: product._id, quantity: 1 })
+                body: JSON.stringify({ productId: product._id, quantity: quantity || 1 }),
             })
         }
     }
@@ -161,8 +161,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 body: JSON.stringify({ productId: productId, quantity: quantity })
             })
         }
-
-        console.log(cartItems[productIndex])
     }
     const getCartItem = (productId: string) => {
         const product = cartItems.find(item => item.product._id === productId)
@@ -170,7 +168,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
 
     const cartCount = cartItems?.reduce((total, current) => total + current.quantity, 0)
-    const cartTotal = cartItems?.reduce((total, current) => total + current.product.price, 0)
+    const cartTotal = cartItems?.reduce((total, current) => total + current.product.price * current.quantity, 0)
 
     //WishList Modifify Function
     const addToWishList = async (product: ProductType) => {

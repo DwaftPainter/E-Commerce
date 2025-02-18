@@ -1,9 +1,9 @@
 import DBConnect from '@/lib/db'
-import ProductModel from '@/lib/models/ProductModel'
+import ProductModel from '@/lib/models/product.model'
 import { NextRequest, NextResponse } from 'next/server'
-import { Product } from '@/lib/models/ProductModel'
+import { Product } from '@/lib/models/product.model'
 import slugify from 'slugify'
-import { categoriesFilter } from '@/utils/constants'
+import { categories } from '@/utils/constants'
 
 export const GET = async (req: NextRequest) => {
     try {
@@ -17,7 +17,7 @@ export const GET = async (req: NextRequest) => {
         const brand = searchParams.getAll('brand')
         const categoryMap = new Map<number, string>()
 
-        categoriesFilter.forEach(category => {
+        categories.forEach(category => {
             categoryMap.set(category.id, category.name)
             category.items.forEach(item => categoryMap.set(item.id, item.name))
         })
@@ -26,7 +26,6 @@ export const GET = async (req: NextRequest) => {
         const categoryNames = (searchParams.get('filter_cat')?.split(',') ?? [])
         .map(id => categoryMap.get(Number(id))?.toLowerCase())
         .filter(Boolean)
-        console.log("🚀 ~ GET ~ categoryNames:", categoryNames)
 
         const products = await ProductModel.find({})
 

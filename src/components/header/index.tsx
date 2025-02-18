@@ -60,14 +60,16 @@ const Header = () => {
                     <Link href={'/cart'}>
                         <div className='relative'>
                             <ShoppingCart className='cursor-pointer' />
-                            {cartCount > 0 && ( 
+                            {cartCount > 0 && (
                                 <span className='absolute top-[-5px] right-[-6px] h-4 w-4 rounded-full bg-secondary2 text-white text-[12px] flex items-center justify-center'>
                                     {cartCount}
                                 </span>
                             )}
                         </div>
                     </Link>
-                    <UserDropdownMenu user={user} />
+                    <button>
+                        <UserDropdownMenu user={user} />    
+                    </button>
                 </div>
             </div>
         </div>

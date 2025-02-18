@@ -1,6 +1,6 @@
 import { validate } from '@/config/message'
 import DBConnect from '@/lib/db'
-import UserModel from '@/lib/models/UserModel'
+import UserModel from '@/lib/models/user.model'
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcrypt'
 import { jwt, verifyJWT } from '@/utils/auth'

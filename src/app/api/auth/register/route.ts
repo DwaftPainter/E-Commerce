@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { jwt } from '@/utils/auth'
 import DBConnect from '@/lib/db'
-import UserModel from '@/lib/models/UserModel'
+import UserModel from '@/lib/models/user.model'
 import { validate } from '@/config/message'
 
 export const POST = async (req: NextRequest) => {

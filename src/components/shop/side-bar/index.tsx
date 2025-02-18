@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { cn } from '@/lib/utils'
-import { categoriesFilter, status, brands } from '@/utils/constants'
+import { categories, status, brands } from '@/utils/constants'
 import SliderFilter from './SliderFilter'
 import { BrandCheckBoxFilter, CategoryCheckBoxFilter, StatusCheckBoxFilter } from './CheckBoxFilter'
 import { useShopContext } from '@/context/ShopConntext'
@@ -30,7 +30,7 @@ const ShopSidebar = ({ className }: Props) => {
             <div className='flex flex-col gap-2'>
                 <h1 className='font-semibold'>Product Categories</h1>
                 <CategoryCheckBoxFilter
-                    categories={categoriesFilter}
+                    categories={categories}
                     setChecked={setChecked}
                     checked={checked}
                 />

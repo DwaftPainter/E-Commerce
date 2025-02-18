@@ -7,12 +7,8 @@ import Feature from '@/components/home/feature'
 import Products from '@/components/home/product'
 import Today from '@/components/home/today'
 import { Button } from '@/components/ui/button'
-import { validate } from '@/config/message'
-import { useAppContext } from '@/context/AppContext'
-import { getAuthToken } from '@/helper/session'
 import { ArrowUp } from 'lucide-react'
 import React from 'react'
-import Cookies from 'js-cookie'
 
 export default function Home() {
     const scrollToTop = () => {

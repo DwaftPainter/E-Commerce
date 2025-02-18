@@ -1,5 +1,5 @@
 import DBConnect from '@/lib/db'
-import ProductModel from '@/lib/models/ProductModel'
+import ProductModel from '@/lib/models/product.model'
 import { NextResponse } from 'next/server'
 
 export const GET = async () => {
