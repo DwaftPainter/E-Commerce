@@ -2,14 +2,14 @@
 
 import React from 'react'
 import { Input } from '../ui/input'
-import { Facebook, Instagram, Linkedin, SendHorizonal, Twitter } from 'lucide-react'
+import { Facebook, Instagram, Linkedin, SendHorizontal, Twitter } from 'lucide-react'
 import { Separator } from '../ui/separator'
 import { Button } from '../ui/button'
 
 const Footer = () => {
   return (
       <div className='bg-black w-full mt-[140px]'>
-        <div className='flex justify-between px-[250px] pt-[80px] pb-[65px] text-white'>
+        <div className='flex justify-between px-[200px] pt-[80px] pb-[65px] text-white'>
           <div className='flex flex-col gap-[24px]'>
             <h1 className='text-[24px] font-bold'>Neo Store</h1>
             <h2 className='text-[20px] font-medium'>Subcribe</h2>
@@ -17,7 +17,7 @@ const Footer = () => {
             <div className='relative'>
               <Input type='email' placeholder='Enter your email' className='bg-transparent border-white text-text pl-[16px] pr-[30px] py-[20px]'/>
               <div className='absolute top-3 right-3'>
-                <SendHorizonal size={'20'}/>
+                <SendHorizontal size={'20'}/>
               </div>
             </div>
           </div>

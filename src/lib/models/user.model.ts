@@ -20,7 +20,7 @@ export interface User extends mongoose.Document {
     isModified: (path: string) => boolean
 }
 
-const cartItemSchema = new mongoose.Schema(
+const CartItemSchema = new mongoose.Schema(
     {
         product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true },
         quantity: { type: Number, required: true, default: 1 }
@@ -73,7 +73,7 @@ const UserSchema = new mongoose.Schema(
                 message: validate.format.password2
             }
         },
-        cart: { type: [cartItemSchema], default: [] },
+        cart: { type: [CartItemSchema], default: [] },
         wishlist: {
             type: [
                 {

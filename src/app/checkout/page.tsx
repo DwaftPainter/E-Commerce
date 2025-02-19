@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useAppContext } from '@/context/AppContext'
 import Loading2 from '@/components/ui/loading2'
+import { useOrderContext } from '@/context/OrderContext'
 
 const formSchema = z.object({
     firstName: z.string().trim().min(1, { message: validate.format.firstName }),
@@ -25,6 +26,7 @@ const formSchema = z.object({
 
 const page = () => {
     const { user } = useAppContext()
+    const { items } = useOrderContext()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -41,11 +43,15 @@ const page = () => {
     })
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+        const checkoutData = {
+            items: items,
+            shippingAddress: values
+        }
         await fetch('/api/order', { 
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           credentials: 'include',
-          body: JSON.stringify(values)
+          body: JSON.stringify(checkoutData)
         })
     }
 
