@@ -13,7 +13,7 @@ interface AppContextType {
     handleLogout: () => void
     cartItems: CartType[]
     setCartItems: (cartItems: CartType[]) => void
-    addToCart: (product: ProductType, quantity: number) => void
+    addToCart: (product: ProductType, quantity?: number) => void
     deleteFromCart: (productId: string) => void
     removeFromCart: (productId: string) => void
     updateToCart: (productId: string, quantity: number) => void
@@ -70,7 +70,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
 
     //Cart Modifify Function
-    const addToCart = async (product: ProductType, quantity: number) => {
+    const addToCart = async (product: ProductType, quantity?: number) => {
         const productIndex = cartItems?.findIndex(item => item.product._id === product._id)
         if (productIndex !== -1) {
             const cartItem = cartItems[productIndex]
