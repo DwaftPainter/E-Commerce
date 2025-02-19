@@ -32,10 +32,12 @@ export const POST = async (req: NextRequest) => {
         //Auth
         const cookie = await cookies()
         const token = cookie.get('token')?.value
+        console.log("tracking 1")
         if (!token) {
             return NextResponse.json({ message: validate.user_notfound }, { status: 401 })
         }
         const userId = verifyJWT(token)
+        console.log("tracking 2")
         if (!userId) {
             return NextResponse.json({ message: validate.user_notfound }, { status: 401 })
         }
@@ -45,16 +47,17 @@ export const POST = async (req: NextRequest) => {
         }
 
         //Update Cart
+        console.log("tracking 3")
+
         const body = await req.json()
         const { productId, quantity } = body
         const cartItem = user.cart.find((item: any) => item.product._id.equals(new ObjectId(productId)))
-
+        console.log("tracking 4")
         if (cartItem) {
             cartItem.quantity = quantity
         } else {
             user.cart.push({ product: productId, quantity })
         }
-
         await user.save()
 
         return NextResponse.json({ message: 'success', data: user.cart }, { status: 200 })
@@ -65,7 +68,6 @@ export const POST = async (req: NextRequest) => {
 
 export const DELETE = async (req: NextRequest) => {
     try {
-        await DBConnect()
         await DBConnect()
         const cookie = await cookies()
         const token = cookie.get('token')?.value

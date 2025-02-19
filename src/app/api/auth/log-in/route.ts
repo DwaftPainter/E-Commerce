@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcrypt'
 import { jwt, verifyJWT } from '@/utils/auth'
 import { cookies } from 'next/headers'
+import ProductModel from '@/lib/models/product.model'
 
 export const POST = async (req: NextRequest) => {
     try {
