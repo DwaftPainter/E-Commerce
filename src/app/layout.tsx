@@ -31,12 +31,10 @@ export default function RootLayout({
         <html lang='en'>
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased `}>
                 <AppProvider>
-                    <div className='px-[135px]'>
-                        <Header />
-                    </div>
-                    <div className='mt-[96px]'/>
-                    <Breadcrumbs />
-                    <div className='px-[135px]'>{children}</div>
+                    <Header />
+                    <div className='mt-[96px]' />
+                    <Breadcrumbs className='ml-[250px]'/>
+                    <div className='px-[250px]'>{children}</div>
                     <Footer />
                 </AppProvider>
             </body>

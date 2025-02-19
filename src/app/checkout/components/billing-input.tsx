@@ -29,7 +29,7 @@ interface Props {
 
 export const BillingInput= ({ form, name, label }: Props) => {
     return (
-        <div>
+        <div className='w-full'>
             <FormField
                 control={form.control}
                 name={name}
@@ -57,7 +57,7 @@ export const BillingTextArea= ({ form, name, label, placeholder }: Props) => {
                     <FormItem>  
                         <FormLabel>{label}</FormLabel>
                         <FormControl>
-                            <Textarea className='rounded-sm' {...field} placeholder={placeholder}/>
+                            <Textarea className='rounded-sm min-h-[100px]' {...field} placeholder={placeholder}/>
                         </FormControl>
                         <FormMessage />
                     </FormItem>

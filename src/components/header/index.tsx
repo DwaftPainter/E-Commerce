@@ -14,7 +14,7 @@ const Header = () => {
     const pathname = usePathname()
 
     return (
-        <div className='flex w-full justify-between items-center h-[96px] fixed top-0 left-0 z-50 bg-white border-b px-[135px]'>
+        <div className='flex w-full justify-between items-center h-[96px] fixed top-0 left-0 z-50 bg-white border-b px-[250px]'>
             <div>
                 <h1 className='font-bold text-[24px] cursor-pointer'>
                     <Link href={'/'}>Neo Store</Link>

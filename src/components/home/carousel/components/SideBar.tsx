@@ -44,16 +44,16 @@ const SideBar = () => {
 
     return (
         <div className=' gap-[26px] w-[300px] flex border-r relative'>
-            <div className='flex flex-col gap-7 pt-11 pr-8 w-full'>
+            <div className='flex flex-col gap-7 pt-11 w-full'>
                 {categories.map((e, index) => (
                     <div key={index} className='group'>
                         {e.items && e.items.length > 0 ? (
-                            <div >
-                                <div className='flex items-center justify-between hover:text-hover2'>
+                            <div className='mr-8'>
+                                <div className='flex items-center justify-between cursor-pointer hover:text-hover2'>
                                     {e.name}
                                     <ChevronRight size={16} />
                                 </div>
-                                <div className='absolute top-0 right-0 left-full p-11 bottom-0 w-full border-x border-b bg-white group-hover:flex hidden z-50 flex-col gap-7'>
+                                <div className='absolute top-0 right-0 left-full p-11 bottom-0 w-full border-x border-b bg-white group-hover:flex hidden hover:block z-50 flex-col gap-7'>
                                     {e.items?.map((item, index) => (
                                         <div className='cursor-pointer hover:text-secondary2' key={index}>
                                             <p>{item.title}</p>

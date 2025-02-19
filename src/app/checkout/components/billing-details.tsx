@@ -26,12 +26,12 @@ interface Props {
 
 const BillingDetails = ({ form }: Props) => {
     return (
-        <div className='border rounded-sm p-8'>
+        <div className='border rounded-sm p-8 w-full'>
             <h1 className='font-semibold'>BILLING DETAIlS</h1>
             <Separator className='my-2' />
             <Form {...form}>
                 <div className='flex flex-col gap-4'>
-                    <div className='flex gap-4'>
+                    <div className='flex gap-4 justify-between'>
                         <BillingInput form={form} name='firstName' label='First Name *' />
                         <BillingInput form={form} name='lastName' label='Last Name *' />
                     </div>

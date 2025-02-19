@@ -9,7 +9,7 @@ import { Button } from '../ui/button'
 const Footer = () => {
   return (
       <div className='bg-black w-full mt-[140px]'>
-        <div className='flex justify-between px-[135px] pt-[80px] pb-[65px] text-white'>
+        <div className='flex justify-between px-[250px] pt-[80px] pb-[65px] text-white'>
           <div className='flex flex-col gap-[24px]'>
             <h1 className='text-[24px] font-bold'>Neo Store</h1>
             <h2 className='text-[20px] font-medium'>Subcribe</h2>
