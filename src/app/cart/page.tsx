@@ -1,43 +1,44 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { useAppContext } from "@/context/AppContext";
-import { useOrderContext } from "@/context/OrderContext";
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Separator } from "@/components/ui/separator"
+import { useAppContext } from "@/context/AppContext"
+import { useOrderContext } from "@/context/OrderContext"
 import { ChevronDown, ChevronUp, ShoppingCart, X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent } from "react";
 
 const page = () => {
-    const route = useRouter();
-    const { setItems } = useOrderContext();
-    const { cartItems, updateToCart, removeFromCart, cartTotal } = useAppContext();
+    const [shippingPrice, setShippingPrice] = React.useState<number>(5)
+    const route = useRouter()
+    const { setItems } = useOrderContext()
+    const { cartItems, updateToCart, removeFromCart, cartTotal } = useAppContext()
     const handleQuantityChange = (productId: string, qty: number) => {
-        const quantity = Number(qty);
+        const quantity = Number(qty)
         if (quantity >= 1) {
-            updateToCart(productId, quantity);
+            updateToCart(productId, quantity)
         }
-    };
+    }
 
     const handleOnChange = (productId: string, e: ChangeEvent<HTMLInputElement>) => {
-        const qty = e.target.value;
+        const qty = e.target.value
         if (qty === "") {
-            updateToCart(productId, 0);
-            return;
+            updateToCart(productId, 0)
+            return
         }
 
-        const quantity = Number(qty);
+        const quantity = Number(qty)
         if (quantity >= 1) {
-            updateToCart(productId, quantity);
+            updateToCart(productId, quantity)
         }
-    };
+    }
 
     const handleCheckout = () => {
-        setItems(cartItems);
+        setItems(cartItems)
         route.push('/checkout')
-    };
+    }
 
     return (
         <div className="flex flex-col gap-[90px]">
@@ -140,12 +141,12 @@ const page = () => {
                         <Separator />
                         <div className="flex justify-between">
                             <p>Shipping: </p>
-                            <p>Free</p>
+                            <p>${shippingPrice}</p>
                         </div>
                         <Separator />
                         <div className="flex justify-between">
                             <p>Total</p>
-                            <p>$100</p>
+                            <p>${cartTotal + shippingPrice}</p>
                         </div>
                     </div>
                     <Button
@@ -157,7 +158,7 @@ const page = () => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default page;
+export default page

@@ -19,7 +19,7 @@ const page = () => {
                 <div className='w-full flex gap-11'>
                     <ShopSidebar className='w-[20%]' />
                     <ProductDisplay className='w-[80%]' />
-                </div>
+                </div>           
             </ShopProvider>
         </React.Suspense>
     )

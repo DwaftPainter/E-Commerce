@@ -59,9 +59,9 @@ const page = () => {
         })
         console.log(res.ok)
         if (res.ok) {
-            console.log("running")
+            const { data } = await res.json()
             removeAllFromCart()
-            router.push('/checkout/order-received')
+            router.push(`/checkout/order-received?orderId=${data._id}`)
         }
     }
 
