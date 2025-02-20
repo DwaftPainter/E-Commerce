@@ -11,6 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useAppContext } from '@/context/AppContext'
 import Loading2 from '@/components/ui/loading2'
 import { useOrderContext } from '@/context/OrderContext'
+import { useRouter } from 'next/navigation'
 
 const formSchema = z.object({
     firstName: z.string().trim().min(1, { message: validate.format.firstName }),
@@ -25,8 +26,10 @@ const formSchema = z.object({
 })
 
 const page = () => {
-    const { user } = useAppContext()
+    const router = useRouter()
+    const { user, removeAllFromCart } = useAppContext()
     const { items } = useOrderContext()
+    const [payMethod, setPayMethod] = React.useState<'cash' | 'bank'>('cash')
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -45,28 +48,37 @@ const page = () => {
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         const checkoutData = {
             items: items,
-            shippingAddress: values
+            shippingAddress: values,
+            paymentMethod: payMethod,
         }
-        await fetch('/api/order', { 
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          credentials: 'include',
-          body: JSON.stringify(checkoutData)
+        const res = await fetch('/api/order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(checkoutData)
         })
+        console.log(res.ok)
+        if (res.ok) {
+            console.log("running")
+            removeAllFromCart()
+            router.push('/checkout/order-received')
+        }
     }
 
     if (!user) {
         return (
-          <div className='h-full w-full flex items-center justify-center min-h-[500px]'><Loading2/></div>
+            <div className='h-full w-full flex items-center justify-center min-h-[500px]'>
+                <Loading2 />
+            </div>
         )
     }
 
     return (
         <form className='flex gap-16 justify-between w-full' onSubmit={form.handleSubmit(handleSubmit)}>
             <BillingDetails form={form} />
-            <Order />
+            <Order payMethod={payMethod} setPayMethod={setPayMethod}/>
         </form>
-    )
+    ) 
 }
 
 export default page

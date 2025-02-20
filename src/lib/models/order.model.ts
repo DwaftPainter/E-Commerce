@@ -1,10 +1,11 @@
 import { validate } from '@/config/message'
+import { phoneRegex } from '@/config/regex'
 import mongoose from 'mongoose'
 var validator = require('validator')
 
 const OrderSchema = new mongoose.Schema(
     {
-        user: {
+        userId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User', // Reference to the User model
             required: true
@@ -33,7 +34,7 @@ const OrderSchema = new mongoose.Schema(
                 required: true,
                 validate: {
                     validator: function (v: any) {
-                        return validator.isPhone(v)
+                        return phoneRegex.test(v.toString())
                     },
                     message: validate.format.phone
                 }
@@ -73,6 +74,6 @@ const OrderSchema = new mongoose.Schema(
     }
 )
 
-const Order = mongoose.models.Order || mongoose.model('Order', OrderSchema)
+const OrderModel = mongoose.models.Order || mongoose.model('Order', OrderSchema)
 
-export default Order
+export default OrderModel

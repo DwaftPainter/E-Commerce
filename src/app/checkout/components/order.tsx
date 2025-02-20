@@ -7,8 +7,12 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { useOrderContext } from '@/context/OrderContext'
 
-const Order = () => {
-    const [payMethod, setPayMethod] = React.useState<'cash' | 'bank'>('cash')
+interface Props {
+    payMethod: 'cash' | 'bank'
+    setPayMethod: React.Dispatch<React.SetStateAction<"cash" | "bank">>
+}
+
+const Order = ({ payMethod, setPayMethod }: Props) => {
     const { items } = useOrderContext()
 
     return (

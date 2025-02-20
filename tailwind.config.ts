@@ -32,6 +32,7 @@ export default {
                 button2: '#DB4444',
                 hover1: '#3a906d',
                 hover2: '#EB5757',
+                success: '#00B853',
                 card: {
                     DEFAULT: 'hsl(var(--card))',
                     foreground: 'hsl(var(--card-foreground))'

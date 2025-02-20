@@ -16,6 +16,7 @@ interface AppContextType {
     addToCart: (product: ProductType, quantity?: number) => void
     deleteFromCart: (productId: string) => void
     removeFromCart: (productId: string) => void
+    removeAllFromCart: () => void
     updateToCart: (productId: string, quantity: number) => void
     getCartItem: (productId: string) => CartType | null
     cartTotal: number
@@ -142,6 +143,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setCartItems(data)
     }
 
+    const removeAllFromCart = async () => {
+        setCartItems([])
+        const res = await fetch(`/api/product/cart`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({})
+        })
+
+        const { data } = await res.json()
+        setCartItems(data)
+    }
+
     const updateToCart = async (productId: string, quantity: number) => {
         const productIndex = cartItems?.findIndex(item => item.product._id === productId)
         if (productIndex !== -1) {
@@ -209,6 +223,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 addToCart,
                 deleteFromCart,
                 removeFromCart,
+                removeAllFromCart,
                 updateToCart,
                 getCartItem,
                 cartCount,

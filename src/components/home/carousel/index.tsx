@@ -4,7 +4,6 @@ import React from 'react'
 import Banner from './components/Banner'
 import SideBar from './components/SideBar'
 import { banners } from '@/mock_data'
-import { Separator } from '@/components/ui/separator'
 
 const Carousel = () => {
   

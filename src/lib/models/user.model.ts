@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import { ROLES } from '@/utils/constants'
-import { passwordRegex } from '@/config/regex'
+import { passwordRegex, phoneRegex } from '@/config/regex'
 import { validate } from '@/config/message'
 import ProductModel from './product.model'
 var validator = require('validator')
@@ -53,7 +53,7 @@ const UserSchema = new mongoose.Schema(
             type: String,
             validate: {
                 validator: function (v: any) {
-                    return validator.isPhone(v)
+                    return phoneRegex.test(v.toString())
                 },
                 message: validate.format.phone
             }
