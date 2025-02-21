@@ -11,7 +11,7 @@ import mongoose from "mongoose";
 export const POST = async (req: NextRequest) => {
     try {
         await DBConnect();
-        // console.log("🚀 ~ ProductModel:", ProductModel);
+        console.log("🚀 ~ ProductModel:", ProductModel);
         console.log(mongoose.models);
         const { email, password } = await req.json();
         const user = await UserModel.findOne({ email: email })
