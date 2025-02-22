@@ -8,9 +8,9 @@ import { banners } from '@/mock_data'
 const Carousel = () => {
   
   return (
-        <div className='flex w-full max-h-[450px] overflow-hidden mb-[125px]'>
+        <div className='flex w-full max-h-[450px] overflow-hidden lg:mb-[125px] sm:mb-16  mb-10'>
             <SideBar/>
-            <Banner items={banners} interval={5000} className='w-[90%]'/>
+            <Banner items={banners} interval={5000} className='lg:w-[90%]'/>
         </div>
   )
 }

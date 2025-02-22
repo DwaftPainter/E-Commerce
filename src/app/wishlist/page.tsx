@@ -8,6 +8,7 @@ import React from 'react'
 import { products } from '@/mock_data'
 import HomeLayout from '@/layouts/HomeLayout'
 import { ProductType } from '@/types/product.type'
+import { Heart } from 'lucide-react'
 
 const page = () => {
     const { wishItems, wishListCount } = useAppContext()
@@ -21,22 +22,29 @@ const page = () => {
                         Move All To Cart
                     </Button>
                 </div>
-                <Carousel
-                    opts={{
-                        align: 'start'
-                    }}
-                    className='w-full'
-                >
-                    <CarouselContent>
-                        {wishItems.map((product, index) => (
-                            <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/5'>
-                                <div className='p-1'>
-                                    <Product product={product} isWishlist={true} />
-                                </div>
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                </Carousel>
+                {wishItems?.length === 0 ? (
+                    <div className='w-full flex justify-center items-center gap-3 my-8'>
+                        <Heart size={28} />
+                        <p className='font-semibold text-xl'>Your wishlist is empty</p>
+                    </div>
+                ) : (
+                    <Carousel
+                        opts={{
+                            align: 'start'
+                        }}
+                        className='w-full'
+                    >
+                        <CarouselContent>
+                            {wishItems.map((product, index) => (
+                                <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/5'>
+                                    <div className='p-1'>
+                                        <Product product={product} isWishlist={true} />
+                                    </div>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                    </Carousel>
+                )}
             </div>
             <HomeLayout title='Just For You'>
                 <Carousel

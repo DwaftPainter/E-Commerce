@@ -8,8 +8,8 @@ import { Button } from '../ui/button'
 
 const Footer = () => {
   return (
-      <div className='bg-black w-full mt-[140px]'>
-        <div className='flex justify-between px-[200px] pt-[80px] pb-[65px] text-white'>
+      <div className='bg-black w-full lg:mt-[140px] mt-16'>
+        <div className='flex lg:flex-row flex-col lg:gap-0 gap-8 justify-between 2xl:px-[200px] xl:px-16 md:px-10 px-4 sm:pt-[80px] py-10 sm:pb-[65px] text-white'>
           <div className='flex flex-col gap-[24px]'>
             <h1 className='text-[24px] font-bold'>Neo Store</h1>
             <h2 className='text-[20px] font-medium'>Subcribe</h2>
@@ -78,7 +78,7 @@ const Footer = () => {
         </div>
         <Separator className='bg-primary opacity-20'/>
         <div className='h-[65px] w-full flex items-center justify-center'>
-          <p className='text-primary opacity-20'>&copy; Copyright Rimel 2022. All right reserved</p>
+          <p className='text-primary opacity-20 sm:text-[16px] text-sm'>&copy; Copyright Rimel 2022. All right reserved</p>
         </div>
       </div>
   )

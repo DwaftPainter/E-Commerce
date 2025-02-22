@@ -26,7 +26,7 @@ export const GET = async () => {
             startDate: { $lte: new Date() },
             endDate: { $gt: new Date() }
         }).limit(1)
-
+        console.log(event)
         const products = (
             await Promise.all(
                 event[0].products.map(async (productId: string) => {
@@ -34,6 +34,7 @@ export const GET = async () => {
                 })
             )
         ).filter(product => product !== null)
+        console.log(products)
         return NextResponse.json({ message: 'success', data: event, products }, { status: 200 })
     } catch (error: any) {
         return NextResponse.json({ message: error.message, status: 400 }, { status: 400 })

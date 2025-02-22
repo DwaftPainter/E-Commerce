@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const SideBar = () => {
     return (
-        <div className=" gap-[26px] w-[300px] flex border-r relative">
+        <div className=" gap-[26px] w-[300px] lg:flex border-r relative hidden">
             <div className="flex flex-col gap-7 pt-11 w-full">
                 {categories.map((e, index) => (
                     <div key={index} className="group">

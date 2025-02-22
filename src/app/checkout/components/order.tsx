@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import { useOrderContext } from '@/context/OrderContext'
+import { useAppContext } from '@/context/AppContext'
 
 interface Props {
     payMethod: 'cash' | 'bank'
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const Order = ({ payMethod, setPayMethod }: Props) => {
-    const { items } = useOrderContext()
+    const { cartItems } = useAppContext()
 
     return (
         <div className='border-[2px] border-secondary2 rounded-sm px-6 py-8 min-w-[400px] h-fit'>
@@ -25,7 +25,7 @@ const Order = ({ payMethod, setPayMethod }: Props) => {
             </div>
             <Separator className='my-4' />
             <div className='flex flex-col gap-6'>
-                {items?.map((item, index) => (
+                {cartItems?.map((item, index) => (
                     <div className='flex justify-between text-sm' key={index}>
                         <span>
                             {item?.product?.name} <p className='font-semibold'>x{item?.quantity}</p>

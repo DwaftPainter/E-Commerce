@@ -10,20 +10,20 @@ const BestSeller = () => {
     const router = useRouter()
 
     return (
-        <HomeLayout title='This Month' className='w-full flex flex-col gap-[65px] mb-[80px]'>
+        <HomeLayout title='This Month' className='w-full flex flex-col sm:gap-[65px] gap-10 sm:mb-20 mb-10'>
             <div>
-                <div className='flex justify-between mt-[24px]'>
-                    <h1 className='text-[36px] font-semibold mb-[40px]'>Best Selling Products</h1>
+                <div className='flex justify-between items-center mt-[24px] sm:mb-[40px] mb-6'>
+                    <h1 className='sm:text-[36px] text-[18px] h-fit font-semibold'>Best Selling Products</h1>
                     <Button
-                        className='bg-secondary2 hover:bg-hover2 rounded-[4px] h-[56px] px-[48px] py-[16px] font-medium'
+                        className='bg-secondary2 hover:bg-hover2 rounded-[4px] sm:h-[56px] h-[48px] sm:px-[48px] px-4 sm:py-4 py-2 font-medium'
                         onClick={() => router.push('/shop')}
                     >
                         View All
                     </Button>
                 </div>
-                <div className='flex -ml-6 overflow-x-hidden'>
+                <div className='sm:flex grid grid-cols-2 -ml-6 overflow-x-hidden gap-y-3'>
                     {products?.map((product, index) => (
-                        <div className='min-w-0 shrink-0 grow-0 lg:basis-1/5 pl-6' key={index}>
+                        <div className='min-w-0 shrink-0 grow-0 lg:basis-1/5 md:basis-1/4 sm:basis-1/3 pl-6' key={index}>
                             <Product product={product} />
                         </div>
                     ))}

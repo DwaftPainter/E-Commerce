@@ -1,26 +1,28 @@
 'use client'
 
-import Link from 'next/link'
 import React from 'react'
+import Link from 'next/link'
 import { Input } from '../ui/input'
 import { Heart, Search, ShoppingCart } from 'lucide-react'
 import { useAppContext } from '@/context/AppContext'
 import UserDropdownMenu from './UserDropdownMenu'
 import { NAV_LINKS } from '@/utils/constants'
 import { usePathname } from 'next/navigation'
+import MobileMenu from './mobileMenu'
 
 const Header = () => {
     const { user, cartCount, wishListCount } = useAppContext()
     const pathname = usePathname()
 
     return (
-        <div className='flex w-full justify-between items-center h-[96px] fixed top-0 left-0 z-50 bg-white border-b px-[200px]'>
-            <div>
+        <div className='flex w-full sm:h-[96px] h-14 justify-between items-center fixed top-0 left-0 z-50 bg-white border-b 2xl:px-[200px] xl:px-16 md:px-10 px-4'>
+            <div className='flex items-center lg:w-fit w-full md:gap-4 gap-[30%]'>
+                <MobileMenu />
                 <h1 className='font-bold text-[24px] cursor-pointer'>
                     <Link href={'/'}>Neo Store</Link>
                 </h1>
             </div>
-            <nav className='flex gap-20'>
+            <nav className='lg:flex hidden lg:gap-20 md:gap-12 '>
                 {NAV_LINKS.map(link => (
                     <Link href={link.path} key={link.path} className='cursor-pointer'>
                         <div
@@ -36,7 +38,7 @@ const Header = () => {
                 ))}
             </nav>
             <div className='flex items-center gap-[24px]'>
-                <div className='relative w-[243px]'>
+                <div className='relative w-[243px] sm:block hidden'>
                     <Input
                         className='text-[12px] opacity-[0.5] pl-[20px] pr-[25px] py-[7px] bg-secondary'
                         type='text'
@@ -67,8 +69,8 @@ const Header = () => {
                             )}
                         </div>
                     </Link>
-                    <button>
-                        <UserDropdownMenu user={user} />    
+                    <button className='sm:block hidden'>
+                        <UserDropdownMenu user={user} />
                     </button>
                 </div>
             </div>

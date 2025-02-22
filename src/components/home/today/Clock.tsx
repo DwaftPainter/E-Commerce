@@ -29,39 +29,39 @@ const CountdownClock = ({ startDate, endDate }: CountdownProps) => {
     }, [startDate, endDate])
 
     return (
-        <div className='flex items-end gap-[20px]' suppressHydrationWarning>
-            <div>
+        <div className='flex items-end sm:gap-[20px] gap-2' suppressHydrationWarning>
+            <div className='flex flex-col sm:items-start items-center'>
                 <Label className='text-[12px] font-medium' htmlFor='day'>
                     Day
                 </Label>
-                <h1 suppressHydrationWarning className='text-[32px] font-bold' id='day'>
+                <h1 suppressHydrationWarning className='sm:text-[32px] font-bold' id='day'>
                     {timeLeft?.days.toString().padStart(2, "0") || "00"}
                 </h1>
             </div>
-            <span className='pb-[4px] text-[32px] text-hover2'>:</span>
-            <div>
+            <span className='sm:pb-[4px] pb-[2px] sm:text-[32px] text-hover2'>:</span>
+            <div className='flex flex-col items-center'>
                 <Label className='text-[12px] font-medium' htmlFor='hour'>
                     Hours
                 </Label>
-                <h1 suppressHydrationWarning className='text-[32px] font-bold' id='hour'>
+                <h1 suppressHydrationWarning className='sm:text-[32px] font-bold' id='hour'>
                     {timeLeft?.hours.toString().padStart(2, "0") || "00"}
                 </h1>
             </div>
-            <span className='pb-[4px] text-[32px] text-hover2'>:</span>
-            <div>
+            <span className='sm:pb-[4px] pb-[2px] sm:text-[32px] text-hover2'>:</span>
+            <div className='flex flex-col items-center'>
                 <Label className='text-[12px] font-medium' htmlFor='Minute'>
                     Minutes
                 </Label>
-                <h1 suppressHydrationWarning className='text-[32px] font-bold' id='minute'>
+                <h1 suppressHydrationWarning className='sm:text-[32px] font-bold' id='minute'>
                     {timeLeft?.minutes.toString().padStart(2, "0") || "00"}
                 </h1>
             </div>
-            <span className='pb-[4px] text-[32px] text-hover2'>:</span>
-            <div>
+            <span className='sm:pb-[4px] pb-[2px] sm:text-[32px] text-hover2'>:</span>
+            <div className='flex flex-col items-center'>
                 <Label className='text-[12px] font-medium' htmlFor='second'>
                     Seconds
                 </Label>
-                <h1 suppressHydrationWarning className='text-[32px] font-bold' id='second'>
+                <h1 suppressHydrationWarning className='sm:text-[32px] font-bold' id='second'>
                     {timeLeft?.seconds.toString().padStart(2, "0") || "00"}
                 </h1>
             </div>

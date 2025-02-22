@@ -49,7 +49,6 @@ function Today() {
 
     if (loading) {
         return (
-            /* From Uiverse.io by devAaus */
             <HomeLayout
                 title="Today's"
                 className='flex-col gap-4 w-full flex items-center justify-center min-h-[200px]'
@@ -62,7 +61,7 @@ function Today() {
     }
 
     return (
-        <HomeLayout title="Today's" className='flex flex-col gap-[65px]'>
+        <HomeLayout title="Today's" className='flex flex-col lg:gap-[65px] gap-8'>
             <Carousel
                 opts={{
                     align: 'start'
@@ -70,12 +69,12 @@ function Today() {
                 setApi={setApi}
                 className='w-full'
             >
-                <div className='relative'>
-                    <div className='flex items-end gap-[87px] mb-[40px]'>
-                        <h1 className='text-[36px] font-semibold '>{event?.name}</h1>
+                <div className='relative sm:mt-0 mt-4'>
+                    <div className='flex sm:items-end sm:gap-[87px] sm:justify-normal justify-between items-start sm:mb-10 mb-6 '>
+                        <h1 className='sm:text-[36px] sm:leading-[3.5rem] text-xl leading-none font-semibold '>{event?.name}:</h1>
                         <CountdownClock startDate={event?.startDate} endDate={event?.endDate} />
                     </div>
-                    <div className='absolute right-0 top-0 flex gap-[10px] z-10'>
+                    <div className='absolute right-0 top-0 lg:flex gap-[10px] z-10 hidden'>
                         <Button
                             className='bg-secondary w-[46px] h-[46px] rounded-full'
                             onClick={() => api?.scrollTo(current - 1)}
@@ -92,7 +91,7 @@ function Today() {
                 </div>
                 <CarouselContent>
                     {products?.map((product, index) => (
-                        <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/5'>
+                        <CarouselItem key={index} className='basis-1/2 sm:basis-1/3 lg:basis-1/5 md:basis-1/4'>
                             <div className='p-1'>
                                 <Product product={product} />
                             </div>
@@ -102,13 +101,13 @@ function Today() {
             </Carousel>
             <div className='w-full flex justify-center items-center'>
                 <Button
-                    className='bg-secondary2 hover:bg-hover2 rounded-[4px] h-[56px] px-[48px] py-[16px] font-medium'
+                    className='bg-secondary2 hover:bg-hover2 rounded-sm sm:h-[56px] min-h-[48px] sm:px-[48px] px-4 sm:py-4 py-2 font-medium'
                     onClick={() => router.push('/shop?status=onsale')}
                 >
                     View All Products
                 </Button>
             </div>
-            <Separator className='mb-[80px]' />
+            <Separator className='lg:mb-20 sm:mb-16 mb-10' />
         </HomeLayout>
     )
 }

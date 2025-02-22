@@ -1,12 +1,9 @@
 'use client'
 
 import { ChevronRight, type LucideIcon } from 'lucide-react'
-
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
-    Sidebar,
     SidebarGroup,
-    SidebarGroupLabel,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
@@ -36,7 +33,7 @@ export function NavMain({
     return (
         <SidebarProvider className={cn('w-full min-h-fit', className)}>
             <SidebarGroup className='h-fit'>
-                <SidebarMenu className=' flex flex-col gap-7'>
+                <SidebarMenu className=' flex flex-col gap-7'> 
                     {items.map(item => (
                         <Collapsible
                             key={item.title}

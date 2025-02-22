@@ -15,7 +15,8 @@ export const categories = [
     {
         id: 1,
         name: 'Electronics',
-        icon: <Zap size={38} className='hover:text-white' />,
+        icon: <Zap className='hover:text-white h-8 w-8' />,
+        smallIcon: <Zap className='hover:text-white h-4 w-4' />,
         items: [
             { id: 101, name: 'Laptop' },
             { id: 102, name: 'Smartphone' },
@@ -27,7 +28,8 @@ export const categories = [
     {
         id: 2,
         name: 'Clothing',
-        icon: <Shirt size={38} className='hover:text-white' />,
+        icon: <Shirt className='hover:text-white h-8 w-8' />,
+        smallIcon: <Shirt className='hover:text-white h-4 w-4' />,
         items: [
             { id: 201, name: 'T-shirt' },
             { id: 202, name: 'Jeans' },
@@ -38,7 +40,8 @@ export const categories = [
     {
         id: 3,
         name: 'Home & Kitchen',
-        icon: <Microwave size={38} className='hover:text-white' />,
+        icon: <Microwave className='hover:text-white h-8 w-8' />,
+        smallIcon: <Microwave className='hover:text-white h-4 w-4' />,
         items: [
             { id: 301, name: 'Blender' },
             { id: 302, name: 'Coffee Maker' },
@@ -49,7 +52,8 @@ export const categories = [
     {
         id: 4,
         name: 'Books',
-        icon: <Book size={38} className='hover:text-white' />,
+        icon: <Book className='hover:text-white h-8 w-8' />,
+        smallIcon: <Book className='hover:text-white h-4 w-4' />,
         items: [
             { id: 401, name: 'Fiction' },
             { id: 402, name: 'Non-fiction' },
@@ -60,7 +64,8 @@ export const categories = [
     {
         id: 5,
         name: 'Sports & Outdoors',
-        icon: <Dumbbell size={38} className='hover:text-white' />,
+        icon: <Dumbbell className='hover:text-white h-8 w-8' />,
+        smallIcon: <Dumbbell className='hover:text-white h-4 w-4' />,
         items: [
             { id: 501, name: 'Bicycle' },
             { id: 502, name: 'Tennis Racket' },
@@ -71,13 +76,15 @@ export const categories = [
     {
         id: 6,
         name: 'Furniture',
-        icon: <Armchair size={38} className='hover:text-white' />,
+        icon: <Armchair className='hover:text-white h-8 w-8' />,
+        smallIcon: <Armchair className='hover:text-white h-4 w-4' />,
         items: []
     },
     {
         id: 7,
         name: 'Foods & Drinks',
-        icon: <Ham size={38} className='hover:text-white' />,
+        icon: <Ham className='hover:text-white h-8 w-8' />,
+        smallIcon: <Ham className='hover:text-white h-4 w-4' />,
         items: [
             { id: 701, name: 'Snacks' },
             { id: 702, name: 'Beverages' },
@@ -88,7 +95,8 @@ export const categories = [
     {
         id: 8,
         name: 'Beauty & Personal Care',
-        icon: <Sparkles size={38} className='hover:text-white' />,
+        icon: <Sparkles className='hover:text-white h-8 w-8' />,
+        smallIcon: <Sparkles className='hover:text-white h-4 w-4' />,
         items: [
             { id: 801, name: 'Skincare' },
             { id: 802, name: 'Makeup' },
@@ -96,8 +104,7 @@ export const categories = [
             { id: 804, name: 'Fragrances' }
         ]
     }
-];
-
+]
 
 export const status = ['In Stock', 'On Sale']
 

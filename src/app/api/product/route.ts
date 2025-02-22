@@ -109,3 +109,22 @@ export const PUT = async () => {
         return NextResponse.json({ message: error.message }, { status: 400 })
     }
 }
+
+export const DELETE = async () => {
+   
+  try {
+    await DBConnect(); // Ensure database connection
+
+    const result = await ProductModel.deleteMany({
+      image: { $regex: "^http://dummyimage.com/" },
+    });
+
+    return NextResponse.json({
+      message: `Deleted ${result.deletedCount} dummy products.`,
+      deletedCount: result.deletedCount,
+    }, { status: 200 });
+  } catch (error: any) {
+    return NextResponse.json({ message: "Internal Server Error", error: error.message }, { status: 400 });
+  }
+}
+

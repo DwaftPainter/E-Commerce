@@ -45,7 +45,7 @@ interface bannerProps {
       <Carousel
         setApi={setApi}
         plugins={[plugin.current]}
-        className="w-full max-full pl-[44px] pt-[44px] flex justify-center relative"
+        className="w-full max-full lg:pl-[44px] sm:pt-[44px] flex justify-center relative"
         opts={{
           loop: true,
         }}
@@ -54,7 +54,7 @@ interface bannerProps {
           {items?.map((banner, index) => (
             <CarouselItem key={index}>
               <div>
-                  <CardContent className="w-full h-[420px] p-0">
+                  <CardContent className="w-full sm:h-[420px] h-auto p-0">
                     <img src={banner} className="w-full h-full object-cover"/>
                   </CardContent>
               </div>
