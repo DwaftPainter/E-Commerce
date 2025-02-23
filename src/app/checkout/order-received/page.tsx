@@ -39,7 +39,7 @@ const page = () => {
             <div className="w-full h-fit p-7 text-center border-[2px] border-dashed border-success text-2xl font-semibold text-success">
                 Thank you. Your order has been received.
             </div>
-            <div className="w-full h-fit flex justify-between items-center shadow-custom py-6 px-5">
+            <div className="w-full h-fit flex sm:flex-row flex-col sm:justify-between sm:gap-0 gap-4 sm:items-center items-start shadow-custom py-6 px-5">
                 <div className="flex flex-col justify-center items-start text-sm">
                     <p>Order number:</p>
                     <p className="font-bold">{order?._id?.toString()}</p>
@@ -74,7 +74,7 @@ const page = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {order?.items.map((item, index) => (
+                        {order?.items?.map((item, index) => (
                             <tr key={index}>
                                 <td className="p-2 border">{item?.product?.name}</td>
                                 <td className="p-2 border">${item?.product?.price.toFixed(2)}</td>

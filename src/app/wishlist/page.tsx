@@ -18,7 +18,7 @@ const page = () => {
             <div className='flex flex-col gap-[60px]'>
                 <div className='flex justify-between items-center'>
                     <h1 className='text-[20px]'>Wishlist ({wishListCount || 0})</h1>
-                    <Button className='bg-transparent hover:bg-button2 rounded-[4px] h-[56px] px-[48px] py-[16px] text-black hover:text-white font-medium border-black border-opacity-50 border-[1px] hover:border-secondary2'>
+                    <Button className='bg-transparent hover:bg-button2 rounded-[4px] h-[56px] sm:px-[48px] px-4 sm:py-[16px] py-2 text-black hover:text-white font-medium border-black border-opacity-50 border-[1px] hover:border-secondary2'>
                         Move All To Cart
                     </Button>
                 </div>

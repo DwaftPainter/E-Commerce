@@ -27,7 +27,7 @@ const Breadcrumbs = ({ className } : BreadcrumbProps) => {
     }
 
     return (
-        <div className={cn('mb-[80px] mt-[176px] ml-[135px]', className)}>
+        <div className={cn('lg:mb-[80px] mb-10 sm:mt-[176px] 2xl:ml-[200px] xl:ml-16 md:ml-10 ml-4', className)}>
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>

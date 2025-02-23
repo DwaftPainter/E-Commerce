@@ -17,8 +17,8 @@ const page = () => {
         >
             <ShopProvider>
                 <div className='w-full flex gap-11'>
-                    <ShopSidebar className='w-[20%]' />
-                    <ProductDisplay className='w-[80%]' />
+                    <ShopSidebar className='w-[20%] lg:flex hidden' />
+                    <ProductDisplay className='lg:w-[80%] w-full' />
                 </div>           
             </ShopProvider>
         </React.Suspense>

@@ -15,6 +15,7 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { ArrowUpDown, ChevronDown } from 'lucide-react'
 import { useShopContext } from '@/context/ShopConntext'
+import MobileFilter from '../side-bar/mobileFilter'
 
 interface Props {
     displayMode: string
@@ -44,8 +45,8 @@ const SortBar = ({ displayMode, setDisplayMode, setSortType, sortType, className
     }
 
     return (
-        <div className={cn('w-full min-h-3.5 px-[1.875rem] py-3 bg-secondary rounded-sm flex items-center justify-between', className)}>
-            <div className='flex gap-5'>
+        <div className={cn('w-full min-h-3.5 md:px-[1.875rem] px-4 py-3 bg-secondary rounded-sm flex items-center justify-between', className)}>
+            <div className='lg:flex hidden gap-5'>
                 <ToggleGroup
                     type='single'
                     value={displayMode}
@@ -81,6 +82,7 @@ const SortBar = ({ displayMode, setDisplayMode, setSortType, sortType, className
                     </ToggleGroupItem>
                 </ToggleGroup>
             </div>
+            <MobileFilter />
             <div className='flex gap-4 h-full'>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild className='focus-visible:outline-none'>
@@ -130,9 +132,9 @@ const SortBar = ({ displayMode, setDisplayMode, setSortType, sortType, className
                         </DropdownMenuRadioGroup>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <Separator orientation='vertical' className='h-full' />
+                <Separator orientation='vertical' className='h-full sm:block hidden' />
                 <DropdownMenu>
-                    <DropdownMenuTrigger asChild className='focus-visible:outline-none'>
+                    <DropdownMenuTrigger asChild className='focus-visible:outline-none sm:flex hidden'>
                         <button className='flex justify-start items-center text-[12px]'>
                             Show: <span className='text-[13px] font-semibold ml-1'>{quantity}</span>
                             <ChevronDown className='ml-3 h-4 w-4' />

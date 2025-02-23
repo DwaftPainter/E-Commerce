@@ -16,7 +16,7 @@ const Order = ({ payMethod, setPayMethod }: Props) => {
     const { cartItems } = useAppContext()
 
     return (
-        <div className='border-[2px] border-secondary2 rounded-sm px-6 py-8 min-w-[400px] h-fit'>
+        <div className='border-[2px] border-secondary2 rounded-sm px-6 py-8 lg:min-w-[400px] h-fit'>
             <h1 className='font-semibold'>YOUR ORDER</h1>
             <Separator className='my-2' />
             <div className='flex justify-between text-sm font-semibold opacity-50'>

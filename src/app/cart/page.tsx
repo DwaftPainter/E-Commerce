@@ -41,13 +41,13 @@ const page = () => {
     }
 
     return (
-        <div className="flex flex-col gap-[90px]">
+        <div className="flex flex-col md:gap-[90px] gap-10">
             <div className="flex flex-col gap-[30px]">
-                <div className="grid grid-cols-[1fr_1fr_1fr_auto] items-center rounded-sm shadow-custom p-[30px]">
+                <div className="sm:grid grid-cols-[1fr_1fr_1fr_auto] flex justify-between items-center rounded-sm shadow-custom p-[30px]">
                     <p>Product</p>
-                    <p>Price</p>
+                    <p className="sm:inline-block hidden">Price</p>
                     <p>Quantity</p>
-                    <p>SubTotal</p>
+                    <p className="sm:inline-block hidden">SubTotal</p>
                 </div>
                 {cartItems?.length === 0 ? (
                     <div className="w-full flex justify-center items-center gap-3 my-8">
@@ -58,7 +58,7 @@ const page = () => {
                     cartItems?.map((item, index) => (
                         <div
                             key={index}
-                            className="grid grid-cols-[1fr_1fr_1fr_auto] items-center rounded-sm shadow-custom p-[30px]"
+                            className="sm:grid grid-cols-[1fr_1fr_1fr_auto] flex justify-between items-center rounded-sm shadow-custom p-[30px]"
                         >
                             <div className="flex items-center gap-3 relative">
                                 <img src={item?.product?.image} alt="" className="h-[54px] w-[54px]" />
@@ -70,7 +70,7 @@ const page = () => {
                                     <X size={12} color="white" />
                                 </span>
                             </div>
-                            <p>${item?.product?.price}</p>
+                            <p className="sm:inline-block hidden">${item?.product?.price}</p>
                             <div className="relative max-w-[70px]">
                                 <Input
                                     type="number"
@@ -103,35 +103,35 @@ const page = () => {
                                     </button>
                                 </div>
                             </div>
-                            <div className="w-[62px] text-center">
+                            <div className="w-[62px] text-center sm:block hidden">
                                 ${(item?.product?.price * item?.quantity).toFixed(2)}
                             </div>
                         </div>
                     ))
                 )}
                 <div className="flex w-full justify-between items-center">
-                    <Button className="bg-transparent hover:bg-button2 rounded-sm h-14 px-12 py-4 text-black hover:text-white font-medium border-black border-opacity-50 border-[1px] hover:border-secondary2">
+                    <Button className="bg-transparent hover:bg-button2 rounded-sm h-14 sm:px-12 px-4 sm:py-4 py-2 text-black hover:text-white font-medium border-black border-opacity-50 border-[1px] hover:border-secondary2">
                         <Link href="/shop">Return To Shop</Link>
                     </Button>
                     <Button
-                        className="bg-transparent hover:bg-button2 rounded-sm h-14 px-12 py-4 text-black hover:text-white font-medium border-black border-opacity-50 border-[1px] hover:border-secondary2"
+                        className="bg-transparent hover:bg-button2 rounded-sm h-14 sm:px-12 px-4 sm:py-4 py-2 text-black hover:text-white font-medium border-black border-opacity-50 border-[1px] hover:border-secondary2"
                         onClick={() => route.refresh()}
                     >
                         Update Cart
                     </Button>
                 </div>
             </div>
-            <div className="flex justify-between">
+            <div className="flex lg:flex-row flex-col gap-4 justify-between">
                 <div className="flex gap-5">
                     <Input
                         placeholder="Coupon Code"
-                        className="rounded-sm border-black outline-none focus-visible:ring-0 h-fit px-5 py-4 w-[300px]"
+                        className="rounded-sm border-black outline-none focus-visible:ring-0 h-fit px-5 py-4 sm:max-w-[300px]"
                     />
-                    <Button className="bg-secondary2 hover:bg-hover2 border border-secondary2 hover:border-hover2 rounded-sm px-12 py-4 font-medium h-fit">
+                    <Button className="bg-secondary2 hover:bg-hover2 border border-secondary2 hover:border-hover2 rounded-sm sm:px-12 px-4 py-4 font-medium h-fit">
                         Apply Coupon
                     </Button>
                 </div>
-                <div className="flex flex-col gap-7 items-start rounded-sm px-5 py-[30px] border border-black w-[470px]">
+                <div className="flex flex-col gap-7 items-start rounded-sm px-5 py-[30px] border border-black lg:w-[470px]">
                     <h1 className="font-medium text-xl">Cart Total</h1>
                     <div className="flex flex-col gap-5 w-full justify-center">
                         <div className="flex justify-between">

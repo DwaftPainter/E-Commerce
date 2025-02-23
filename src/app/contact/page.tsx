@@ -88,7 +88,7 @@ const Contact = () => {
                     </div>
                 </div>
             </div>
-            <div className='col-span-1 lg:col-span-3 rounded-sm shadow-custom px-6 py-8'>
+            <div className='col-span-1 lg:col-span-3 rounded-sm sm:shadow-custom sm:px-6 sm:py-8'>
                 {success && (
                     <p className='text-green-500 font-medium mb-6'>
                         Your message has been successfully sent!
@@ -96,7 +96,7 @@ const Contact = () => {
                 )}
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col items-end gap-8 h-full'>
-                        <div className='flex w-full gap-[5%]'>
+                        <div className='flex sm:flex-row flex-col w-full sm:gap-[5%] gap-4'>
                             <FormField
                                 control={form.control}
                                 name='name'
@@ -104,7 +104,7 @@ const Contact = () => {
                                     <FormItem className='basis-[30%]'>
                                         <FormControl>
                                             <Input
-                                                className='bg-secondary h-[50px]'
+                                                className='bg-secondary h-[50px] rounded-sm'
                                                 placeholder='Your Name'
                                                 {...field}
                                             />
@@ -120,7 +120,7 @@ const Contact = () => {
                                     <FormItem className='basis-[30%]'>
                                         <FormControl>
                                             <Input
-                                                className='bg-secondary h-[50px]'
+                                                className='bg-secondary h-[50px] rounded-sm'
                                                 placeholder='Your Email'
                                                 {...field}
                                             />
@@ -136,7 +136,7 @@ const Contact = () => {
                                     <FormItem className='basis-[30%]'>
                                         <FormControl>
                                             <Input
-                                                className='bg-secondary h-[50px]'
+                                                className='bg-secondary h-[50px] rounded-sm'
                                                 placeholder='Your Phone'
                                                 {...field}
                                             />
@@ -153,7 +153,7 @@ const Contact = () => {
                                 <FormItem className='w-full h-full'>
                                     <FormControl>
                                         <Textarea
-                                            className='bg-secondary h-full'
+                                            className='bg-secondary sm:h-full min-h-[120px] rounded-sm'
                                             placeholder='Your Message'
                                             {...field}
                                         />

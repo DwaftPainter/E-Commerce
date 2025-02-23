@@ -74,7 +74,7 @@ const page = () => {
     }
 
     return (
-        <form className='flex gap-16 justify-between w-full' onSubmit={form.handleSubmit(handleSubmit)}>
+        <form className='flex lg:flex-row flex-col gap-16 justify-between w-full' onSubmit={form.handleSubmit(handleSubmit)}>
             <BillingDetails form={form} />
             <Order payMethod={payMethod} setPayMethod={setPayMethod}/>
         </form>

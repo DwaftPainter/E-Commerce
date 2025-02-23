@@ -31,7 +31,7 @@ const BillingDetails = ({ form }: Props) => {
             <Separator className='my-2' />
             <Form {...form}>
                 <div className='flex flex-col gap-4'>
-                    <div className='flex gap-4 justify-between'>
+                    <div className='flex md:flex-row flex-col gap-4 justify-between w-full'>
                         <BillingInput form={form} name='firstName' label='First Name *' />
                         <BillingInput form={form} name='lastName' label='Last Name *' />
                     </div>
@@ -39,7 +39,7 @@ const BillingDetails = ({ form }: Props) => {
                     <BillingInput form={form} name='streetAddress' label='Street Address *' />
                     <BillingInput form={form} name='city' label='City/Town *' />
                     <BillingInput form={form} name='apartment' label='Apartment, floor, etc. (optional)' />
-                    <div className='flex gap-4'>
+                    <div className='flex md:flex-row flex-col gap-4 w-full'>
                         <BillingInput form={form} name='phone' label='Phone Number *' />
                         <BillingInput form={form} name='email' label='Email Address *' />
                     </div>

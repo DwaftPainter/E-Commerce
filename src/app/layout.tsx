@@ -38,7 +38,7 @@ export default function RootLayout({
                 <AppProvider>
                     <Header />
                     <div className='mt-[96px]' />
-                    <Breadcrumbs className='ml-[200px]' />
+                    <Breadcrumbs />
                     <OrderProvider>
                         <React.Suspense fallback={<Loading2 />}>
                             <div className='2xl:px-[200px] xl:px-16 md:px-10 px-4'>{children}</div>

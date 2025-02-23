@@ -28,9 +28,11 @@ interface Props {
     className?: string
 }
 const MobileMenu = ({ className }: Props) => {
+    const [open, setOpen] = React.useState(false)
+
     return (
-        <Drawer direction='left'>
-            <DrawerTrigger asChild className='lg:hidden block'>
+        <Drawer direction='left' open={open}>
+            <DrawerTrigger asChild className='lg:hidden block' onClick={() => setOpen(prev => !prev)}>
                 <Menu />
             </DrawerTrigger>
             <DrawerContent className='h-full md:max-w-md rounded-none overflow-scroll'>
@@ -38,7 +40,7 @@ const MobileMenu = ({ className }: Props) => {
                     <div className='w-full h-fit'>
                         <DrawerHeader className='flex justify-between items-center w-full'>
                             <DrawerTitle className='text-2xl font-bold'>Neo Store</DrawerTitle>
-                            <DrawerClose className='bg-secondary2 h-5 w-5 bg-opacity-50 rounded-full flex justify-center items-center cursor-pointer'>
+                            <DrawerClose className='bg-secondary2 h-5 w-5 bg-opacity-50 rounded-full flex justify-center items-center cursor-pointer' onClick={() => setOpen(prev => !prev)}>
                                 <X size={16} color={'white'} />
                             </DrawerClose>
                         </DrawerHeader>
@@ -60,6 +62,7 @@ const MobileMenu = ({ className }: Props) => {
                                                 <CollapsibleTrigger asChild>
                                                     <SidebarMenuButton tooltip={item.name} className='mt-4'>
                                                         <Link
+                                                            onClick={() => setOpen(false)}
                                                             href={`shop?filter_cat=${
                                                                 categories.find(
                                                                     category => category.name === item.name
@@ -79,6 +82,7 @@ const MobileMenu = ({ className }: Props) => {
                                                             <SidebarMenuSubItem key={subItem.name}>
                                                                 <SidebarMenuSubButton asChild>
                                                                     <Link
+                                                                        onClick={() => setOpen(false)}
                                                                         href={`shop?filter_cat=${
                                                                             categories
                                                                                 .find(
@@ -111,7 +115,7 @@ const MobileMenu = ({ className }: Props) => {
                         <h1 className='text-sm opacity-55 p-4 font-semibold'>Site Navigation</h1>
                         <nav className='flex flex-col'>
                             {NAV_LINKS.map((link, index) => (
-                                <Link href={link.path} key={link.path} className='cursor-pointer'>
+                                <Link href={link.path} key={link.path} className='cursor-pointer' onClick={() => setOpen(false)}>
                                     <div
                                         className={`border-b ${
                                             index === 0 ? 'border-t' : ''
