@@ -5,10 +5,10 @@ import React from 'react'
 
 interface StarProps {
     totalStars: number
-    initialRating: number
+    initialRating: number | 5
     onChange?: (rating: number) => void
     readOnly?: boolean
-    review: number
+    review: number | 0
 }
 
 const StarRating = ({ totalStars, initialRating, onChange, readOnly, review }: StarProps) => {

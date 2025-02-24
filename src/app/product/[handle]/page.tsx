@@ -1,8 +1,8 @@
 'use client'
 
+import React from 'react'
 import StarRating from '@/components/home/product/StarRating'
 import { Separator } from '@/components/ui/separator'
-import React from 'react'
 import { Heart, Minus, Plus, RefreshCcw, Truck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import HomeLayout from '@/layouts/HomeLayout'
@@ -10,14 +10,14 @@ import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/componen
 import { products } from '@/mock_data'
 import Product from '@/components/home/product/Product'
 import { usePathname, useRouter } from 'next/navigation'
-import Loading from '@/components/ui/loading'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { useAppContext } from '@/context/AppContext'
 import { motion } from 'framer-motion'
 import { ProductType } from '@/types/product.type'
+import Loading2 from '@/components/ui/loading2'
 
 const page = () => {
-    const [product, setProduct] = React.useState<any>({})
+    const [product, setProduct] = React.useState<ProductType | null>(null)
     const [selectedColor, setSelectedColor] = React.useState<string | undefined>(undefined)
     const [size, setSize] = React.useState(null)
     const [quantity, setQuantity] = React.useState(1)
@@ -79,10 +79,10 @@ const page = () => {
         router.push('/cart')
     }
 
-    if (loading) {
+    if (!product) {
         return (
             <div className='w-full min-h-[500px] flex items-center justify-center'>
-                <Loading />
+                <Loading2 />
             </div>
         )
     }
@@ -101,9 +101,9 @@ const page = () => {
                         <h1 className='font-semibold text-[24px] leading-none'>{product?.name}</h1>
                         <div className='flex gap-[16px] items-center'>
                             <StarRating
-                                initialRating={product?.rating}
+                                initialRating={product?.rating || 5}
                                 totalStars={5}
-                                review={product?.review}
+                                review={product?.review || 0}
                                 readOnly={true}
                             />
                             <Separator
@@ -131,7 +131,7 @@ const page = () => {
                     <Separator className='bg-black opacity-50' />
                     <div className='flex flex-col gap-11'>
                         <div className='flex flex-col gap-4'>
-                            {product?.colors.length !== 0 && (
+                            {product?.colors?.length !== 0 && (
                                 <div className='flex gap-4 items-center'>
                                     <p className='text-[20px]'>Colours: </p>
                                     <ToggleGroup
@@ -140,7 +140,7 @@ const page = () => {
                                         type='single'
                                         className='flex items-center h-full'
                                     >
-                                        {product?.colors.map((color: string, index: number) => (
+                                        {product?.colors?.map((color: string, index: number) => (
                                             <div
                                                 key={index}
                                                 className={`rounded-full border-2 flex items-center justify-center p-0.5 ${
@@ -161,11 +161,11 @@ const page = () => {
                                     </ToggleGroup>
                                 </div>
                             )}
-                            {product?.sizes.length !== 0 && (
+                            {product?.sizes?.length !== 0 && (
                                 <div className='flex gap-6 items-center'>
                                     <p className='text-[20px]'>Size: </p>
                                     <div className='flex gap-[16px]'>
-                                        {product?.sizes.map((size: string, index: number) => (
+                                        {product?.sizes?.map((size: string, index: number) => (
                                             <div
                                                 className='flex items-center justify-center h-8 w-8 border rounded-sm hover:bg-secondary2 hover:text-text cursor-pointer'
                                                 key={index}
