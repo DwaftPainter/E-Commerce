@@ -45,6 +45,8 @@ const page = () => {
             try {
                 const response = await fetch(`/api/product/${slug}`)
                 const { data } = await response.json()
+                console.log(slug)
+                console.log(data)
                 setProduct(data)
             } catch (error: any) {
                 console.log('Failed to fetch product: ' + error.message)
@@ -89,7 +91,7 @@ const page = () => {
 
     return (
         <div className='flex flex-col gap-[140px]'>
-            <div className='flex gap-[70px]'>
+            {/* <div className='flex gap-[70px]'>
                 <div className='grid grid-cols-4 grid-rows-3 gap-y-[15px] gap-x-[30px] basis-[60%]'>
                     <img src={product?.image} className='row-[1/2] col-[1/2] rounded-sm h-full' />
                     <img src={product?.image} className='row-[2/3] col-[1/2] rounded-sm h-full' />
@@ -268,7 +270,7 @@ const page = () => {
                         ))}
                     </CarouselContent>
                 </Carousel>
-            </HomeLayout>
+            </HomeLayout> */}
         </div>
     )
 }
