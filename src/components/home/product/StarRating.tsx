@@ -8,12 +8,13 @@ interface StarProps {
     initialRating: number | 5
     onChange?: (rating: number) => void
     readOnly?: boolean
-    review: number | 0
+    review?: number | 0
+    size?: 'small'
 }
 
-const StarRating = ({ totalStars, initialRating, onChange, readOnly, review }: StarProps) => {
-    const [rating, setRating] = React.useState(initialRating);
-    const [hover, setHover] = React.useState(0);
+const StarRating = ({ totalStars, initialRating, onChange, readOnly, review, size }: StarProps) => {
+    const [rating, setRating] = React.useState(initialRating)
+    const [hover, setHover] = React.useState(0)
 
     const handleClick = (selectedRating: number) => {
         if (!readOnly) {
@@ -42,6 +43,7 @@ const StarRating = ({ totalStars, initialRating, onChange, readOnly, review }: S
 
                     return (
                         <button
+                            type='button'
                             key={index}
                             className={`pr-[5px] ${readOnly ? 'cursor-default' : 'cursor-pointer'} `}
                             onClick={() => handleClick(starValue)}
@@ -52,15 +54,22 @@ const StarRating = ({ totalStars, initialRating, onChange, readOnly, review }: S
                             aria-checked={starValue <= rating}
                             aria-posinset={starValue}
                             aria-setsize={totalStars}
-                            role="radio"
+                            role='radio'
                             tabIndex={readOnly ? -1 : 0}
                         >
-                            <Star size={16} className={`${starValue <= (hover || rating) ? "text-[#FFAD33] fill-[#FFAD33]" : "text-text2 fill-text2 opacity-25"} `} />
+                            <Star
+                                size={size === 'small' ? 12 : 16}
+                                className={`${
+                                    starValue <= (hover || rating)
+                                        ? 'text-[#FFAD33] fill-[#FFAD33]'
+                                        : 'text-text2 fill-text2 opacity-25'
+                                } `}
+                            />
                         </button>
                     )
                 })}
             </div>
-            <span className='text-[14px] opacity-50 font-semibold'>({review})</span>
+            {readOnly ? <span className='text-[14px] opacity-50 font-semibold'>({review})</span> : <></>}
         </div>
     )
 }

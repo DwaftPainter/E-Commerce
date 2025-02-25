@@ -156,4 +156,46 @@ export const banners = [
     'https://mir-s3-cdn-cf.behance.net/project_modules/fs/c3c29f190817739.65c131bd14553.png'
 ]
 
-
+export const reviews = [
+    {
+      id: 1,
+      product_id: 101,
+      user_id: 1001,
+      rating: 5,
+      comment: "Excellent quality! Fast delivery and well-packaged.",
+      created_at: "2025-02-25T10:30:00Z"
+    },
+    {
+      id: 2,
+      product_id: 101,
+      user_id: 1002,
+      rating: 4,
+      comment: "Good product, but the packaging could be better.",
+      created_at: "2025-02-24T14:15:00Z"
+    },
+    {
+      id: 3,
+      product_id: 102,
+      user_id: 1003,
+      rating: 3,
+      comment: "Average quality, but worth the price.",
+      created_at: "2025-02-23T08:50:00Z"
+    },
+    {
+      id: 4,
+      product_id: 103,
+      user_id: 1004,
+      rating: 1,
+      comment: "Received a damaged product. Very disappointed!",
+      created_at: "2025-02-22T18:20:00Z"
+    },
+    {
+      id: 5,
+      product_id: 101,
+      user_id: 1005,
+      rating: 5,
+      comment: "Absolutely love it! Will buy again.",
+      created_at: "2025-02-21T12:05:00Z"
+    }
+  ];
+  

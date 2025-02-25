@@ -37,6 +37,10 @@ const UserSchema = new mongoose.Schema(
             maxLength: 50,
             trim: true
         },
+        avatar: {
+            type: String,
+            default: 'https://i.pinimg.com/736x/3c/67/75/3c67757cef723535a7484a6c7bfbfc43.jpg'
+        },
         email: {
             type: String,
             required: true,

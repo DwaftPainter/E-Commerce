@@ -15,6 +15,7 @@ import { useAppContext } from '@/context/AppContext'
 import { motion } from 'framer-motion'
 import { ProductType } from '@/types/product.type'
 import Loading2 from '@/components/ui/loading2'
+import ProductTab from './components/ProductTab'
 
 const page = () => {
     const [product, setProduct] = React.useState<ProductType | null>(null)
@@ -45,8 +46,6 @@ const page = () => {
             try {
                 const response = await fetch(`/api/product/${slug}`)
                 const { data } = await response.json()
-                console.log(slug)
-                console.log(data)
                 setProduct(data)
             } catch (error: any) {
                 console.log('Failed to fetch product: ' + error.message)
@@ -90,15 +89,15 @@ const page = () => {
     }
 
     return (
-        <div className='flex flex-col gap-[140px]'>
-            {/* <div className='flex gap-[70px]'>
-                <div className='grid grid-cols-4 grid-rows-3 gap-y-[15px] gap-x-[30px] basis-[60%]'>
-                    <img src={product?.image} className='row-[1/2] col-[1/2] rounded-sm h-full' />
-                    <img src={product?.image} className='row-[2/3] col-[1/2] rounded-sm h-full' />
-                    <img src={product?.image} className='row-[3/4] col-[1/2] rounded-sm h-full' />
-                    <img src={product?.image} className='row-[1/4] col-[2/5] w-full h-full rounded-sm' />
+        <div className='flex flex-col gap-16'>
+            <div className='flex lg:flex-row flex-col sm:gap-[70px] gap-10'>
+                <div className='grid grid-cols-3 xl:grid-cols-4 grid-rows-3 gap-y-[15px] gap-x-3 xl:gap-x-[30px] basis-[50%] xl:basis-[60%]'>
+                    <img src={product?.image} className='col-[1/2] row-[3/4] xl:row-[1/2] xl:col-[1/2] rounded-sm h-full' />
+                    <img src={product?.image} className='col-[2/3] row-[3/4] xl:row-[2/3] xl:col-[1/2] rounded-sm h-full    ' />
+                    <img src={product?.image} className='col-[3/4] row-[3/4] xl:row-[3/4] xl:col-[1/2] rounded-sm h-full' />
+                    <img src={product?.image} className='col-[1/4] row-[1/3] xl:row-[1/4] xl:col-[2/5] w-full h-full rounded-sm' />
                 </div>
-                <div className='basis-[40%] flex flex-col gap-[30px] h-auto'>
+                <div className='basis-[50%] xl:basis-[40%] flex flex-col gap-[30px] h-auto'>
                     <div className='flex flex-col gap-[24px] h-auto'>
                         <h1 className='font-semibold text-[24px] leading-none'>{product?.name}</h1>
                         <div className='flex gap-[16px] items-center'>
@@ -252,6 +251,7 @@ const page = () => {
                     </div>
                 </div>
             </div>
+            <ProductTab product={product}/>
             <HomeLayout title='Related Item'>
                 <Carousel
                     opts={{
@@ -270,7 +270,7 @@ const page = () => {
                         ))}
                     </CarouselContent>
                 </Carousel>
-            </HomeLayout> */}
+            </HomeLayout>
         </div>
     )
 }
