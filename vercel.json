@@ -1,10 +1,6 @@
 {
     "rewrites": [
         { "source": "/api/(.*)", "destination": "/api/$1" },
-        { "source": "/product/:slug", "destination": "/product/:slug" },
-        { "source": "/(.*)", "destination": "/" }
-    ],
-    "redirects": [
-        { "source": "/not-found", "destination": "/404", "statusCode": 404 }
+        { "source": "/product/:slug", "destination": "/product/:slug" }
     ]
 }
