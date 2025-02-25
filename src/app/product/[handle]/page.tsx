@@ -16,6 +16,7 @@ import { motion } from 'framer-motion'
 import { ProductType } from '@/types/product.type'
 import Loading2 from '@/components/ui/loading2'
 import ProductTab from './components/ProductTab'
+import { isNull } from 'util'
 
 const page = () => {
     const [product, setProduct] = React.useState<ProductType | null>(null)
@@ -28,6 +29,7 @@ const page = () => {
     const slug = usePathname().split('/').pop()
     const { wishItems, addToWishList, addToCart } = useAppContext()
     const router = useRouter()
+    const [selectedImage, setSelectedImage] = React.useState(null)
 
     React.useEffect(() => {
         if (!api) {
@@ -47,6 +49,7 @@ const page = () => {
                 const response = await fetch(`/api/product/${slug}`)
                 const { data } = await response.json()
                 setProduct(data)
+                setSelectedImage(data.featuredImage[0])
             } catch (error: any) {
                 console.log('Failed to fetch product: ' + error.message)
             } finally {
@@ -76,6 +79,8 @@ const page = () => {
     }
 
     const handleBuyProduct = (product: ProductType, quantity: number) => {
+        console.log(quantity)
+        if (quantity > 0)
         addToCart(product, quantity)
         router.push('/cart')
     }
@@ -90,12 +95,28 @@ const page = () => {
 
     return (
         <div className='flex flex-col gap-16'>
-            <div className='flex lg:flex-row flex-col sm:gap-[70px] gap-10'>
-                <div className='grid grid-cols-3 xl:grid-cols-4 grid-rows-3 gap-y-[15px] gap-x-3 xl:gap-x-[30px] basis-[50%] xl:basis-[60%]'>
-                    <img src={product?.image} className='col-[1/2] row-[3/4] xl:row-[1/2] xl:col-[1/2] rounded-sm h-full' />
-                    <img src={product?.image} className='col-[2/3] row-[3/4] xl:row-[2/3] xl:col-[1/2] rounded-sm h-full    ' />
-                    <img src={product?.image} className='col-[3/4] row-[3/4] xl:row-[3/4] xl:col-[1/2] rounded-sm h-full' />
-                    <img src={product?.image} className='col-[1/4] row-[1/3] xl:row-[1/4] xl:col-[2/5] w-full h-full rounded-sm' />
+            <div className='flex lg:flex-row flex-col sm:gap-[70px] gap-10 items-stretch'>
+                <div className='flex 2xl:flex-row flex-col-reverse gap-10 basis-[60%]'>
+                    {product?.featuredImage && (
+                        <div className='flex flex-row 2xl:flex-col gap-6 w-full justify-center 2 2xl:justify-start'>
+                            {product?.featuredImage.map((image, index) => (
+                                <img
+                                    key={index}
+                                    src={image}
+                                    className={`rounded-sm w-[60px] h-[60px] sm:w-[100px] sm:h-[100px] object-cover object-center ${
+                                        selectedImage === image
+                                            ? 'border-secondary2 border-[2px]'
+                                            : 'border-transparent cursor-pointer'
+                                    }`}
+                                    onClick={() => setSelectedImage(image)}
+                                />
+                            ))}
+                        </div>
+                    )}
+                    <img
+                        src={selectedImage || product?.image}
+                        className={`${product?.featuredImage ? '2xl:w-[600px]' : '2xl:w-full'} w-full sm:h-[580px] h-auto aspect-square rounded-sm object-cover object-center`}
+                    />
                 </div>
                 <div className='basis-[50%] xl:basis-[40%] flex flex-col gap-[30px] h-auto'>
                     <div className='flex flex-col gap-[24px] h-auto'>
@@ -251,7 +272,7 @@ const page = () => {
                     </div>
                 </div>
             </div>
-            <ProductTab product={product}/>
+            <ProductTab product={product} />
             <HomeLayout title='Related Item'>
                 <Carousel
                     opts={{
@@ -262,7 +283,7 @@ const page = () => {
                 >
                     <CarouselContent>
                         {products?.map((product, index) => (
-                            <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/5'>
+                            <CarouselItem key={index} className='md:basis-1/4 lg:basis-1/5'>
                                 <div className='p-1'>
                                     <Product product={product} />
                                 </div>

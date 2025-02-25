@@ -7,6 +7,7 @@ export type ProductType = {
     brand?: string
     discount: number
     image: string
+    featuredImage?: [],
     category?: string
     review?: number
     rating?: number

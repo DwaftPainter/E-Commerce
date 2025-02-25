@@ -9,6 +9,7 @@ import { AppProvider } from '@/context/AppContext'
 import { OrderProvider } from '@/context/OrderContext'
 import React from 'react'
 import Loading2 from '@/components/ui/loading2'
+import MobileNav from '@/components/mobile-nav'
 
 
 const geistSans = Geist({
@@ -45,6 +46,7 @@ export default function RootLayout({
                         </React.Suspense>
                     </OrderProvider>
                     <Footer />      
+                    <MobileNav />
                 </AppProvider>
             </body>
         </html>

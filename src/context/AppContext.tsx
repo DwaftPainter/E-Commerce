@@ -77,7 +77,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             const cartItem = cartItems[productIndex]
             const updatedCartItem = {
                 ...cartItem,
-                quantity: cartItem.quantity + 1
+                quantity: quantity ? cartItem.quantity + quantity : cartItem.quantity + 1
             }
 
             const updatedCartItems = [...cartItems]
@@ -88,7 +88,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify({ productId: product._id, quantity: cartItem.quantity + 1 })
+                body: JSON.stringify({
+                    productId: product._id,
+                    quantity: quantity ? cartItem.quantity + quantity : cartItem.quantity + 1
+                })
             })
         } else {
             setCartItems(prevCartItems => [...prevCartItems, { product, quantity: 1 }])
@@ -97,7 +100,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify({ productId: product._id, quantity: quantity || 1 }),
+                body: JSON.stringify({ productId: product._id, quantity: quantity || 1 })
             })
         }
     }
@@ -182,7 +185,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
 
     const cartCount = cartItems?.reduce((total, current) => total + current.quantity, 0)
-    const cartTotal = cartItems?.reduce((total, current) => total + current.product.price * current.quantity, 0)
+    const cartTotal = cartItems?.reduce(
+        (total, current) => total + current.product.price * current.quantity,
+        0
+    )
 
     //WishList Modifify Function
     const addToWishList = async (product: ProductType) => {
