@@ -15,7 +15,7 @@ const Error = () => {
                 </p>
             </div>
             <Link href='/'>
-                <Button className='bg-secondary2 hover:bg-hover2 rounded-md h-[48px] sm:h-[56px] px-[32px] sm:px-[48px] py-[12px] sm:py-[16px] font-medium'>
+                <Button className='bg-secondary2 hover:bg-hover2 rounded-sm  h-[48px] sm:h-[56px] px-[32px] sm:px-[48px] py-[12px] sm:py-[16px] font-medium'>
                     Back to home page
                 </Button>
             </Link>

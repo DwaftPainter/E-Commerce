@@ -33,8 +33,7 @@ const gridConfig = {
 
 const ProductDisplay = ({ className }: Props) => {
     const { products, displayMode, setDisplayMode, sortType, setSortType, loading } = useShopContext()
-    console.log('🚀 ~ ProductDisplay ~ loading:', loading)
-
+    
     return (
         <div className={cn('flex flex-col w-full', className)}>
             <SortBar

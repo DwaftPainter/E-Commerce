@@ -117,6 +117,7 @@ export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children
             const res = await fetch(`/api/product/?${params.toString()}`)
             const { data, total } = await res.json()
             setProducts(data)
+            console.log(total)  
             setTotalPages(total)
             setLoading(false)
         }

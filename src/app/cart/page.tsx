@@ -65,7 +65,7 @@ const page = () => {
                                 <p>{item?.product?.name}</p>
                                 <span
                                     className="absolute top-[-8px] left-[-8px] bg-secondary2 hover:bg-hover2 rounded-full h-[18px] w-[18px] flex items-center justify-center cursor-pointer"
-                                    onClick={() => removeFromCart(item.product._id)}
+                                    onClick={() => removeFromCart(item?.product?._id)}
                                 >
                                     <X size={12} color="white" />
                                 </span>
@@ -74,12 +74,12 @@ const page = () => {
                             <div className="relative max-w-[70px]">
                                 <Input
                                     type="number"
-                                    value={item.quantity}
+                                    value={item?.quantity}
                                     min={1}
                                     className="max-w-[70px] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none appearance-none pr-6"
-                                    onChange={(e) => handleOnChange(item.product._id, e)}
+                                    onChange={(e) => handleOnChange(item?.product?._id, e)}
                                     onBlur={(e) =>
-                                        handleQuantityChange(item.product._id, parseInt(e.target.value))
+                                        handleQuantityChange(item?.product?._id, parseInt(e.target.value))
                                     }
                                 />
                                 <div className="flex flex-col absolute top-[2px] left-12 z-50">
@@ -88,7 +88,7 @@ const page = () => {
                                             size={16}
                                             className="cursor-pointer"
                                             onClick={() =>
-                                                handleQuantityChange(item.product._id, item.quantity + 1)
+                                                handleQuantityChange(item?.product?._id, item?.quantity + 1)
                                             }
                                         />
                                     </button>
@@ -97,7 +97,7 @@ const page = () => {
                                             size={16}
                                             className="cursor-pointer"
                                             onClick={() =>
-                                                handleQuantityChange(item.product._id, item.quantity - 1)
+                                                handleQuantityChange(item?.product?._id, item?.quantity - 1)
                                             }
                                         />
                                     </button>

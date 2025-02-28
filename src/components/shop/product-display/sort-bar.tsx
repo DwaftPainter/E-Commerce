@@ -119,13 +119,13 @@ const SortBar = ({ displayMode, setDisplayMode, setSortType, sortType, className
                             </DropdownMenuRadioItem>
                             <DropdownMenuRadioItem
                                 className='focus:text-hover2 data-[state=checked]:text-secondary2'
-                                value='low'
+                                value='asc'
                             >
                                 Sort by price: low to high
                             </DropdownMenuRadioItem>
                             <DropdownMenuRadioItem
                                 className='focus:text-hover2 data-[state=checked]:text-secondary2'
-                                value='high'
+                                value='desc'
                             >
                                 Sort by latest: high to low
                             </DropdownMenuRadioItem>

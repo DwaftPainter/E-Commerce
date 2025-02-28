@@ -9,7 +9,6 @@ import { Heart, Home, Search, Store, User } from 'lucide-react'
 const MobileNav = () => {
     const { user, wishListCount } = useAppContext()
     const paths = usePathname().split('/').filter(Boolean)
-    console.log("🚀 ~ MobileNav ~ paths:", paths)
 
     return (
         <div className='w-full h-14 fixed bottom-0 left-0 border sm:hidden flex justify-between items-center bg-white px-4 py-2 z-50'>

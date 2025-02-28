@@ -67,7 +67,7 @@ export const GET = async (req: NextRequest) => {
         const startIndex = (page - 1) * perPage
         const endIndex = startIndex + perPage
         const paginatedProducts = filteredProducts.slice(startIndex, endIndex)
-        const totalPages = Math.ceil(products.length / perPage)
+        const totalPages = Math.ceil(filteredProducts.length / perPage)
 
         console.log(paginatedProducts)
         return NextResponse.json(

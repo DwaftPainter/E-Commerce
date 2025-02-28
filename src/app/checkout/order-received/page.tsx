@@ -53,7 +53,7 @@ const page = () => {
                     <p className="font-bold">
                         $
                         {order?.items
-                            ?.reduce((total, item) => total + item.product.price * item.quantity, 5)
+                            ?.reduce((total, item) => total + item?.product?.price * item?.quantity, 5)
                             .toFixed(2)}
                     </p>
                 </div>
@@ -85,7 +85,7 @@ const page = () => {
                             <td className="p-2 border">
                                 $
                                 {order?.items
-                                    ?.reduce((total, item) => total + item.product.price * item.quantity, 0)
+                                    ?.reduce((total, item) => total + item?.product?.price * item?.quantity, 0)
                                     .toFixed(2)}
                             </td>
                         </tr>
@@ -106,7 +106,7 @@ const page = () => {
                             <td className="p-2 border">
                                 $
                                 {order?.items
-                                    ?.reduce((total, item) => total + item.product.price * item.quantity, 5)
+                                    ?.reduce((total, item) => total + item?.product?.price * item?.quantity, 5)
                                     .toFixed(2)}
                             </td>
                         </tr>

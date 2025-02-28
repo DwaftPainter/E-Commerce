@@ -85,7 +85,7 @@ const Product = ({ product, isWishlist, className, height }: ProductProps) => {
                 </div>
                 <div
                     className={`bg-black text-text text-center w-full font-medium py-[8.5px] absolute bottom-0 rounded-bl-[4px] rounded-br-[4px] cursor-pointer ${
-                        isWishlist ? 'visible' : 'invisible group-hover:visible'
+                        isWishlist ? 'visible' : 'sm:invisible group-hover:visible'
                     } `}
                     onClick={() => {
                         handleAddToCartClick(product)

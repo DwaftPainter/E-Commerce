@@ -198,7 +198,7 @@ const page = () => {
                                     </div>
                                 </div>
                             )}
-                            <div className='w-full flex gap-4 items-center'>
+                            <div className='w-full flex gap-4 items-center  '>
                                 <div className='grid grid-cols-4'>
                                     <button
                                         onClick={decreaseQuantity}
@@ -217,7 +217,7 @@ const page = () => {
                                     </button>
                                 </div>
                                 <Button
-                                    className='py-[10px] px-[48px] rounded-sm font-medium bg-button2 hover:bg-hover2 h-auto'
+                                    className='py-[10px] sm:px-[48px] px-4 rounded-sm font-medium bg-button2 hover:bg-hover2 h-auto'
                                     onClick={() => handleBuyProduct(product, quantity)}
                                 >
                                     Buy Now

@@ -83,7 +83,7 @@ const Products = () => {
                 </div>
                 {/* <CarouselContent className='gird sm:grid-cols-5 grid-cols-2 grid-rows-2'> */}
                 <CarouselContent>
-                    {products.map((product, index) => (
+                    {products?.map((product, index) => (
                         <CarouselItem key={index} className='lg:basis-1/5 md:basis-1/4 sm:basis-1/3 basis-1/2'>
                             <div className='p-1'>
                                 <Product product={product} />

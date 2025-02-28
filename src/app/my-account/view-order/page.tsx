@@ -1,7 +1,11 @@
+'use client'
+
 import React from 'react'
-import Loading2 from '../ui/loading2'
 import { useSearchParams } from 'next/navigation'
 import { OrderType } from '@/types/order.type'
+import Loading2 from '@/components/ui/loading2'
+import { formatDate } from '@/utils/formatDate'
+import { Separator } from '@/components/ui/separator'
 
 const ViewOrder = () => {
     const [order, setOrder] = React.useState<OrderType | null>(null)
@@ -31,7 +35,12 @@ const ViewOrder = () => {
     }
 
     return (
-        <div className='w-full flex flex-col justify-start'>
+        <div className='w-full flex flex-col justify-start gap-10'>
+            <p className='text-sm'>
+                Order <span className='bg-[#FCF8E3]'>#{order?._id?.toString()}</span> was placed on{' '}
+                <span className='bg-[#FCF8E3]'>{formatDate(order?.createdAt?.toString())}</span> and is
+                currently <span className='bg-[#FCF8E3]'>{order?.status}</span>.
+            </p>
             <h1 className='font-2xl font-bold mb-2'>ORDER DETAILS</h1>
             <table className='w-full'>
                 <thead>
@@ -52,7 +61,7 @@ const ViewOrder = () => {
                         <td className='p-2 border'>
                             $
                             {order?.items
-                                ?.reduce((total, item) => total + item.product.price * item.quantity, 0)
+                                ?.reduce((total, item) => total + item?.product?.price * item.quantity, 0)
                                 .toFixed(2)}
                         </td>
                     </tr>
@@ -71,12 +80,26 @@ const ViewOrder = () => {
                         <td className='p-2 border'>
                             $
                             {order?.items
-                                ?.reduce((total, item) => total + item.product.price * item.quantity, 5)
+                                ?.reduce((total, item) => total + item?.product?.price * item.quantity, 5)
                                 .toFixed(2)}
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <div className='flex flex-col justify-between '>
+                <h1 className='font-2xl font-bold'>Billing Address</h1>
+                <Separator className='my-2'/>
+                <p>Name: {order?.shippingAddress?.lastName + ' ' + order?.shippingAddress?.firstName}</p>
+                <p>Phone: {order?.shippingAddress?.phone}</p>
+                <p>
+                    Address:{' '}
+                    {order?.shippingAddress?.apartment +
+                        ', ' +
+                        order?.shippingAddress?.streetAddress +
+                        ', ' +
+                        order?.shippingAddress?.city}
+                </p>
+            </div>
         </div>
     )
 }

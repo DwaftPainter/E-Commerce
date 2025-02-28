@@ -61,7 +61,7 @@ const Orders = () => {
                             </p>
                         </div>
                         <Button className='bg-secondary2 hover:bg-hover2 rounded-sm'>
-                            <Link href={`/view-order/?orderId=${order?._id}`}>View</Link>
+                            <Link href={`my-account/view-order/?orderId=${order?._id}`}>View</Link>
                         </Button>
                     </div>
                     <div className='border-t p-5 flex flex-col gap-4'>
