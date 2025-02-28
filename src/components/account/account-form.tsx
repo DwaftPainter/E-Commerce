@@ -34,19 +34,19 @@ const AccountForm = () => {
     })
 
     return (
-        <div className='flex flex-col rounded-sm shadow-custom px-20 py-12 w-full '>
+        <div className='flex flex-col rounded-sm sm:border sm:px-20 sm:py-12 w-full '>
             <h1 className='font-medium text-xl text-secondary2 mb-7'>Edit Your Profile</h1>
             <Form {...form}>
                 <form
                     // onSubmit={form.handleSubmit(onSubmit)}
                     className='flex flex-col items-end gap-7 h-full'
                 >
-                    <div className='flex w-full gap-[5%]'>
+                    <div className='flex w-full gap-[2%] sm:flex-row flex-col'>
                         <FormField
                             control={form.control}
                             name='firstName'
                             render={({ field }) => (
-                                <FormItem className='basis-[50%]'>
+                                <FormItem className='sm:basis-[50%]'>
                                     <FormLabel>Fisrt Name</FormLabel>
                                     <FormControl>
                                         <Input
@@ -63,7 +63,7 @@ const AccountForm = () => {
                             control={form.control}
                             name='lastName'
                             render={({ field }) => (
-                                <FormItem className='basis-[50%]'>
+                                <FormItem className='sm:basis-[50%] w-full'>
                                     <FormLabel>Last Name</FormLabel>
                                     <FormControl>
                                         <Input
@@ -77,12 +77,12 @@ const AccountForm = () => {
                             )}
                         />
                     </div>
-                    <div className='flex w-full gap-[5%]'>
+                    <div className='flex w-full gap-[2%] sm:flex-row flex-col'>
                         <FormField
                             control={form.control}
                             name='email'
                             render={({ field }) => (
-                                <FormItem className='basis-[50%]'>
+                                <FormItem className='sm:basis-[50%]'>
                                     <FormLabel>Email</FormLabel>
                                     <FormControl>
                                         <Input
@@ -99,7 +99,7 @@ const AccountForm = () => {
                             control={form.control}
                             name='address'
                             render={({ field }) => (
-                                <FormItem className='basis-[50%]'>
+                                <FormItem className='sm:basis-[50%]'>
                                     <FormLabel>Address</FormLabel>
                                     <FormControl>
                                         <Input

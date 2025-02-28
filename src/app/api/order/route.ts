@@ -39,7 +39,7 @@ export const GET = async (req: NextRequest) => {
 
         const order = orderId
             ? await OrderModel.findOne({ _id: orderId, userId: userId }).populate('items.product')
-            : await OrderModel.find({ userId: userId });
+            : await OrderModel.find({ userId: userId }).populate('items.product', 'name image price');
 
         return NextResponse.json({ message: "success", data: order }, { status: 200 });
     } catch (error: any) {
