@@ -53,15 +53,21 @@ const page = () => {
 
     return (
         <div className='mt-20 flex gap-[130px]'>
-            <img className='-ml-[135px] w-[65%] max-h-[800px]' src='/assets/images/side-image.png' alt='' />
+            <img
+                className='2xl:-ml-[200px] xl:-ml-16 md:-ml-10 -ml-4 w-[70%] max-h-[800px] lg:block hidden'
+                src='/assets/images/side-image.png'
+                alt=''
+            />
             <Form {...form}>
                 <form
                     action=''
-                    className='flex w-[35%] flex-col gap-10 justify-center items-center -mr-[135px]'
+                    className='flex lg:w-[35%] w-full flex-col gap-10 justify-center items-center 2xl:-mr-[200px]'
                     onSubmit={form.handleSubmit(onSubmit)}
                 >
-                    <div className='flex flex-col gap-6 w-full items-start'>
-                        <h1 className='font-medium text-[36px] tracking-widest'>Log in to Exclusive</h1>
+                    <div className='flex flex-col gap-6 w-full lg:items-start lg:mt-0 mt-16'>
+                        <h1 className='lg:font-medium font-bold lg:text-[36px] text-2xl tracking-widest lg:self-start self-center'>
+                            Log in to Exclusive
+                        </h1>
                         <p className=''>Enter your detail below</p>
                     </div>
                     <FormField
@@ -103,7 +109,7 @@ const page = () => {
                         <Button
                             disabled={loading}
                             type='submit'
-                            className='bg-secondary2 text-text text-[16px] font-medium  hover:bg-hover2 rounded-sm py-4 px-12 h-auto'
+                            className='bg-secondary2 text-text text-[16px] font-medium  hover:bg-hover2 rounded-lg lg:py-4 py-2 lg:px-12 px-4 h-auto'
                         >
                             {loading ? 'Submiting' : 'Log in'}
                         </Button>
