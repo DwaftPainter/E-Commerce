@@ -46,7 +46,7 @@ function Banner({ items, interval, className }: bannerProps) {
                         <CarouselItem key={index}>
                             <div>
                                 <CardContent className='w-full sm:h-[425px] h-auto p-0'>
-                                    <img src={banner} className='w-full h-full object-cover rounded-sm' />
+                                    <img src={banner} className='w-full h-full object-cover rounded-sm sm:aspect-auto aspect-square' />
                                 </CardContent>
                             </div>
                         </CarouselItem>

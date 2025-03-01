@@ -1,10 +1,10 @@
 'use client'
 
 import React from 'react'
-import ProductDisplay from '@/components/shop/product-display'
-import ShopSidebar from '@/components/shop/side-bar'
+import ShopSidebar from '@/app/shop/components/side-bar'
 import { ShopProvider } from '@/context/ShopConntext'
 import Loading2 from '@/components/ui/loading2'
+import ProductDisplay from './components/product-display'
 
 const page = () => {
     return (

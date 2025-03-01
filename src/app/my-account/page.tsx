@@ -1,7 +1,7 @@
 import React from 'react'
-import Orders from '@/components/account/orders'
-import AccountForm from '@/components/account/account-form'
+import AccountForm from '@/app/my-account/components/account-form'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import Orders from './components/orders'
 
 const page = () => {
 

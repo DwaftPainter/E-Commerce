@@ -4,12 +4,12 @@ import './globals.css'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { Separator } from '@/components/ui/separator'
-import Breadcrumbs from '@/components/breadcrumb'
+import Breadcrumbs from '@/components/navigation/breadcrumb'
 import { AppProvider } from '@/context/AppContext'
 import { OrderProvider } from '@/context/OrderContext'
 import React from 'react'
 import Loading2 from '@/components/ui/loading2'
-import MobileNav from '@/components/mobile-nav'
+import MobileNav from '@/components/navigation/mobile-nav'
 
 const geistSans = Geist({
     variable: '--font-geist-sans',

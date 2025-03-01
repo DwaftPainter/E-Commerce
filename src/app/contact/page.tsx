@@ -60,7 +60,7 @@ const Contact = () => {
 
     return (
         <div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
-            <div className='flex flex-col gap-8 h-auto lg:h-[450px] col-span-1 rounded-sm shadow-custom p-6'>
+            <div className='flex flex-col gap-8 h-auto lg:h-[450px] col-span-1 rounded-sm border  p-6'>
                 <div className='flex flex-col gap-6'>
                     <div className='flex gap-4 items-center'>
                         <span className='w-10 h-10 bg-secondary2 rounded-full flex justify-center items-center'>
@@ -88,7 +88,7 @@ const Contact = () => {
                     </div>
                 </div>
             </div>
-            <div className='col-span-1 lg:col-span-3 rounded-sm sm:shadow-custom sm:px-6 sm:py-8'>
+            <div className='col-span-1 lg:col-span-3 rounded-sm sm:border sm:px-6 sm:py-8'>
                 {success && (
                     <p className='text-green-500 font-medium mb-6'>
                         Your message has been successfully sent!

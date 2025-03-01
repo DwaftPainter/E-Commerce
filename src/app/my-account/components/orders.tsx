@@ -2,9 +2,9 @@
 
 import { formatDate } from '@/utils/formatDate'
 import React from 'react'
-import { Button } from '../ui/button'
 import { OrderType } from '@/types/order.type'
 import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 const Orders = () => {
     const [orders, setOrders] = React.useState<OrderType[]>([])
@@ -13,7 +13,6 @@ const Orders = () => {
         async function getOrders() {
             const res = await fetch('/api/order')
             const { data } = await res.json()
-
             setOrders(data)
             console.log(data)
         }
@@ -38,7 +37,7 @@ const Orders = () => {
                     <div className='w-full h-fit flex justify-between sm:gap-0 gap-4 sm:items-center items-start py-6 px-5'>
                         <div className='flex flex-col justify-center items-start text-sm'>
                             <p className='font-bold'>Order number:</p>
-                            <p>{order?._id?.toString()}</p>
+                            <p>#{order?._id?.toString().split('').slice(0, 4).join('')}</p>
                         </div>
                         <div className='sm:flex hidden flex-col justify-center items-start text-sm'>
                             <p className='font-bold'>Date:</p>

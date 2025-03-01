@@ -4,7 +4,8 @@ import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useAppContext } from '@/context/AppContext'
-import { Heart, Home, Search, Store, User } from 'lucide-react'
+import { Heart, Home, Store, User } from 'lucide-react'
+import Search from './mobileSearch'
 
 const MobileNav = () => {
     const { user, wishListCount } = useAppContext()
@@ -16,10 +17,7 @@ const MobileNav = () => {
                 {paths?.length >= 0 && paths[0] !== 'shop' ? <Store size={20} /> :  <Home size={20} />}
                 <p className='text-[10px]'>{paths?.length >= 0 && paths[0] !== 'shop' ? 'Store' : 'Home'}</p>
             </Link>
-            <Link href='/' className='flex flex-col items-center justify-center'>
-                <Search size={20} />
-                <p className='text-[10px]'>Search</p>
-            </Link>
+            <Search />
             <Link href='/wishlist' className='flex flex-col items-center justify-center'>
                 <div className='relative'>
                     <Heart className='cursor-pointer' />

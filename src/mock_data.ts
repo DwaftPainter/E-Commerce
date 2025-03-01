@@ -1,27 +1,7 @@
 export const leaders = [
     {
-        name: 'Dwarf Painter',
-        image: 'assets/images/leader_01.jpg', // Replace with actual image URLs
-        position: 'Developer',
-        socials: {
-            twitter: 'https://twitter.com/dwarfpainter',
-            instagram: 'https://instagram.com/dwarfpainter',
-            linkedin: 'https://linkedin.com/in/dwarfpainter'
-        }
-    },
-    {
-        name: 'Mountain Sculptor',
-        image: 'assets/images/leader_02.jpg', // Replace with actual image URLs
-        position: 'Artist',
-        socials: {
-            twitter: 'https://twitter.com/mountainsculptor',
-            instagram: 'https://instagram.com/mountainsculptor',
-            linkedin: 'https://linkedin.com/in/mountainsculptor'
-        }
-    },
-    {
-        name: 'River Whisperer',
-        image: 'assets/images/leader_03.jpg', // Replace with actual image URLs
+        name: 'Tom Hiddleston',
+        image: 'https://i.pinimg.com/736x/45/7e/f1/457ef11030ed2fd8d0849694fb5c0df8.jpg', // Replace with actual image URLs
         position: 'Project Manager',
         socials: {
             twitter: 'https://twitter.com/riverwhisperer',
@@ -30,8 +10,18 @@ export const leaders = [
         }
     },
     {
+        name: 'Mountain Sculptor',
+        image: 'https://i.pinimg.com/736x/1f/ee/0d/1fee0d787d677c4fa77a3ed418de2f86.jpg', // Replace with actual image URLs
+        position: 'Artist',
+        socials: {
+            twitter: 'https://twitter.com/mountainsculptor',
+            instagram: 'https://instagram.com/mountainsculptor',
+            linkedin: 'https://linkedin.com/in/mountainsculptor'
+        }
+    },
+    {
         name: 'Sky Dreamer',
-        image: 'assets/images/leader_05.jpg', // Replace with actual image URLs
+        image: 'https://i.pinimg.com/736x/e0/2a/3b/e02a3be82cb40ed11454d52ecb666b69.jpg', // Replace with actual image URLs
         position: 'Designer',
         socials: {
             twitter: 'https://twitter.com/skydreamer',
@@ -41,12 +31,22 @@ export const leaders = [
     },
     {
         name: 'Forest Seeker',
-        image: 'assets/images/leader_04.jpg', // Replace with actual image URLs
+        image: 'https://i.pinimg.com/736x/dc/10/aa/dc10aafc68d384622f59edb3919a924d.jpg', // Replace with actual image URLs
         position: 'Engineer',
         socials: {
             twitter: 'https://twitter.com/forestseeker',
             instagram: 'https://instagram.com/forestseeker',
             linkedin: 'https://linkedin.com/in/forestseeker'
+        }
+    },
+    {
+        name: 'Dwarf Painter',
+        image: 'https://i.pinimg.com/736x/44/64/8d/44648dc6f8d6ce38a1d13c33405d1265.jpg', // Replace with actual image URLs
+        position: 'Developer',
+        socials: {
+            twitter: 'https://twitter.com/dwarfpainter',
+            instagram: 'https://instagram.com/dwarfpainter',
+            linkedin: 'https://linkedin.com/in/dwarfpainter'
         }
     }
 ]
@@ -158,44 +158,43 @@ export const banners = [
 
 export const reviews = [
     {
-      id: 1,
-      product_id: 101,
-      user_id: 1001,
-      rating: 5,
-      comment: "Excellent quality! Fast delivery and well-packaged.",
-      created_at: "2025-02-25T10:30:00Z"
+        id: 1,
+        product_id: 101,
+        user_id: 1001,
+        rating: 5,
+        comment: 'Excellent quality! Fast delivery and well-packaged.',
+        created_at: '2025-02-25T10:30:00Z'
     },
     {
-      id: 2,
-      product_id: 101,
-      user_id: 1002,
-      rating: 4,
-      comment: "Good product, but the packaging could be better.",
-      created_at: "2025-02-24T14:15:00Z"
+        id: 2,
+        product_id: 101,
+        user_id: 1002,
+        rating: 4,
+        comment: 'Good product, but the packaging could be better.',
+        created_at: '2025-02-24T14:15:00Z'
     },
     {
-      id: 3,
-      product_id: 102,
-      user_id: 1003,
-      rating: 3,
-      comment: "Average quality, but worth the price.",
-      created_at: "2025-02-23T08:50:00Z"
+        id: 3,
+        product_id: 102,
+        user_id: 1003,
+        rating: 3,
+        comment: 'Average quality, but worth the price.',
+        created_at: '2025-02-23T08:50:00Z'
     },
     {
-      id: 4,
-      product_id: 103,
-      user_id: 1004,
-      rating: 1,
-      comment: "Received a damaged product. Very disappointed!",
-      created_at: "2025-02-22T18:20:00Z"
+        id: 4,
+        product_id: 103,
+        user_id: 1004,
+        rating: 1,
+        comment: 'Received a damaged product. Very disappointed!',
+        created_at: '2025-02-22T18:20:00Z'
     },
     {
-      id: 5,
-      product_id: 101,
-      user_id: 1005,
-      rating: 5,
-      comment: "Absolutely love it! Will buy again.",
-      created_at: "2025-02-21T12:05:00Z"
+        id: 5,
+        product_id: 101,
+        user_id: 1005,
+        rating: 5,
+        comment: 'Absolutely love it! Will buy again.',
+        created_at: '2025-02-21T12:05:00Z'
     }
-  ];
-  
+]

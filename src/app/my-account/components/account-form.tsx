@@ -1,14 +1,14 @@
 'use client'
 
 import React from 'react'
-import { Button } from '../ui/button'
+import { Button } from '../../../components/ui/button'
 import { z } from 'zod'
 import { passwordRegex } from '@/config/regex'
 import { validate } from '@/config/message'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
-import { Input } from '../ui/input'
+import { Input } from '../../../components/ui/input'
 
 const formSchema = z.object({
     firstName: z.string().min(2, { message: 'First name must be at least 2 characters long!' }),

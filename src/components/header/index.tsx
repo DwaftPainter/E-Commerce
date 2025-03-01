@@ -38,7 +38,7 @@ const Header = () => {
             <div className='flex items-center gap-[24px]'>
                 <div className='relative w-[243px] sm:block hidden'>
                     <Input
-                        className='text-[12px] opacity-[0.5] pl-[20px] pr-[25px] py-[7px] bg-secondary'
+                        className='text-[12px] opacity-[0.5] pl-[20px] pr-[25px] py-[7px] bg-secondary rounded-sm'
                         type='text'
                         placeholder='What are you looking for?'
                     />
