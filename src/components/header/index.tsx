@@ -18,7 +18,12 @@ const Header = () => {
         <div className='flex w-full sm:h-[96px] h-14 justify-between items-center fixed top-0 left-0 z-50 bg-white border-b 2xl:px-[200px] xl:px-16 md:px-10 px-4'>
             <MobileMenu />
             <h1 className='font-bold text-[24px] cursor-pointer'>
-                <Link href={'/'}>Neo Store</Link>
+                <Link href={'/'}>
+                    <span className='text-secondary2'>
+                        Neo
+                    </span>{' '}
+                    Store
+                </Link>
             </h1>
             <nav className='lg:flex hidden lg:gap-20 md:gap-12 '>
                 {NAV_LINKS.map(link => (

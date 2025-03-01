@@ -109,7 +109,7 @@ const page = () => {
                         <Button
                             disabled={loading}
                             type='submit'
-                            className='bg-secondary2 text-text text-[16px] font-medium  hover:bg-hover2 rounded-lg lg:py-4 py-2 lg:px-12 px-4 h-auto'
+                            className='bg-secondary2 text-text text-[16px] font-medium hover:bg-hover2 rounded-sm lg:py-4 py-2 lg:px-12 px-4 h-auto'
                         >
                             {loading ? 'Submiting' : 'Log in'}
                         </Button>

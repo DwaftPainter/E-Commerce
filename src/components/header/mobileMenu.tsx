@@ -39,8 +39,13 @@ const MobileMenu = ({ className }: Props) => {
                 <div className='overflow-scroll w-full'>
                     <div className='w-full h-fit'>
                         <DrawerHeader className='flex justify-between items-center w-full'>
-                            <DrawerTitle className='text-2xl font-bold'>Neo Store</DrawerTitle>
-                            <DrawerClose className='bg-secondary2 h-5 w-5 bg-opacity-50 rounded-full flex justify-center items-center cursor-pointer' onClick={() => setOpen(prev => !prev)}>
+                            <DrawerTitle className='text-2xl font-bold'>
+                                <span className='text-secondary2'>Neo</span> Store
+                            </DrawerTitle>
+                            <DrawerClose
+                                className='bg-secondary2 h-5 w-5 bg-opacity-50 rounded-full flex justify-center items-center cursor-pointer'
+                                onClick={() => setOpen(prev => !prev)}
+                            >
                                 <X size={16} color={'white'} />
                             </DrawerClose>
                         </DrawerHeader>
@@ -115,7 +120,12 @@ const MobileMenu = ({ className }: Props) => {
                         <h1 className='text-sm opacity-55 p-4 font-semibold'>Site Navigation</h1>
                         <nav className='flex flex-col'>
                             {NAV_LINKS.map((link, index) => (
-                                <Link href={link.path} key={link.path} className='cursor-pointer' onClick={() => setOpen(false)}>
+                                <Link
+                                    href={link.path}
+                                    key={link.path}
+                                    className='cursor-pointer'
+                                    onClick={() => setOpen(false)}
+                                >
                                     <div
                                         className={`border-b ${
                                             index === 0 ? 'border-t' : ''

@@ -37,7 +37,7 @@ const ViewOrder = () => {
     return (
         <div className='w-full flex flex-col justify-start gap-10'>
             <p className='text-sm'>
-                Order <span className='bg-[#FCF8E3]'>#{order?._id?.toString()}</span> was placed on{' '}
+                Order <span className='bg-[#FCF8E3]'>#{order?._id?.toString().split('').slice(-4).join('')}</span> was placed on{' '}
                 <span className='bg-[#FCF8E3]'>{formatDate(order?.createdAt?.toString())}</span> and is
                 currently <span className='bg-[#FCF8E3]'>{order?.status}</span>.
             </p>

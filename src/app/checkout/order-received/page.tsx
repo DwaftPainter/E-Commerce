@@ -42,7 +42,7 @@ const page = () => {
             <div className="w-full h-fit flex sm:flex-row flex-col sm:justify-between sm:gap-0 gap-4 sm:items-center items-start shadow-custom py-6 px-5">
                 <div className="flex flex-col justify-center items-start text-sm">
                     <p>Order number:</p>
-                    <p className="font-bold">{order?._id?.toString()}</p>
+                    <p className="font-bold">#{order?._id?.toString().split('').slice(-4).join('')}</p>
                 </div>
                 <div className="flex flex-col justify-center items-start text-sm">
                     <p>Date:</p>

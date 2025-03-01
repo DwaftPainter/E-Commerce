@@ -29,6 +29,7 @@ const Search = () => {
     }, [input])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault()
         console.log(e.target.value)
         setInput(e.target.value)
     }
@@ -42,7 +43,7 @@ const Search = () => {
                 <SearchIcon size={20} />
                 <p className='text-[10px]'>Search</p>
             </DrawerTrigger>
-            <DrawerContent className='min-h-screen rounded-none p-4'>
+            <DrawerContent className='h-full rounded-none p-4'>
                 <DrawerHeader className='flex items-center justify-between px-0'>
                     <DrawerTitle>Search for products:</DrawerTitle>
                     <DrawerClose
@@ -54,14 +55,14 @@ const Search = () => {
                 </DrawerHeader>
                 <div className='relative w-full flex items-center'>
                     <Input
-                        className='text-sm pl-9 pr-[25px] py-3 border rounded-sm h-fit'
+                        className='pl-9 pr-[25px] py-3 border rounded-sm h-fit'
                         type='text'
                         placeholder='What are you looking for?'
                         onChange={handleChange}
                         value={input}
                     />
-                    <div className='absolute top-[14px] left-3'>
-                        <SearchIcon size={'16px'} className='cursor-pointer' />
+                    <div className='absolute top-4 left-3'>
+                        <SearchIcon size={'18px'} className='cursor-pointer' />
                     </div>
                 </div>
                 <div className='flex flex-col w-full border rounded-sm mt-5'>

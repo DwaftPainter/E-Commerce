@@ -16,9 +16,9 @@ interface ProductProps {
     isWishlist?: boolean
 }
 
-const Product = ({ product, isWishlist, className, height }: ProductProps) => {
-    const [rating, setRating] = React.useState(0)
-    const { addToCart, addToWishList, wishItems } = useAppContext()
+const Product = ({ product, isWishlist, className }: ProductProps) => {
+    const { addToCart, deleteFromCart, removeFromCart ,addToWishList, wishItems, cartItems } = useAppContext()
+    const [quantity, setQuantity] = React.useState(cartItems?.find(items => items?.product?._id === product?._id)?.quantity || 1)
 
     const handleAddToCartClick = (product: ProductType) => {
         addToCart(product)
@@ -28,6 +28,20 @@ const Product = ({ product, isWishlist, className, height }: ProductProps) => {
         e.stopPropagation()
 
         addToWishList(product)
+    }
+
+    const increaseQuantity = () => {
+        setQuantity(prev => prev + 1)
+        addToCart(product)
+    }
+
+    const decreaseQuantity = () => {
+        if (quantity > 1) {
+            setQuantity(prev => prev - 1)
+            deleteFromCart(product?._id)
+        } else {
+            removeFromCart(product?._id)
+        }
     }
 
     return (
@@ -83,16 +97,36 @@ const Product = ({ product, isWishlist, className, height }: ProductProps) => {
                         </>
                     )}
                 </div>
-                <div
-                    className={`bg-black text-text text-center w-full font-medium py-[8.5px] absolute bottom-0 rounded-bl-[4px] rounded-br-[4px] cursor-pointer ${
-                        isWishlist ? 'visible' : 'sm:invisible group-hover:visible'
-                    } `}
-                    onClick={() => {
-                        handleAddToCartClick(product)
-                    }}
-                >
-                    Add To Cart
-                </div>
+                {cartItems?.find(items => items?.product?._id === product?._id) ? ( 
+                    <div className='grid grid-cols-4 bg-white w-full absolute bottom-0 rounded-b-[4px]'>
+                        <button
+                            onClick={decreaseQuantity}
+                            className='col-[1/2] py-[10px] px-[5px] flex justify-center items-center rounded-bl-sm text-white bg-black'
+                        >
+                            <Minus size={16} />
+                        </button>
+                        <span className='h-10 border-t border-b col-[2/4] flex items-center justify-center font-medium'>
+                            {quantity}
+                        </span>
+                        <button
+                            onClick={increaseQuantity}
+                            className='col-[4/5] py-[10px] px-[5px] flex justify-center items-center rounded-br-sm bg-button2 hover:bg-hover2'
+                        >
+                            <Plus color='white' size={16} />
+                        </button>
+                    </div>
+                ) : (
+                    <div
+                        className={`bg-black text-text text-center w-full font-medium py-[8.5px] absolute bottom-0 rounded-bl-[4px] rounded-br-[4px] cursor-pointer ${
+                            isWishlist ? 'visible' : 'sm:invisible group-hover:visible'
+                        } `}
+                        onClick={() => {
+                            handleAddToCartClick(product)
+                        }}
+                    >
+                        Add To Cart
+                    </div>
+                )}
             </div>
             <div className='flex flex-col gap-[8px]'>
                 <p className='font-medium truncate'>{product?.name}</p>

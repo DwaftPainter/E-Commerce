@@ -16,7 +16,6 @@ import { motion } from 'framer-motion'
 import { ProductType } from '@/types/product.type'
 import Loading2 from '@/components/ui/loading2'
 import ProductTab from './components/ProductTab'
-import { isNull } from 'util'
 
 const page = () => {
     const [product, setProduct] = React.useState<ProductType | null>(null)
@@ -79,7 +78,6 @@ const page = () => {
     }
 
     const handleBuyProduct = (product: ProductType, quantity: number) => {
-        console.log(quantity)
         if (quantity > 0)
         addToCart(product, quantity)
         router.push('/cart')

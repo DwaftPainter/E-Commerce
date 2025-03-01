@@ -6,14 +6,20 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { useAppContext } from '@/context/AppContext'
+import { useOrderContext } from '@/context/OrderContext'
 
 interface Props {
     payMethod: 'cash' | 'bank'
-    setPayMethod: React.Dispatch<React.SetStateAction<"cash" | "bank">>
+    setPayMethod: React.Dispatch<React.SetStateAction<'cash' | 'bank'>>
 }
 
 const Order = ({ payMethod, setPayMethod }: Props) => {
-    const { cartItems } = useAppContext()
+    const { cartItems, cartTotal } = useAppContext()
+    const { setItems } = useOrderContext()
+
+    React.useEffect(() => {
+        setItems(cartItems)
+    }, [])
 
     return (
         <div className='border-[2px] border-secondary2 rounded-sm px-6 py-8 lg:min-w-[400px] h-fit'>
@@ -38,7 +44,7 @@ const Order = ({ payMethod, setPayMethod }: Props) => {
             <Separator className='my-4' />
             <div className='flex justify-between text-sm font-semibold'>
                 <p className='opacity-70'>Subtotal</p>
-                <p>$100</p>
+                <p>${cartTotal}</p>
             </div>
             <Separator className='my-4' />
 
@@ -49,7 +55,7 @@ const Order = ({ payMethod, setPayMethod }: Props) => {
             <Separator className='my-4' />
             <div className='flex justify-between text-sm font-semibold'>
                 <p className='opacity-70'>Total</p>
-                <p>$105</p>
+                <p>${cartTotal + 5}</p>
             </div>
             <Separator className='my-4' />
             <ToggleGroup
@@ -91,7 +97,11 @@ const Order = ({ payMethod, setPayMethod }: Props) => {
                     </Label>
                 </div>
             </ToggleGroup>
-            <Button type='submit' className='w-full rounded-sm hover:bg-hover2 bg-secondary2 h-fit py-4 mt-6'>
+            <Button
+                type='submit'
+                className='w-full rounded-sm hover:bg-hover2 bg-secondary2 h-fit py-4 mt-6'
+                disabled={cartItems?.length <= 0}
+            >
                 Place Order
             </Button>
         </div>

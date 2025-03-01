@@ -37,7 +37,7 @@ const Orders = () => {
                     <div className='w-full h-fit flex justify-between sm:gap-0 gap-4 sm:items-center items-start py-6 px-5'>
                         <div className='flex flex-col justify-center items-start text-sm'>
                             <p className='font-bold'>Order number:</p>
-                            <p>#{order?._id?.toString().split('').slice(0, 4).join('')}</p>
+                            <p>#{order?._id?.toString().split('').slice(-4).join('')}</p>
                         </div>
                         <div className='sm:flex hidden flex-col justify-center items-start text-sm'>
                             <p className='font-bold'>Date:</p>
