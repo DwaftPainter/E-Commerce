@@ -10,16 +10,39 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '../../../components/ui/input'
 
-const formSchema = z.object({
-    firstName: z.string().min(2, { message: 'First name must be at least 2 characters long!' }),
-    lastName: z.string().min(2, { message: 'Last name must be at least 2 characters long!' }),
-    email: z.string().email({ message: 'Invalid email address!' }),
-    address: z.string(),
-    currentPassword: z.string().regex(passwordRegex, { message: validate.format.password2 }),
-    newPassword: z.string().regex(passwordRegex, { message: validate.format.password2 }),
-    confirmPassword: z.string().regex(passwordRegex, { message: validate.format.password2 })
-})
+const formSchema = z
+    .object({
+        firstName: z.string().min(2, { message: 'First name must be at least 2 characters long!' }),
+        lastName: z.string().min(2, { message: 'Last name must be at least 2 characters long!' }),
+        email: z.string().email({ message: 'Invalid email address!' }),
+        address: z.string().optional(),
+        currentPassword: z.string().optional(),
+        newPassword: z.string().optional(),
+        confirmPassword: z.string().optional()
+    })
+    .refine(
+        data => {
+            // If newPassword is entered, currentPassword is required
+            if (data.newPassword && !data.currentPassword) {
+                return false
+            }
+            // If newPassword is entered, confirmPassword must match
+            if (data.newPassword && data.newPassword !== data.confirmPassword) {
+                return false
+            }
+            return true
+        },
+        {
+            message:
+                'New password must match confirm password, and current password is required to change password!',
+            path: ['confirmPassword']
+        }
+    )
+
 const AccountForm = () => {
+    const [isSubmitting, setIsSubmitting] = React.useState(false)
+    const [success, setSuccess] = React.useState(false)
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -33,12 +56,56 @@ const AccountForm = () => {
         }
     })
 
+    React.useEffect(() => {
+        const getUserData = async () => {
+            try {
+                const res = await fetch('/api/me')
+                if (!res.ok) throw new Error('Failed to fetch user data')
+
+                const { data } = await res.json()
+                form.reset({
+                    firstName: data.firstName || '',
+                    lastName: data.lastName || '',
+                    email: data.email || '',
+                    address: data.address || '',
+                    currentPassword: '',
+                    newPassword: '',
+                    confirmPassword: ''
+                })
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        getUserData()
+    }, [form])
+
+    const handleSubmitForm = async (values: z.infer<typeof formSchema>) => {
+        setIsSubmitting(true)
+        setSuccess(false)
+        try {
+            console.log(values)
+            const res = await fetch('/api/me', {
+                method: 'PUT',
+                credentials: 'include',
+                headers: { ContentTypes: 'application/json' },
+                body: JSON.stringify(values)
+            })
+
+            setIsSubmitting(false)
+            setSuccess(true)
+        } catch (error) {
+            console.error(error)
+            setIsSubmitting(false)
+        }
+    }
+
     return (
         <div className='flex flex-col rounded-sm sm:border sm:px-20 sm:py-12 w-full '>
             <h1 className='font-medium text-xl text-secondary2 mb-7'>Edit Your Profile</h1>
             <Form {...form}>
                 <form
-                    // onSubmit={form.handleSubmit(onSubmit)}
+                    onSubmit={form.handleSubmit(handleSubmitForm)}
                     className='flex flex-col items-end gap-7 h-full'
                 >
                     <div className='flex w-full gap-[2%] sm:flex-row flex-col'>

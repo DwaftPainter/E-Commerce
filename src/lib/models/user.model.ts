@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt'
 import { ROLES } from '@/utils/constants'
 import { passwordRegex, phoneRegex } from '@/config/regex'
 import { validate } from '@/config/message'
-import ProductModel from './product.model'
 var validator = require('validator')
 
 export interface User extends mongoose.Document {
@@ -37,6 +36,9 @@ const UserSchema = new mongoose.Schema(
             maxLength: 50,
             trim: true
         },
+        firstName: { type: String },
+        lastName: { type: String },
+        address: { type: String },
         avatar: {
             type: String,
             default: 'https://i.pinimg.com/736x/3c/67/75/3c67757cef723535a7484a6c7bfbfc43.jpg'
@@ -69,10 +71,10 @@ const UserSchema = new mongoose.Schema(
             validate: {
                 validator: function (v: any) {
                     // Only validate if password is not hashed (when setting a new password)
-                    if (this.isModified("password")) {
-                      return passwordRegex.test(v);
+                    if (this.isModified('password')) {
+                        return passwordRegex.test(v)
                     }
-                    return true; // Skip validation if it's already hashed
+                    return true // Skip validation if it's already hashed
                 },
                 message: validate.format.password2
             }

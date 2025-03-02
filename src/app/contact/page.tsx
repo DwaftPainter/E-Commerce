@@ -7,13 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Button } from '@/components/ui/button'
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormMessage
-} from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 
@@ -45,13 +39,15 @@ const Contact = () => {
         setIsSubmitting(true)
         setSuccess(false)
         try {
-            console.log(values)
-            // Simulate submission
-            setTimeout(() => {
-                setIsSubmitting(false)
-                setSuccess(true)
-                form.reset()
-            }, 1000)
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                credentials: 'include',
+                headers: { ContentTypes: 'application/json' },
+                body: JSON.stringify(values)
+            })
+
+            setIsSubmitting(false)
+            setSuccess(true)
         } catch (error) {
             console.error(error)
             setIsSubmitting(false)
@@ -95,7 +91,10 @@ const Contact = () => {
                     </p>
                 )}
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col items-end gap-8 h-full'>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className='flex flex-col items-end gap-8 h-full'
+                    >
                         <div className='flex sm:flex-row flex-col w-full sm:gap-[5%] gap-4'>
                             <FormField
                                 control={form.control}
