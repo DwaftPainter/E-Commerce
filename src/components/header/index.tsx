@@ -9,6 +9,7 @@ import UserDropdownMenu from './UserDropdownMenu'
 import { NAV_LINKS } from '@/utils/constants'
 import { usePathname } from 'next/navigation'
 import MobileMenu from './mobileMenu'
+import { cn } from '@/lib/utils'
 
 const Header = () => {
     const { user, cartCount, wishListCount } = useAppContext()
@@ -56,8 +57,8 @@ const Header = () => {
                         <div className='relative'>
                             <Heart className='cursor-pointer' />
                             {wishListCount > 0 && (
-                                <span className='absolute top-[-5px] right-[-6px] h-4 w-4 rounded-full bg-secondary2 text-white text-[12px] flex items-center justify-center'>
-                                    {wishListCount}
+                                <span className={cn('absolute top-[-5px] right-[-6px] h-4 w-4 rounded-full bg-secondary2 text-white text-[12px] flex items-center justify-center', wishListCount > 9 && 'text-[10px]')}>
+                                    {wishListCount > 9 ? '9+' : wishListCount}
                                 </span>
                             )}
                         </div>
@@ -66,8 +67,8 @@ const Header = () => {
                         <div className='relative'>
                             <ShoppingCart className='cursor-pointer' />
                             {cartCount > 0 && (
-                                <span className='absolute top-[-5px] right-[-6px] h-4 w-4 rounded-full bg-secondary2 text-white text-[12px] flex items-center justify-center'>
-                                    {cartCount}
+                                <span className={cn('absolute top-[-5px] right-[-6px] h-4 w-4 rounded-full bg-secondary2 text-white text-[12px] flex items-center justify-center', cartCount > 9 && 'text-[10px]')}>
+                                    {cartCount > 9 ? '9+' : cartCount}
                                 </span>
                             )}
                         </div>

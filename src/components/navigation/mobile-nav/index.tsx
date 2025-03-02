@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { useAppContext } from '@/context/AppContext'
 import { Heart, Home, Store, User } from 'lucide-react'
 import Search from './mobileSearch'
+import { cn } from '@/lib/utils'
 
 const MobileNav = () => {
     const { user, wishListCount } = useAppContext()
@@ -22,8 +23,8 @@ const MobileNav = () => {
                 <div className='relative'>
                     <Heart className='cursor-pointer' />
                     {wishListCount > 0 && (
-                        <span className='absolute top-[-5px] right-[-6px] h-4 w-4 rounded-full bg-secondary2 text-white text-[12px] flex items-center justify-center'>
-                            {wishListCount}
+                        <span className={cn('absolute top-[-5px] right-[-6px] h-4 w-4 rounded-full bg-secondary2 text-white text-[12px] flex items-center justify-center', wishListCount > 9 && 'text-[10px]')}>
+                            {wishListCount > 9 ? '9+' : wishListCount}
                         </span>
                     )}
                 </div>

@@ -17,8 +17,15 @@ interface ProductProps {
 }
 
 const Product = ({ product, isWishlist, className }: ProductProps) => {
-    const { addToCart, deleteFromCart, removeFromCart ,addToWishList, wishItems, cartItems } = useAppContext()
-    const [quantity, setQuantity] = React.useState(cartItems?.find(items => items?.product?._id === product?._id)?.quantity || 1)
+    const { addToCart, deleteFromCart, removeFromCart, addToWishList, wishItems, cartItems } = useAppContext()
+    const [quantity, setQuantity] = React.useState(1)
+    
+    React.useEffect(() => {
+        const item = cartItems?.find(items => items?.product?._id === product?._id)
+        if (item) {
+            setQuantity(item.quantity)
+        }
+    }, [cartItems, product?._id])
 
     const handleAddToCartClick = (product: ProductType) => {
         addToCart(product)
@@ -97,7 +104,7 @@ const Product = ({ product, isWishlist, className }: ProductProps) => {
                         </>
                     )}
                 </div>
-                {cartItems?.find(items => items?.product?._id === product?._id) ? ( 
+                {cartItems?.find(items => items?.product?._id === product?._id) ? (
                     <div className='grid grid-cols-4 bg-white w-full absolute bottom-0 rounded-b-[4px]'>
                         <button
                             onClick={decreaseQuantity}
