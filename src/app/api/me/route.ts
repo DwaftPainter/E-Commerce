@@ -1,4 +1,4 @@
-import { validate } from '@/config/message'
+import notifications, { validate } from '@/config/message'
 import DBConnect from '@/lib/db'
 import UserModel from '@/lib/models/user.model'
 import { verifyJWT } from '@/utils/auth'
@@ -21,11 +21,12 @@ export const PUT = async (req: NextRequest) => {
         const user = await UserModel.findOne({ _id: userId })
 
         if (!user) {
-            return NextResponse.json({ message: 'User not found!' }, { status: 404 })
+            return NextResponse.json({ message: validate.user_notfound }, { status: 404 })
         }
 
         const body = await req.json()
         const updateData = lodash.cloneDeep(user)
+        let errors: Record<string, string> = {} 
 
         // Update only if provided in the request body
         if (body.firstName) updateData.firstName = body.firstName
@@ -33,7 +34,7 @@ export const PUT = async (req: NextRequest) => {
 
         const email = await UserModel.findOne({ email: body?.email })
         if (email && user.email !== body.email) {
-            return NextResponse.json({ message: validate.email_already_taken }, { status: 400 })
+            errors.email = validate.email_already_taken
         } else {
             updateData.email = body?.email
         }
@@ -42,18 +43,21 @@ export const PUT = async (req: NextRequest) => {
         if (body?.currentPassword && body?.newPassword) {
             const isMatch = await bcrypt.compare(body.currentPassword, user.password)
             if (!isMatch) {
-                return NextResponse.json({ message: 'Wrong password!' }, { status: 400 })
+                errors.password = validate.wrong_password
             }
             updateData.password = await bcrypt.hash(body.newPassword, 10)
         }
 
+        if (Object.keys(errors).length > 0) {
+            return NextResponse.json({ errors }, { status: 400 })
+        }
+
         // Save updates to database
-        const updateduUser = await UserModel.updateOne({ _id: userId }, updateData)
-        
-        console.log("🚀 ~ PUT ~ updateduUser:", updateduUser)
-        return NextResponse.json({ message: 'Profile updated successfully!' }, { status: 200 })
+        const updatedUser = await UserModel.findOneAndUpdate({ _id: userId }, updateData, {new: true})
+            
+        return NextResponse.json({ message: notifications.account.successToChangeAccountDetail, data: updatedUser }, { status: 200 })
     } catch (error: any) {
-        return NextResponse.json({ message: error.message }, { status: 400 })
+        return NextResponse.json({ message: error.message }, { status: 500 })
     }
 }
 
@@ -70,6 +74,6 @@ export const GET = async (req: NextRequest) => {
 
         return NextResponse.json({ message: 'success', data: user }, { status: 200 })
     } catch (error: any) {
-        return NextResponse.json({ message: error.message }, { status: 400 })
+        return NextResponse.json({ message: error.message }, { status: 500 })
     }
 }

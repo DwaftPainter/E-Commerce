@@ -1,15 +1,17 @@
 'use client'
 
+import React from 'react'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
-import { validate } from '@/config/message'
+import { validate, notifications } from '@/config/message'
 import { passwordRegex } from '@/config/regex'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
-import { redirect, useRouter } from 'next/navigation'
-import React from 'react'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
+import { formatNotification } from '@/utils/formatNotification'
 
 const formSchema = z.object({
     name: z.string().min(3, { message: 'Name must be at least 3 characters!' }),
@@ -32,19 +34,31 @@ const page = () => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setLoading(true)
         try {
-            const response = await fetch(`/api/auth/register`, {
+            const res = await fetch(`/api/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
                 body: JSON.stringify(values)
             })
-            setLoading(false)
 
-            if (response.ok) {
-                route.push('/')
+            const responseData = await res.json()
+
+            if (!res.ok) {
+                throw new Error(responseData.message)
             }
+            
+            const { data } = await res.json()
+            
+            route.push('/')
+            toast(formatNotification(notifications.account.accountCreated, {
+                USERNAME: data.name
+            }))
+
         } catch (error: any) {
+            console.log(error.message)
+            form.setError("email", {type: "custom", message: error.message})
             console.error(error)
+        } finally {
             setLoading(false)
         }
     }

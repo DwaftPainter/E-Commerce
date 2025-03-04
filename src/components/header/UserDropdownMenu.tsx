@@ -49,16 +49,8 @@ export default function UserDropdownMenu({ user }: DropdownMenuProps) {
                         </DropdownMenuItem>
                     </Link>
                     <DropdownMenuItem>
-                        Billing
+                        Orders
                         <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        Settings
-                        <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                        Keyboard shortcuts
-                        <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />

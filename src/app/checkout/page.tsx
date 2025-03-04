@@ -4,7 +4,7 @@ import React from 'react'
 import BillingDetails from './components/billing-details'
 import Order from './components/order'
 import { z } from 'zod'
-import { validate } from '@/config/message'
+import notifications, { validate } from '@/config/message'
 import { phoneRegex } from '@/config/regex'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -12,6 +12,8 @@ import { useAppContext } from '@/context/AppContext'
 import Loading2 from '@/components/ui/loading2'
 import { useOrderContext } from '@/context/OrderContext'
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+import { formatNotification } from '@/utils/formatNotification'
 
 const formSchema = z.object({
     firstName: z.string().trim().min(1, { message: validate.format.firstName }),
@@ -46,22 +48,31 @@ const page = () => {
     })
 
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-        const checkoutData = {
-            items: items,
-            shippingAddress: values,
-            paymentMethod: payMethod,
-        }
-        const res = await fetch('/api/order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify(checkoutData)
-        })
-        console.log(res.ok)
-        if (res.ok) {
-            const { data } = await res.json()
-            removeAllFromCart()
-            router.push(`/checkout/order-received?orderId=${data._id}`)
+        try {
+            const checkoutData = {
+                items: items,
+                shippingAddress: values,
+                paymentMethod: payMethod
+            }
+            const res = await fetch('/api/order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify(checkoutData)
+            })
+
+            const responseData = await res.json()
+
+            if (res.ok) {
+                const { data } = responseData
+                removeAllFromCart()
+                router.push(`/checkout/order-received?orderId=${data._id}`)
+                toast.success(formatNotification(notifications.order.orderConfirmation, {
+                    ORDER_NUMBER: data?._id?.toString().split('').slice(-4).join('')
+                }))
+            }
+        } catch (error: any) {
+            console.log(error.message)
         }
     }
 
@@ -74,11 +85,14 @@ const page = () => {
     }
 
     return (
-        <form className='flex lg:flex-row flex-col gap-16 justify-between w-full' onSubmit={form.handleSubmit(handleSubmit)}>
+        <form
+            className='flex lg:flex-row flex-col gap-16 justify-between w-full'
+            onSubmit={form.handleSubmit(handleSubmit)}
+        >
             <BillingDetails form={form} />
-            <Order payMethod={payMethod} setPayMethod={setPayMethod}/>
+            <Order payMethod={payMethod} setPayMethod={setPayMethod} />
         </form>
-    ) 
+    )
 }
 
 export default page

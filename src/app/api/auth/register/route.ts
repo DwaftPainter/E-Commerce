@@ -10,7 +10,7 @@ export const POST = async (req: NextRequest) => {
         const body = await req.json()
         const user = await UserModel.findOne({ email: body.email })
         if (user) {
-            return NextResponse.json({ error: validate.email_already_taken }, { status: 400 })
+            throw new Error(validate.email_already_taken)
         }
 
         const newUser = await UserModel.create(body)
@@ -22,8 +22,9 @@ export const POST = async (req: NextRequest) => {
             maxAge: 7 * 24 * 60 * 60,
             path: "/"
         })
+
         return response
     } catch (error: any) {
-        return NextResponse.json({ error: error.message }, { status: 400 })
+        return NextResponse.json({ message: error.message }, { status: 400 })
     }
 }

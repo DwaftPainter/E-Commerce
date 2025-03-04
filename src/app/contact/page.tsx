@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { toast } from 'sonner'
 
 const formSchema = z.object({
     name: z.string().min(2, { message: 'Name must be at least 2 characters long!' }),
@@ -23,7 +24,6 @@ const formSchema = z.object({
 
 const Contact = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [success, setSuccess] = useState(false)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -37,7 +37,6 @@ const Contact = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setIsSubmitting(true)
-        setSuccess(false)
         try {
             const res = await fetch('/api/contact', {
                 method: 'POST',
@@ -46,10 +45,16 @@ const Contact = () => {
                 body: JSON.stringify(values)
             })
 
-            setIsSubmitting(false)
-            setSuccess(true)
+            const responseData = await res.json()
+
+            if (!res.ok) {
+                throw new Error(responseData.message)
+            }
+
+            toast.success(responseData.message)
         } catch (error) {
             console.error(error)
+        } finally {
             setIsSubmitting(false)
         }
     }
@@ -85,11 +90,6 @@ const Contact = () => {
                 </div>
             </div>
             <div className='col-span-1 lg:col-span-3 rounded-sm sm:border sm:px-6 sm:py-8'>
-                {success && (
-                    <p className='text-green-500 font-medium mb-6'>
-                        Your message has been successfully sent!
-                    </p>
-                )}
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}

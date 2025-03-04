@@ -3,12 +3,14 @@
 import React from 'react'
 import { Button } from '../../../components/ui/button'
 import { z } from 'zod'
-import { passwordRegex } from '@/config/regex'
-import { validate } from '@/config/message'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '../../../components/ui/input'
+import { UserType } from '@/types/user.type'
+import { toast } from 'sonner'
+import notifications from '@/config/message'
+import { cn } from '@/lib/utils'
 
 const formSchema = z
     .object({
@@ -41,13 +43,13 @@ const formSchema = z
 
 const AccountForm = () => {
     const [isSubmitting, setIsSubmitting] = React.useState(false)
-    const [success, setSuccess] = React.useState(false)
+    const [user, setUser] = React.useState<UserType | null>(null)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             firstName: '',
-            lastName: '',
+            lastName: '',   
             email: '',
             address: '',
             currentPassword: '',
@@ -72,6 +74,8 @@ const AccountForm = () => {
                     newPassword: '',
                     confirmPassword: ''
                 })
+
+                setUser(data)
             } catch (error) {
                 console.error(error)
             }
@@ -82,9 +86,7 @@ const AccountForm = () => {
 
     const handleSubmitForm = async (values: z.infer<typeof formSchema>) => {
         setIsSubmitting(true)
-        setSuccess(false)
         try {
-            console.log(values)
             const res = await fetch('/api/me', {
                 method: 'PUT',
                 credentials: 'include',
@@ -92,10 +94,25 @@ const AccountForm = () => {
                 body: JSON.stringify(values)
             })
 
-            setIsSubmitting(false)
-            setSuccess(true)
-        } catch (error) {
+            const responseData = await res.json()
+
+            if (!res.ok) {
+                if (responseData.errors) {
+                    // Handle multiple field-specific errors
+                    Object.entries(responseData.errors).forEach(([field, message]) => {
+                        form.setError(field as keyof typeof values, { message: message as string })
+                    })
+                }
+                throw new Error(responseData.message)
+            }
+
+            const { data } = responseData
+            setUser(data)
+            toast.success(responseData.message)
+        } catch (error: any) {
+            toast.error(notifications.account.failureToChangeAccountDetail)
             console.error(error)
+        } finally {
             setIsSubmitting(false)
         }
     }
@@ -237,10 +254,27 @@ const AccountForm = () => {
                         </div>
                     </div>
                     <div className='w-full flex justify-end items-center gap-4 mt-'>
-                        <Button className='bg-transparentoutline-none rounded-sm px-12 py-4 font-medium text-back h-fit'>
+                        <Button
+                            type='button'
+                            className={cn('bg-transparentoutline-none rounded-sm px-12 py-4 font-medium text-back h-fit', !form.formState.isDirty && 'hidden')}
+                            onClick={() => {
+                                form.reset({
+                                    firstName: user?.firstName || '',
+                                    lastName: user?.lastName || '',
+                                    email: user?.email || '',
+                                    address: user?.address || '',
+                                    currentPassword: '',
+                                    newPassword: '',
+                                    confirmPassword: ''
+                                })
+                            }}
+                        >
                             Cancel
                         </Button>
-                        <Button className='bg-secondary2 hover:bg-hover2 border rounded-sm px-12 py-4 font-medium h-fit'>
+                        <Button
+                            type='submit'
+                            className='bg-secondary2 hover:bg-hover2 border rounded-sm px-12 py-4 font-medium h-fit'
+                        >
                             Save Changes
                         </Button>
                     </div>

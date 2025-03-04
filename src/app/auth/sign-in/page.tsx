@@ -2,12 +2,16 @@
 
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
+import notifications, { validate } from '@/config/message'
 import { useAppContext } from '@/context/AppContext'
+import { formatNotification } from '@/utils/formatNotification'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { UserRoundCheck } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 const formSchema = z.object({
@@ -30,26 +34,41 @@ const page = () => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setLoading(true)
         try {
-            const response = await fetch(`/api/auth/log-in`, {
+            const res = await fetch(`/api/auth/log-in`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
                 body: JSON.stringify(values)
             })
-            if (response.ok) {
-                route.push('/')
-                route.refresh()
+    
+            const responseData = await res.json()
+    
+            if (!res.ok) {
+                throw new Error(responseData.message)
             }
-            const { data } = await response.json()
-            setLoading(false)
+    
+            const { data } = responseData
             setUser(data || null)
             setCartItems(data?.cart)
-            setWishItems(data?.wishlist)
+            setWishItems(data?.wishlist)   
+    
+            route.push('/')
+            route.refresh()
+            toast(
+                formatNotification(notifications.account.accountLogIn, {
+                    USERNAME: data.name
+                }), {
+                    icon: <UserRoundCheck size={20}/>
+                }
+            )
         } catch (error: any) {
-            console.error(error)
+            form.setError("password", { type: "custom", message: error.message})
+            console.error("Login error:", error)
+        } finally {
             setLoading(false)
         }
     }
+    
 
     return (
         <div className='mt-20 flex gap-[130px]'>
