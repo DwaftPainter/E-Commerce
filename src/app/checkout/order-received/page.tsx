@@ -3,7 +3,7 @@
 import React from "react";
 import { OrderType } from "@/types/order.type";
 import { useSearchParams } from "next/navigation";
-import { formatDate } from "@/utils/formatDate";
+import { formatDate } from "@/utils/formatters/formatDate";
 import Loading2 from "@/components/ui/loading2";
 
 const page = () => {

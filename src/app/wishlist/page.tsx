@@ -5,13 +5,28 @@ import { Button } from '@/components/ui/button'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { useAppContext } from '@/context/AppContext'
 import React from 'react'
-import { products } from '@/mock_data'
 import HomeLayout from '@/layouts/HomeLayout'
 import { ProductType } from '@/types/product.type'
 import { Heart } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 const page = () => {
+    const [products, setProducts] = React.useState<ProductType[]>([])
     const { wishItems, wishListCount } = useAppContext()
+
+    React.useEffect(() => {
+        async function getData() {
+            try {
+                const response = await fetch(`/api/product/explore`)
+                const { data } = await response.json() // Ensure response is parsed correctly
+                setProducts(data) // Set products in state
+            } catch (error: any) {
+                console.log(error.message)
+            }
+        }
+
+        getData()
+    }, [])
 
     return (
         <div className='flex flex-col gap-[60px]'>

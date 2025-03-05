@@ -169,3 +169,10 @@ export const leaders = [
         }
     }
 ]
+
+export const banners = [
+    'https://mir-s3-cdn-cf.behance.net/project_modules/fs/d37640187956003.65945a92b5465.png',
+    'https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/9b914c190090001.65b56b503f67c.png',
+    'https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/18032a157499583.637a5ba1685f9.png',
+    'https://mir-s3-cdn-cf.behance.net/project_modules/fs/c3c29f190817739.65c131bd14553.png'
+]

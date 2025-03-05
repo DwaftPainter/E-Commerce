@@ -13,9 +13,6 @@ const options: SMTPConnection.Options = {
 
 
 export const mailSender = async (receiver: any, subject?: any, text?: any, html?: any) => {
-    console.log("Host:" + process.env.SMTP_HOST)
-    console.log("User:" + process.env.SMTP_USER)
-    console.log("Pass:" + process.env.SMTP_PASS)
     const transporter = nodemailer.createTransport(options)
 
     const info = await transporter.sendMail({

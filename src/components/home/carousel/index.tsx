@@ -3,7 +3,7 @@
 import React from 'react'
 import Banner from './components/Banner'
 import SideBar from './components/SideBar'
-import { banners } from '@/mock_data'
+import { banners } from '@/utils/constants'
 
 const Carousel = () => {
   

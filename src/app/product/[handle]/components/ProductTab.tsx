@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormField } from '@/components/ui/form'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { formatDate } from '@/utils/formatDate'
+import { formatDate } from '@/utils/formatters/formatDate'
 import { ReviewType } from '@/types/review.type'
 
 interface Props {

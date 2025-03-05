@@ -4,7 +4,7 @@ import React from 'react'
 import { useSearchParams } from 'next/navigation'
 import { OrderType } from '@/types/order.type'
 import Loading2 from '@/components/ui/loading2'
-import { formatDate } from '@/utils/formatDate'
+import { formatDate } from '@/utils/formatters/formatDate'
 import { Separator } from '@/components/ui/separator'
 
 const ViewOrder = () => {

@@ -13,7 +13,7 @@ import Loading2 from '@/components/ui/loading2'
 import { useOrderContext } from '@/context/OrderContext'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-import { formatNotification } from '@/utils/formatNotification'
+import { formatNotification } from '@/utils/formatters/formatNotification'
 
 const formSchema = z.object({
     firstName: z.string().trim().min(1, { message: validate.format.firstName }),

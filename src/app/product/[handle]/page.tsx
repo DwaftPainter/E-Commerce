@@ -7,7 +7,6 @@ import { Heart, Minus, Plus, RefreshCcw, Truck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import HomeLayout from '@/layouts/HomeLayout'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { products } from '@/mock_data'
 import Product from '@/components/home/product/Product'
 import { usePathname, useRouter } from 'next/navigation'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
@@ -19,6 +18,7 @@ import ProductTab from './components/ProductTab'
 
 const page = () => {
     const [product, setProduct] = React.useState<ProductType | null>(null)
+    const [relatedProduct, setRelatedProduct] = React.useState<ProductType[]>([])
     const [selectedColor, setSelectedColor] = React.useState<string | undefined>(undefined)
     const [size, setSize] = React.useState(null)
     const [quantity, setQuantity] = React.useState(1)
@@ -46,8 +46,9 @@ const page = () => {
         async function getData() {
             try {
                 const response = await fetch(`/api/product/${slug}`)
-                const { data } = await response.json()
+                const { data, relatedProduct } = await response.json()
                 setProduct(data)
+                setRelatedProduct(relatedProduct)
                 setSelectedImage(data.featuredImage[0])
             } catch (error: any) {
                 console.log('Failed to fetch product: ' + error.message)
@@ -280,7 +281,7 @@ const page = () => {
                     className='w-full mt-[23px]'
                 >
                     <CarouselContent>
-                        {products?.map((product, index) => (
+                        {relatedProduct?.map((product, index) => (
                             <CarouselItem key={index} className='md:basis-1/4 lg:basis-1/5'>
                                 <div className='p-1'>
                                     <Product product={product} />

@@ -4,7 +4,7 @@ import { validate } from '@/config/message'
 import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
-import { mailSender } from '@/utils/mailsender'
+import { mailSender } from '@/lib/mailsender'
 import { otpEmailTemplate } from '@/utils/otpMailTemplate'
 
 export const POST = async (req: NextRequest) => {
