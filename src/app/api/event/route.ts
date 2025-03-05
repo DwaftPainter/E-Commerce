@@ -10,7 +10,7 @@ export const POST = async (req: NextRequest) => {
         const body = await req.json()
         body.startDate = new Date(body.startDate)
         body.endDate = new Date(body.endDate)
-        console.log(body)
+        
         const event = await EventModel.create(body)
 
         return NextResponse.json({ message: 'success', data: event }, { status: 200 })
@@ -22,11 +22,11 @@ export const POST = async (req: NextRequest) => {
 export const GET = async () => {
     try {
         await DBConnect()
+
         const event = await EventModel.find({
             startDate: { $lte: new Date() },
             endDate: { $gt: new Date() }
         }).limit(1)
-        console.log(event)
         const products = (
             await Promise.all(
                 event[0].products.map(async (productId: string) => {
@@ -34,7 +34,7 @@ export const GET = async () => {
                 })
             )
         ).filter(product => product !== null)
-        console.log(products)
+
         return NextResponse.json({ message: 'success', data: event, products }, { status: 200 })
     } catch (error: any) {
         return NextResponse.json({ message: error.message, status: 400 }, { status: 400 })

@@ -19,17 +19,35 @@ const Header = () => {
     const { user, cartCount, wishListCount } = useAppContext()
     const [focus, setFocus] = React.useState(false)
     const pathname = usePathname()
+    const timeoutRef = React.useRef<NodeJS.Timeout | null>(null)
 
     React.useEffect(() => {
-        async function searchProducts() {
-            const res = await fetch('/api/product')
-            const { data } = await res.json()
-            const filtedData = data?.filter((product: ProductType) => {
-                return product.name.toLowerCase().includes(input)
-            })
-            setProducts(filtedData)
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current)
         }
-        searchProducts()
+
+        timeoutRef.current = setTimeout(() => {
+            console.log('fetch')
+            async function searchProducts() {
+                const res = await fetch('/api/product')
+                const { data } = await res.json()
+                const filteredData = data?.filter((product: ProductType) =>
+                    product.name
+                        .toLowerCase()
+                        .trim()
+                        .replace(/\s/g, '')
+                        .includes(input.toLowerCase().trim().replace(/\s/g, ''))
+                )
+                setProducts(filteredData)
+            }
+            searchProducts()
+        }, 1000)
+
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current)
+            }
+        }
     }, [input])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +94,11 @@ const Header = () => {
                         <Search size={'16px'} className='cursor-pointer' />
                     </div>
                     {focus && (
-                        <SearchResultBox products={products} className='absolute bg-white'></SearchResultBox>
+                        <SearchResultBox
+                            products={products}
+                            setFocus={setFocus}
+                            className='absolute bg-white w-[388px]'
+                        ></SearchResultBox>
                     )}
                 </div>
                 <div className='flex gap-[16px]'>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import {
     Drawer,
     DrawerClose,
@@ -12,11 +12,13 @@ import { ProductType } from '@/types/product.type'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import { useIsMobile } from '@/hooks/use-mobile'
+import SearchResultBox from './searchResultBox'
 
 const Search = () => {
     const [products, setProducts] = React.useState<ProductType[]>([])
     const [open, setOpen] = React.useState(false)
     const [input, setInput] = React.useState('')
+    const timeout = useRef<NodeJS.Timeout | null>(null)
     const isMobile = useIsMobile()
 
     React.useEffect(() => {
@@ -27,14 +29,31 @@ const Search = () => {
     }, [isMobile])
 
     React.useEffect(() => {
-        async function searchProducts() {
-            const res = await fetch('/api/product')
-            const { data } = await res.json()
-            const filtedData = data?.filter((product: ProductType) => product.name.includes(input))
-
-            setProducts(filtedData)
+        if (timeout.current) {
+            clearTimeout(timeout.current)
         }
-        searchProducts()
+        timeout.current = setTimeout(() => {
+            async function searchProducts() {
+                const res = await fetch('/api/product')
+                const { data } = await res.json()
+                const filtedData = data?.filter((product: ProductType) =>
+                    product.name
+                        .toLowerCase()
+                        .trim()
+                        .replace(/\s/g, '')
+                        .includes(input.toLowerCase().trim().replace(/\s/g, ''))
+                )
+
+                setProducts(filtedData)
+            }
+            searchProducts()
+        }, 1000)
+
+        return () => {
+            if (timeout.current) {
+                clearTimeout(timeout.current)
+            }
+        }
     }, [input])
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,48 +93,7 @@ const Search = () => {
                         <SearchIcon size={'18px'} className='cursor-pointer' />
                     </div>
                 </div>
-                <div className='flex flex-col w-full border rounded-sm mt-5'>
-                    {products?.length > 0 &&
-                        products?.slice(0, 7).map((product, index) => (
-                            <div className='flex items-center justify-between px-2 py-3' key={index}>
-                                <div className='flex items-center max-w-[300px]'>
-                                    <img
-                                        src={product?.image}
-                                        alt=''
-                                        className='h-[42px] w-[42px] mr-2 rounded-sm'
-                                    />
-                                    <p className='text-sm font-semibold'>{product?.name}</p>
-                                </div>
-                                <div className='text-center'>
-                                    {product?.discount > 0 ? (
-                                        <>
-                                            <p className='line-through text-[12px] text-[#C2C2D3]'>
-                                                ${(product?.price).toFixed(2)}
-                                            </p>
-                                            <p className='text-secondary2 text-sm font-semibold'>
-                                                $
-                                                {(
-                                                    product?.price -
-                                                    (product?.price * product?.discount) / 100
-                                                ).toFixed(2)}
-                                            </p>
-                                        </>
-                                    ) : (
-                                        <p className='text-secondary2 text-sm font-semibold'>
-                                            ${(product?.price).toFixed(2)}
-                                        </p>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                    <Link
-                        href={'/shop'}
-                        className='self-center my-2 cursor-pointer'
-                        onClick={() => setOpen(prev => !prev)}
-                    >
-                        See all product({products?.length})...
-                    </Link>
-                </div>
+                <SearchResultBox products={products} setOpen={setOpen} />
             </DrawerContent>
         </Drawer>
     )
