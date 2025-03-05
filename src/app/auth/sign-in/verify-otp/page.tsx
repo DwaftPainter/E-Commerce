@@ -49,7 +49,6 @@ const page = () => {
             route.push('/auth/sign-in/reset-password')
         } catch (error: any) {
             form.setError('pin', { type: 'custom', message: error.message })
-            console.log(error)
         }
     }
 

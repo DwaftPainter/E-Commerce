@@ -25,9 +25,9 @@ export const POST = async (req: NextRequest) => {
         user.otp = hashOpt
         user.otpExpire = expiredDate
         await user.save()
-
+        console.log("tracker 1")
         mailSender(email, 'Reset Password', undefined, otpEmailTemplate(otp))
-
+        console.log("tracker 2")
         return NextResponse.json({ message: 'success' }, { status: 200 })
     } catch (error: any) {
         return NextResponse.json({ message: error.message }, { status: 400 })
