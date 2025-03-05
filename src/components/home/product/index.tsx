@@ -6,6 +6,7 @@ import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/componen
 import { Button } from '../../ui/button'
 import Product from './Product'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { ProductType } from '@/types/product.type'
 
 const Products = () => {
     const [api, setApi] = React.useState<CarouselApi>()
@@ -52,7 +53,10 @@ const Products = () => {
         </HomeLayout>
     }
     return (
-        <HomeLayout title='Our Products' className='flex flex-col sm:gap-[65px] gap-10 lg:mb-[65px] sm:mb-16 mb-10'>
+        <HomeLayout
+            title='Our Products'
+            className='flex flex-col sm:gap-[65px] gap-10 lg:mb-[65px] sm:mb-16 mb-10'
+        >
             <Carousel
                 opts={{
                     align: 'start'
@@ -83,13 +87,26 @@ const Products = () => {
                 </div>
                 {/* <CarouselContent className='gird sm:grid-cols-5 grid-cols-2 grid-rows-2'> */}
                 <CarouselContent>
-                    {products?.map((product, index) => (
-                        <CarouselItem key={index} className='lg:basis-1/5 md:basis-1/4 sm:basis-1/3 basis-1/2'>
-                            <div className='p-1'>
-                                <Product product={product} />
-                            </div>
-                        </CarouselItem>
-                    ))}
+                    {products &&
+                        products
+                            .reduce((acc, _, index) => {
+                                if (index % 2 === 0) {
+                                    acc.push(products.slice(index, index + 2))
+                                }
+                                return acc
+                            }, [])  
+                            .map((pair: ProductType[], index: number) => (
+                                <CarouselItem
+                                    key={index}
+                                    className='lg:basis-1/5 md:basis-1/4 sm:basis-1/3 basis-1/2'
+                                >
+                                    <div className='p-1 grid grid-cols-1 gap-[60px]'>
+                                        {pair.map((product, i) => (
+                                            <Product key={i} product={product} />
+                                        ))}
+                                    </div>
+                                </CarouselItem>
+                            ))}
                 </CarouselContent>
             </Carousel>
             <div className='w-full flex justify-center items-center'>

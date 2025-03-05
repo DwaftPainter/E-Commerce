@@ -11,11 +11,20 @@ import { SearchIcon, X } from 'lucide-react'
 import { ProductType } from '@/types/product.type'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
+import { useIsMobile } from '@/hooks/use-mobile'
 
 const Search = () => {
     const [products, setProducts] = React.useState<ProductType[]>([])
     const [open, setOpen] = React.useState(false)
     const [input, setInput] = React.useState('')
+    const isMobile = useIsMobile()
+
+    React.useEffect(() => {
+        if (!isMobile) {
+            setOpen(false) // Ensure the drawer closes on desktop
+            document.body.style.position = ''
+        }
+    }, [isMobile])
 
     React.useEffect(() => {
         async function searchProducts() {
@@ -35,7 +44,7 @@ const Search = () => {
     }
 
     return (
-        <Drawer open={open} dismissible={false}>
+        <Drawer open={open} dismissible={false && !isMobile}>
             <DrawerTrigger
                 className='flex flex-col items-center justify-center'
                 onClick={() => setOpen(prev => !prev)}

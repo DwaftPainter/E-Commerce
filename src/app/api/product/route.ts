@@ -13,6 +13,7 @@ export const GET = async (req: NextRequest) => {
         const perPage = Number(searchParams.get('perPage')) || 12
         const minPrice = Number(searchParams.get('min_price')) * 10 || 0
         const maxPrice = Number(searchParams.get('max_price')) * 10 || 1000
+        const orderBy = searchParams.get('orderBy')
         const statuses = searchParams.getAll('status')
         const brand = searchParams.getAll('brand')
         const categoryMap = new Map<number, string>()
@@ -24,8 +25,8 @@ export const GET = async (req: NextRequest) => {
 
         // **Chuyển đổi ID từ URL sang tên danh mục**
         const categoryNames = (searchParams.get('filter_cat')?.split(',') ?? [])
-        .map(id => categoryMap.get(Number(id))?.toLowerCase())
-        .filter(Boolean)
+            .map(id => categoryMap.get(Number(id))?.toLowerCase())
+            .filter(Boolean)
 
         const products = await ProductModel.find({})
 
@@ -35,7 +36,7 @@ export const GET = async (req: NextRequest) => {
                     product.price >= minPrice &&
                     product.price <= maxPrice &&
                     categoryNames.some(category => {
-                       return product.category.toLowerCase() === category
+                        return product.category.toLowerCase() === category
                     })
                 )
             }
@@ -69,7 +70,17 @@ export const GET = async (req: NextRequest) => {
         const paginatedProducts = filteredProducts.slice(startIndex, endIndex)
         const totalPages = Math.ceil(filteredProducts.length / perPage)
 
-        console.log(paginatedProducts)
+        if (orderBy === 'asc') {
+            paginatedProducts.sort((a, b) => a.price - b.price)
+        } else if (orderBy === 'desc') {
+            paginatedProducts.sort((a, b) => b.price - a.price)
+        } else if (orderBy === 'latest') {
+            paginatedProducts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        } else if (orderBy === 'rating') {
+            paginatedProducts.sort((a, b) => b.rating - a.rating)
+            console.log(paginatedProducts)
+        }
+
         return NextResponse.json(
             { message: 'success', data: paginatedProducts, total: totalPages, currentPage: page },
             { status: 200 }
@@ -111,20 +122,21 @@ export const PUT = async () => {
 }
 
 export const DELETE = async () => {
-   
-  try {
-    await DBConnect(); // Ensure database connection
+    try {
+        await DBConnect() // Ensure database connection
 
-    const result = await ProductModel.deleteMany({
-      image: { $regex: "^http://dummyimage.com/" },
-    });
+        const result = await ProductModel.deleteMany({
+            image: { $regex: '^http://dummyimage.com/' }
+        })
 
-    return NextResponse.json({
-      message: `Deleted ${result.deletedCount} dummy products.`,
-      deletedCount: result.deletedCount,
-    }, { status: 200 });
-  } catch (error: any) {
-    return NextResponse.json({ message: "Internal Server Error", error: error.message }, { status: 400 });
-  }
+        return NextResponse.json(
+            {
+                message: `Deleted ${result.deletedCount} dummy products.`,
+                deletedCount: result.deletedCount
+            },
+            { status: 200 }
+        )
+    } catch (error: any) {
+        return NextResponse.json({ message: 'Internal Server Error', error: error.message }, { status: 400 })
+    }
 }
-

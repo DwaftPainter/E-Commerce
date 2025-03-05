@@ -116,3 +116,56 @@ export const brands = [
     { name: 'Sony', productCount: 70 },
     { name: 'LG', productCount: 60 }
 ]
+
+export const leaders = [
+    {
+        name: 'Tom Hiddleston',
+        image: 'https://i.pinimg.com/736x/45/7e/f1/457ef11030ed2fd8d0849694fb5c0df8.jpg', // Replace with actual image URLs
+        position: 'Project Manager',
+        socials: {
+            twitter: 'https://twitter.com/riverwhisperer',
+            instagram: 'https://instagram.com/riverwhisperer',
+            linkedin: 'https://linkedin.com/in/riverwhisperer'
+        }
+    },
+    {
+        name: 'Mountain Sculptor',
+        image: 'https://i.pinimg.com/736x/1f/ee/0d/1fee0d787d677c4fa77a3ed418de2f86.jpg', // Replace with actual image URLs
+        position: 'Artist',
+        socials: {
+            twitter: 'https://twitter.com/mountainsculptor',
+            instagram: 'https://instagram.com/mountainsculptor',
+            linkedin: 'https://linkedin.com/in/mountainsculptor'
+        }
+    },
+    {
+        name: 'Sky Dreamer',
+        image: 'https://i.pinimg.com/736x/e0/2a/3b/e02a3be82cb40ed11454d52ecb666b69.jpg', // Replace with actual image URLs
+        position: 'Designer',
+        socials: {
+            twitter: 'https://twitter.com/skydreamer',
+            instagram: 'https://instagram.com/skydreamer',
+            linkedin: 'https://linkedin.com/in/skydreamer'
+        }
+    },
+    {
+        name: 'Forest Seeker',
+        image: 'https://i.pinimg.com/736x/dc/10/aa/dc10aafc68d384622f59edb3919a924d.jpg', // Replace with actual image URLs
+        position: 'Engineer',
+        socials: {
+            twitter: 'https://twitter.com/forestseeker',
+            instagram: 'https://instagram.com/forestseeker',
+            linkedin: 'https://linkedin.com/in/forestseeker'
+        }
+    },
+    {
+        name: 'Dwarf Painter',
+        image: 'https://i.pinimg.com/736x/44/64/8d/44648dc6f8d6ce38a1d13c33405d1265.jpg', // Replace with actual image URLs
+        position: 'Developer',
+        socials: {
+            twitter: 'https://twitter.com/dwarfpainter',
+            instagram: 'https://instagram.com/dwarfpainter',
+            linkedin: 'https://linkedin.com/in/dwarfpainter'
+        }
+    }
+]

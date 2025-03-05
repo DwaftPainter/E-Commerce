@@ -22,10 +22,14 @@ const Orders = () => {
 
     if (orders.length === 0) {
         return (
-            <div className='w-full min-h-[400px] flex items-center justify-center'>
-                <div className='w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full'>
-                    <div className='w-16 h-16 border-4 border-transparent text-red-400 text-2xl animate-spin flex items-center justify-center border-t-red-400 rounded-full'></div>
-                </div>
+            <div className='w-full min-h-[400px] flex flex-col items-center justify-center gap-5    '>
+                No order have been made yet.
+                <Button
+                    type='submit'
+                    className='bg-secondary2 text-text text-[16px] font-medium hover:bg-hover2 rounded-sm py-2 px-4 h-auto'
+                >
+                    <Link href={'/shop'}>Shop now</Link>
+                </Button>
             </div>
         )
     }

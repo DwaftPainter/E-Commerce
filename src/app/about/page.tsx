@@ -2,8 +2,8 @@ import React from 'react'
 import { Icon } from '@iconify/react'
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { Instagram, Linkedin, Twitter } from 'lucide-react'
-import { leaders } from '@/mock_data'
 import Link from 'next/link'
+import { leaders } from '@/utils/constants'
 
 const About = () => {
     return (

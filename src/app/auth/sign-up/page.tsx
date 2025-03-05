@@ -14,6 +14,7 @@ import { z } from 'zod'
 import { formatNotification } from '@/utils/formatNotification'
 import AuthLayout from '@/layouts/AuthLayout'
 import { useAppContext } from '@/context/AppContext'
+import { UserRoundCheck } from 'lucide-react'
 
 const formSchema = z.object({
     name: z.string().min(3, { message: 'Name must be at least 3 characters!' }),
@@ -56,7 +57,10 @@ const page = () => {
             toast(
                 formatNotification(notifications.account.accountCreated, {
                     USERNAME: data?.name
-                })
+                }),
+                {
+                    icon: <UserRoundCheck size={20} />
+                }
             )
         } catch (error: any) {
             console.log(error.message)

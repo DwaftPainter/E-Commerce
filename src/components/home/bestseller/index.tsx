@@ -2,12 +2,29 @@ import HomeLayout from '@/layouts/HomeLayout'
 import React from 'react'
 import { Button } from '../../ui/button'
 import Product from '../product/Product'
-import { products } from '@/mock_data'
 import FlashSaleBanner from '../product/FlashSaleBanner'
 import { useRouter } from 'next/navigation'
 
 const BestSeller = () => {
+    const [products, setProducts] = React.useState<any[]>([]) // Add state for products
+    const [loading, setLoading] = React.useState(false)
     const router = useRouter()
+
+    React.useEffect(() => {
+        async function getData() {
+            try {
+                const response = await fetch(`/api/product/explore`)
+                const { data } = await response.json() // Ensure response is parsed correctly
+                setProducts(data) // Set products in state
+            } catch (error: any) {
+                console.log(error.message)
+            } finally {
+                setLoading(false) // Set loading to false once data is fetched
+            }
+        }
+
+        getData()
+    }, [])
 
     return (
         <HomeLayout title='This Month' className='w-full flex flex-col sm:gap-[65px] gap-10 sm:mb-20 mb-10'>
@@ -23,7 +40,10 @@ const BestSeller = () => {
                 </div>
                 <div className='sm:flex grid grid-cols-2 -ml-6 overflow-x-hidden gap-y-3'>
                     {products?.map((product, index) => (
-                        <div className='min-w-0 shrink-0 grow-0 lg:basis-1/5 md:basis-1/4 sm:basis-1/3 pl-6' key={index}>
+                        <div
+                            className='min-w-0 shrink-0 grow-0 lg:basis-1/5 md:basis-1/4 sm:basis-1/3 pl-6'
+                            key={index}
+                        >
                             <Product product={product} />
                         </div>
                     ))}

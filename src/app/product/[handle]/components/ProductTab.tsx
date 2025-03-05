@@ -12,7 +12,6 @@ import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Form, FormField } from '@/components/ui/form'
-// import { reviews } from '@/mock_data'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { formatDate } from '@/utils/formatDate'
 import { ReviewType } from '@/types/review.type'
@@ -88,7 +87,7 @@ const ProductTab = ({ product }: Props) => {
                     ADDITIONAL INFORMATION
                 </TabsTrigger>
                 <TabsTrigger className='px-5 font-bold' value='review'>
-                    REVIEW({product?.review})
+                    REVIEW({reviews?.length})
                 </TabsTrigger>
             </TabsList>
             <TabsContent className='w-full' value='description'>

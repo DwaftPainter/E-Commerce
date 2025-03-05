@@ -52,7 +52,7 @@ const Product = ({ product, isWishlist, className }: ProductProps) => {
     }
 
     return (
-        <div className={cn('sm:max-w-[270px] flex flex-col gap-4 ', className)}>
+        <div className={cn('sm:max-w-full flex flex-col gap-4 ', className)}>
             <div className='relative rounded-sm group cursor-pointer'>
                 <img src={product.image} alt='' className={cn('w-full aspect-square rounded-sm')} />
                 {product.discount !== 0 && (
