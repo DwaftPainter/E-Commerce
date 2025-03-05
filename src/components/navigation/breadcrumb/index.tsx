@@ -22,7 +22,7 @@ const Breadcrumbs = ({ className }: BreadcrumbProps) => {
         return null
     }
 
-    if (paths[paths.length - 1] === 'sign-up' || paths[paths.length - 1] === 'sign-in') {
+    if (paths.find(path => path === 'sign-in' ||  path === 'sign-up')) {
         return null
     }
 

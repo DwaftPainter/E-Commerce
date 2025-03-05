@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema(
         name: {
             type: String,
             required: true,
-            minLength: 5,
+            minLength: 3,
             maxLength: 50,
             trim: true
         },
@@ -93,6 +93,12 @@ const UserSchema = new mongoose.Schema(
             type: String,
             enum: ROLES,
             default: ROLES.USER
+        },
+        otp: {
+            type: String,
+        },
+        otpExpire: {
+            type: Date
         },
         deleted: {
             type: Boolean,

@@ -21,7 +21,7 @@ const Search = () => {
         async function searchProducts() {
             const res = await fetch('/api/product')
             const { data } = await res.json()
-            const filtedData = data.filter((product: ProductType) => product.name.includes(input))
+            const filtedData = data?.filter((product: ProductType) => product.name.includes(input))
 
             setProducts(filtedData)
         }

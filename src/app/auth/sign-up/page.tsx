@@ -12,6 +12,8 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { formatNotification } from '@/utils/formatNotification'
+import AuthLayout from '@/layouts/AuthLayout'
+import { useAppContext } from '@/context/AppContext'
 
 const formSchema = z.object({
     name: z.string().min(3, { message: 'Name must be at least 3 characters!' }),
@@ -21,6 +23,7 @@ const formSchema = z.object({
 
 const page = () => {
     const [loading, setLoading] = React.useState(false)
+    const { setUser } = useAppContext()
     const route = useRouter()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -46,17 +49,18 @@ const page = () => {
             if (!res.ok) {
                 throw new Error(responseData.message)
             }
-            
-            const { data } = await res.json()
-            
-            route.push('/')
-            toast(formatNotification(notifications.account.accountCreated, {
-                USERNAME: data.name
-            }))
 
+            const { data } = responseData
+            setUser(data)
+            route.push('/')
+            toast(
+                formatNotification(notifications.account.accountCreated, {
+                    USERNAME: data?.name
+                })
+            )
         } catch (error: any) {
             console.log(error.message)
-            form.setError("email", {type: "custom", message: error.message})
+            form.setError('email', { type: 'custom', message: error.message })
             console.error(error)
         } finally {
             setLoading(false)
@@ -64,12 +68,7 @@ const page = () => {
     }
 
     return (
-        <div className='mt-20 flex gap-[130px]'>
-            <img
-                className='2xl:-ml-[200px] xl:-ml-16 md:-ml-10 -ml-4 w-[70%] max-h-[800px] lg:block hidden'
-                src='/assets/images/side-image.png'
-                alt=''
-            />
+        <AuthLayout>
             <Form {...form}>
                 <form
                     action=''
@@ -149,7 +148,7 @@ const page = () => {
                     </div>
                 </form>
             </Form>
-        </div>
+        </AuthLayout>
     )
 }
 

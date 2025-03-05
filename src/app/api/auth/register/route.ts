@@ -16,7 +16,7 @@ export const POST = async (req: NextRequest) => {
         const newUser = await UserModel.create(body)
         const token = jwt(newUser._id)
 
-        const response = NextResponse.json({ message: 'success', token: token }, { status: 200 })
+        const response = NextResponse.json({ message: 'success', token: token , data: newUser }, { status: 200 })
         response.cookies.set('token', token, {
             secure: process.env.NODE_ENV === "production",
             maxAge: 7 * 24 * 60 * 60,
