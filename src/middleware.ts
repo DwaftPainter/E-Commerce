@@ -15,7 +15,6 @@ export const config = {
     matcher: [
         '/checkout/:path*',
         '/my-account/:path*',
-        '/contact/:path*',
         '/wishlist',
         '/cart',
     ]

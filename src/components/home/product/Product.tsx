@@ -9,7 +9,7 @@ import { ProductType } from '@/types/product.type'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
-import { useAuthRedirect } from '@/hooks/use-auth-redirect'
+import { useRedirect } from '@/hooks/use-redirect'
 
 interface ProductProps {
     product: ProductType
@@ -69,7 +69,7 @@ const Product = ({ product, isWishlist, className }: ProductProps) => {
                         <button
                             className='w-[34px] h-[34px] rounded-full bg-primary flex items-center justify-center cursor-pointer'
                             onClick={e => {
-                                if (useAuthRedirect(user, '/auth/sign-in', router)) handleAddToWishListClick(product, e)
+                                if (useRedirect(user, '/auth/sign-in', router)) handleAddToWishListClick(product, e)
                             }}
                         >
                             <Trash2 size={20} />
@@ -79,7 +79,7 @@ const Product = ({ product, isWishlist, className }: ProductProps) => {
                             <button
                                 className='w-[34px] h-[34px] rounded-full bg-primary flex items-center justify-center cursor-pointer'
                                 onClick={e => {
-                                    if (useAuthRedirect(user, '/auth/sign-in', router)) handleAddToWishListClick(product, e)
+                                    if (useRedirect(user, '/auth/sign-in', router)) handleAddToWishListClick(product, e)
                                 }}
                             >
                                 <motion.div
@@ -132,7 +132,7 @@ const Product = ({ product, isWishlist, className }: ProductProps) => {
                             isWishlist ? 'visible' : 'sm:invisible group-hover:visible'
                         } `}
                         onClick={() => {
-                            if (useAuthRedirect(user, '/auth/sign-in', router)) handleAddToCartClick(product)
+                            if (useRedirect(user, '/auth/sign-in', router)) handleAddToCartClick(product)
                         }}
                     >
                         Add To Cart

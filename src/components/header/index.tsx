@@ -7,20 +7,22 @@ import { Heart, Search, ShoppingCart } from 'lucide-react'
 import { useAppContext } from '@/context/AppContext'
 import UserDropdownMenu from './UserDropdownMenu'
 import { NAV_LINKS } from '@/utils/constants'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import MobileMenu from './mobileMenu'
 import { cn } from '@/lib/utils'
 import { ProductType } from '@/types/product.type'
 import SearchResultBox from '../navigation/mobile-nav/searchResultBox'
 import HeaderEvent from '../home/event'
+import { useRedirect } from '@/hooks/use-redirect'
 
 const Header = () => {
     const [input, setInput] = React.useState('')
     const [products, setProducts] = React.useState<ProductType[]>([])
     const { user, cartCount, wishListCount } = useAppContext()
     const [focus, setFocus] = React.useState(false)
-    const pathname = usePathname()
     const timeoutRef = React.useRef<NodeJS.Timeout | null>(null)
+    const pathname = usePathname()
+    const router = useRouter()
 
     React.useEffect(() => {
         if (timeoutRef.current) {
@@ -53,7 +55,6 @@ const Header = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
-        console.log(e.target.value)
         setInput(e.target.value)
     }
 
@@ -69,7 +70,18 @@ const Header = () => {
                 </h1>
                 <nav className='lg:flex hidden lg:gap-20 md:gap-12 '>
                     {NAV_LINKS.map(link => (
-                        <Link href={link.path} key={link.path} className='cursor-pointer'>
+                        <Link
+                            onClick={(e) => {
+                                if (link.path === '/contact' && !useRedirect(user, '/auth/sign-in', router)) {
+                                    e.preventDefault()
+                                    router.push('/auth/sign-in')
+                                    return
+                                }
+                            }}
+                            href={link.path}
+                            key={link.path}
+                            className='cursor-pointer'
+                        >
                             <div
                                 className={`${
                                     link.path === pathname
@@ -105,7 +117,13 @@ const Header = () => {
                         )}
                     </div>
                     <div className='flex gap-[16px]'>
-                        <Link href={'/wishlist'} className='sm:block hidden'>
+                        <Link
+                            href={'/wishlist'}
+                            className='sm:block hidden'
+                            onClick={() => {
+                                useRedirect(user, '/auth/sign-in', router)
+                            }}
+                        >
                             <div className='relative'>
                                 <Heart className='cursor-pointer' />
                                 {wishListCount > 0 && (
@@ -120,7 +138,12 @@ const Header = () => {
                                 )}
                             </div>
                         </Link>
-                        <Link href={'/cart'}>
+                        <Link
+                            href={'/cart'}
+                            onClick={() => {
+                                useRedirect(user, '/auth/sign-in', router)
+                            }}
+                        >
                             <div className='relative'>
                                 <ShoppingCart className='cursor-pointer' />
                                 {cartCount > 0 && (

@@ -15,7 +15,7 @@ import { motion } from 'framer-motion'
 import { ProductType } from '@/types/product.type'
 import Loading2 from '@/components/ui/loading2'
 import ProductTab from './components/ProductTab'
-import { useAuthRedirect } from '@/hooks/use-auth-redirect'
+import { useRedirect } from '@/hooks/use-redirect'
 
 const page = () => {
     const [product, setProduct] = React.useState<ProductType | null>(null)
@@ -220,7 +220,7 @@ const page = () => {
                                 <Button
                                     className='py-[10px] sm:px-[48px] px-4 rounded-sm font-medium bg-button2 hover:bg-hover2 h-auto'
                                     onClick={() => {
-                                        if (useAuthRedirect(user, '/auth/sign-in', router)) handleBuyProduct(product, quantity)
+                                        if (useRedirect(user, '/auth/sign-in', router)) handleBuyProduct(product, quantity)
                                     }}
                                 >
                                     Buy Now
@@ -228,7 +228,7 @@ const page = () => {
                                 <button
                                     className='w-10 h-10 flex justify-center items-center border rounded-sm cursor-pointer'
                                     onClick={e => {
-                                        if (useAuthRedirect(user, '/auth/sign-in', router)) handleAddToWishListClick(product, e)
+                                        if (useRedirect(user, '/auth/sign-in', router)) handleAddToWishListClick(product, e)
                                     }}
                                 >
                                     <motion.div
