@@ -6,34 +6,31 @@ import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carouse
 import { useAppContext } from '@/context/AppContext'
 import React from 'react'
 import HomeLayout from '@/layouts/HomeLayout'
-import { ProductType } from '@/types/product.type'
 import { Heart } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 
 const page = () => {
-    const [products, setProducts] = React.useState<ProductType[]>([])
-    const { wishItems, wishListCount } = useAppContext()
+    const { wishItems, setWishItems, wishListCount, previewProducts, updateCartBulk, cartItems } =
+        useAppContext()
 
-    React.useEffect(() => {
-        async function getData() {
-            try {
-                const response = await fetch(`/api/product/explore`)
-                const { data } = await response.json() // Ensure response is parsed correctly
-                setProducts(data) // Set products in state
-            } catch (error: any) {
-                console.log(error.message)
-            }
-        }
-
-        getData()
-    }, [])
+    const hanldeMoveAllToCart = async () => {
+        updateCartBulk(
+            wishItems.map(item => {
+                return { product: item, quantity: 1 }
+            })
+        )
+        setWishItems([])
+        console.log('🚀 ~ page ~ cartItems:', cartItems)
+    }
 
     return (
         <div className='flex flex-col gap-[60px]'>
             <div className='flex flex-col gap-[60px]'>
                 <div className='flex justify-between items-center'>
                     <h1 className='text-[20px]'>Wishlist ({wishListCount || 0})</h1>
-                    <Button className='bg-transparent hover:bg-button2 rounded-[4px] h-[56px] sm:px-[48px] px-4 sm:py-[16px] py-2 text-black hover:text-white font-medium border-black border-opacity-50 border-[1px] hover:border-secondary2'>
+                    <Button
+                        className='bg-transparent hover:bg-button2 rounded-[4px] h-[56px] sm:px-[48px] px-4 sm:py-[16px] py-2 text-black hover:text-white font-medium border-black border-opacity-50 border-[1px] hover:border-secondary2'
+                        onClick={hanldeMoveAllToCart}
+                    >
                         Move All To Cart
                     </Button>
                 </div>
@@ -69,7 +66,7 @@ const page = () => {
                     className='w-full mt-[4rem]'
                 >
                     <CarouselContent>
-                        {products.map((product, index) => (
+                        {previewProducts?.map((product, index) => (
                             <CarouselItem key={index} className='md:basis-1/2 lg:basis-1/5'>
                                 <div className='p-1'>
                                     <Product product={product} />

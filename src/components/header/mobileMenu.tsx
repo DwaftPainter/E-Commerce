@@ -23,12 +23,17 @@ import {
 } from '@/components/ui/sidebar'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Button } from '../ui/button'
+import { useRouter } from 'next/navigation'
+import { useRedirect } from '@/hooks/use-redirect'
+import { useAppContext } from '@/context/AppContext'
 
 interface Props {
     className?: string
 }
 const MobileMenu = ({ className }: Props) => {
     const [open, setOpen] = React.useState(false)
+    const { user } = useAppContext()
+    const router = useRouter()
 
     return (
         <Drawer direction='left' open={open}>
@@ -124,7 +129,17 @@ const MobileMenu = ({ className }: Props) => {
                                     href={link.path}
                                     key={link.path}
                                     className='cursor-pointer'
-                                    onClick={() => setOpen(false)}
+                                    onClick={e => {
+                                        setOpen(false)
+                                        if (
+                                            link.path === '/contact' &&
+                                            !useRedirect(user, '/auth/sign-in', router)
+                                        ) { 
+                                            e.preventDefault()
+                                            router.push('/auth/sign-in')
+                                            return
+                                        }
+                                    }}
                                 >
                                     <div
                                         className={`border-b ${

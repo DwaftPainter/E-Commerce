@@ -7,12 +7,12 @@ import { Button } from '../../ui/button'
 import Product from './Product'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { ProductType } from '@/types/product.type'
+import { useAppContext } from '@/context/AppContext'
 
 const Products = () => {
     const [api, setApi] = React.useState<CarouselApi>()
     const [current, setCurrent] = React.useState(0)
-    const [products, setProducts] = React.useState<any[]>([]) // Add state for products
-    const [loading, setLoading] = React.useState(true) // Add loading state
+    const { previewProducts } = useAppContext()
 
     React.useEffect(() => {
         if (!api) {
@@ -26,32 +26,6 @@ const Products = () => {
         })
     }, [api])
 
-    React.useEffect(() => {
-        async function getData() {
-            try {
-                const response = await fetch(`/api/product/explore`)
-                const { data } = await response.json() // Ensure response is parsed correctly
-                setProducts(data) // Set products in state
-            } catch (error: any) {
-                console.log(error.message)
-            } finally {
-                setLoading(false) // Set loading to false once data is fetched
-            }
-        }
-
-        getData()
-    }, [])
-
-    if (loading) {
-        ;<HomeLayout
-            title='Our Products'
-            className='flex-col gap-4 w-full flex items-center justify-center min-h-[200px]'
-        >
-            <div className='w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full'>
-                <div className='w-16 h-16 border-4 border-transparent text-red-400 text-2xl animate-spin flex items-center justify-center border-t-red-400 rounded-full'></div>
-            </div>
-        </HomeLayout>
-    }
     return (
         <HomeLayout
             title='Our Products'
@@ -87,14 +61,14 @@ const Products = () => {
                 </div>
                 {/* <CarouselContent className='gird sm:grid-cols-5 grid-cols-2 grid-rows-2'> */}
                 <CarouselContent>
-                    {products &&
-                        products
-                            .reduce((acc, _, index) => {
+                    {previewProducts &&
+                        previewProducts
+                            .reduce<ProductType[][]>((acc, _, index) => {
                                 if (index % 2 === 0) {
-                                    acc.push(products.slice(index, index + 2))
+                                    acc.push(previewProducts.slice(index, index + 2))
                                 }
                                 return acc
-                            }, [])  
+                            }, [])
                             .map((pair: ProductType[], index: number) => (
                                 <CarouselItem
                                     key={index}

@@ -18,6 +18,7 @@ interface AppContextType {
     removeFromCart: (productId: string) => void
     removeAllFromCart: () => void
     updateToCart: (productId: string, quantity: number) => void
+    updateCartBulk: (updates: CartType[]) => void
     getCartItem: (productId: string) => CartType | null
     cartTotal: number
     cartCount: number
@@ -26,6 +27,7 @@ interface AppContextType {
     addToWishList: (product: ProductType) => void
     removeFromWishList: (productId: string) => void
     wishListCount: number
+    previewProducts: ProductType[]
 }
 
 const AppContext = React.createContext<AppContextType | null>(null)
@@ -34,18 +36,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const [user, setUser] = React.useState<UserType | null>(null)
     const [cartItems, setCartItems] = React.useState<CartType[]>([])
     const [wishItems, setWishItems] = React.useState<ProductType[]>([])
+    const [previewProducts, setPreviewProducts] = React.useState<ProductType[]>([])
     const route = useRouter()
 
     //Fetch Data
     React.useEffect(() => {
-        async function getUser() {
+        async function getInitData() {
             try {
-                const res = await fetch(`/api/auth/log-in`)
+                const res = await fetch(`/api/init`)
                 if (res.ok) {
                     const { data } = await res.json()
-                    setUser(data)
-                    setCartItems(data.cart)
-                    setWishItems(data.wishlist)
+                    const { user, products } = data
+                    setUser(user)
+                    setCartItems(user.cart)
+                    setWishItems(user.wishlist)
+                    setPreviewProducts(products)
                 } else {
                     throw new Error(validate.user_notfound)
                 }
@@ -54,7 +59,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             }
         }
 
-        getUser()
+        getInitData()
     }, [])
 
     //Handle Log out
@@ -77,7 +82,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             const cartItem = cartItems[productIndex]
             const updatedCartItem = {
                 ...cartItem,
-                quantity: quantity ? cartItem.quantity + quantity : cartItem.quantity + 1
+                quantity: quantity ? cartItem?.quantity + quantity : cartItem?.quantity + 1
             }
 
             const updatedCartItems = [...cartItems]
@@ -90,7 +95,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 credentials: 'include',
                 body: JSON.stringify({
                     productId: product._id,
-                    quantity: quantity ? cartItem.quantity + quantity : cartItem.quantity + 1
+                    quantity: quantity ? cartItem?.quantity + quantity : cartItem?.quantity + 1
                 })
             })
         } else {
@@ -111,7 +116,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             const cartItem = cartItems[productIndex]
             const updatedCartItem = {
                 ...cartItem,
-                quantity: cartItem.quantity - 1
+                quantity: cartItem?.quantity - 1
             }
 
             if (updatedCartItem.quantity === 0) {
@@ -127,7 +132,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify({ productId, quantity: cartItem.quantity - 1 })
+                body: JSON.stringify({ productId, quantity: cartItem?.quantity - 1 })
             })
         }
     }
@@ -179,14 +184,52 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
             })
         }
     }
+
+    const updateCartBulk = async (updates: CartType[]) => {
+        if (updates.length === 0) {
+            await fetch(`/api/product/cart`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ updatedCartItems: [] })
+            })
+            setCartItems([])
+            return
+        }
+
+        // Update the local state
+        const updatedCartItems = updates.map(item => {
+            const updateIndex = cartItems?.findIndex(u => u.product._id === item.product._id)
+            let updateItem: CartType
+            if (updateIndex >= 0) {
+                updateItem = { ...item, quantity: cartItems[updateIndex]?.quantity + 1 }
+                return updateItem
+            }
+            return item
+        })
+
+        let filteredCartItems: CartType[] = []
+        filteredCartItems = cartItems?.filter(item =>
+            updatedCartItems.every(u => u.product._id !== item.product._id)
+        )
+        setCartItems([...filteredCartItems, ...updatedCartItems])
+
+        await fetch(`/api/product/cart`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ updatedCartItems: [...filteredCartItems, ...updatedCartItems] })
+        })
+    }
+
     const getCartItem = (productId: string) => {
-        const product = cartItems.find(item => item.product._id === productId)
+        const product = cartItems?.find(item => item.product._id === productId)
         return product || null
     }
 
-    const cartCount = cartItems?.reduce((total, current) => total + current.quantity, 0)
+    const cartCount = cartItems?.reduce((total, current) => total + current?.quantity, 0)
     const cartTotal = cartItems?.reduce(
-        (total, current) => total + current.product.price * current.quantity,
+        (total, current) => total + current?.product?.price * current?.quantity,
         0
     )
 
@@ -231,6 +274,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 removeFromCart,
                 removeAllFromCart,
                 updateToCart,
+                updateCartBulk,
                 getCartItem,
                 cartCount,
                 cartTotal,
@@ -238,7 +282,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 setWishItems,
                 addToWishList,
                 removeFromWishList,
-                wishListCount
+                wishListCount,
+                previewProducts
             }}
         >
             {children}

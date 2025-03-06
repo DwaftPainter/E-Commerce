@@ -14,7 +14,7 @@ const page = () => {
     const [shippingPrice, setShippingPrice] = React.useState<number>(5)
     const route = useRouter()
     const { setItems } = useOrderContext()
-    const { cartItems, updateToCart, removeFromCart, cartTotal } = useAppContext()
+    const { cartItems, updateToCart, removeFromCart, cartTotal, updateCartBulk } = useAppContext()
     const handleQuantityChange = (productId: string, qty: number) => {
         const quantity = Number(qty)
         if (quantity >= 1) {
@@ -38,6 +38,10 @@ const page = () => {
     const handleCheckout = () => {
         setItems(cartItems)
         route.push('/checkout')
+    }
+
+    const hanldeRemoveAllFromCart = async () => {
+        updateCartBulk([])
     }
 
     return (
@@ -115,9 +119,9 @@ const page = () => {
                     </Button>
                     <Button
                         className="bg-transparent hover:bg-button2 rounded-sm h-14 sm:px-12 px-4 sm:py-4 py-2 text-black hover:text-white font-medium border-black border-opacity-50 border-[1px] hover:border-secondary2"
-                        onClick={() => route.refresh()}
+                        onClick={hanldeRemoveAllFromCart}
                     >
-                        Update Cart
+                        Remove All
                     </Button>
                 </div>
             </div>

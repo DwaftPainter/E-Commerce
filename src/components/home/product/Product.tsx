@@ -58,7 +58,7 @@ const Product = ({ product, isWishlist, className }: ProductProps) => {
     return (
         <div className={cn('sm:max-w-full flex flex-col gap-4 ', className)}>
             <div className='relative rounded-sm group cursor-pointer'>
-                <img src={product.image} alt='' className={cn('w-full aspect-square rounded-sm')} />
+                <img src={product.image} alt='' className={cn('w-full aspect-square rounded-sm object-center object-cover')} />
                 {product.discount !== 0 && (
                     <span className='px-[12px] py-[6px] bg-secondary2 text-text text-[12px] rounded-sm absolute top-[12px] left-[12px]'>
                         -{product?.discount}%

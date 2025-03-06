@@ -5,10 +5,10 @@ import Link from 'next/link'
 
 const SideBar = () => {
     return (
-        <div className=' gap-[26px] w-[300px] lg:flex border border-t-0 rounded-b-sm relative hidden px-6'>
+        <div className=' gap-[26px] w-[300px] lg:flex border border-t-0 rounded-b-sm relative hidden '>
             <div className='flex flex-col gap-7 pt-11 w-full'>
                 {categories.map((e, index) => (
-                    <div key={index} className='group'>
+                    <div key={index} className='group px-5'>
                         {e.items && e.items.length > 0 ? (
                             <div>
                                 <Link
