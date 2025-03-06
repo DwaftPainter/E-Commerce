@@ -1,22 +1,5 @@
 import mongoose from 'mongoose'
 
-export type Product = {
-    _id: string
-    name: string
-    slug: string
-    description: string
-    price: number
-    brand?: string
-    discount: number
-    image: string
-    category?: string
-    review: number
-    rating: number
-    countInStock: number
-    colors?: []
-    sizes?: []
-}
-
 const ProductSchema = new mongoose.Schema(
     {
         name: {

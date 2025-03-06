@@ -84,7 +84,7 @@ const Product = ({ product, isWishlist, className }: ProductProps) => {
                             >
                                 <motion.div
                                     animate={{
-                                        scale: wishItems.find(item => item._id === product._id)
+                                        scale: wishItems?.find(item => item._id === product._id)
                                             ? [1, 1.2, 1]
                                             : 1,
                                         transition: { duration: 0.3 }
@@ -93,7 +93,7 @@ const Product = ({ product, isWishlist, className }: ProductProps) => {
                                     <Heart
                                         size={20}
                                         className={`${
-                                            wishItems.find(item => item._id === product._id)
+                                            wishItems?.find(item => item._id === product._id)
                                                 ? 'fill-red-500 stroke-red-500'
                                                 : 'stroke-black'
                                         } transition-colors duration-300`}
@@ -218,7 +218,7 @@ export const ListProduct = ({ product }: ProductProps) => {
                 <div className='flex flex-col gap-2'>
                     <div
                         className={`w-40 border text-center text-sm font-medium py-[8.5px] rounded-sm cursor-pointer flex justify-center items-center gap-2 ${
-                            wishItems.find(item => item._id === product._id)
+                            wishItems?.find(item => item._id === product._id)
                                 ? 'text-secondary2'
                                 : 'text-black'
                         }`}
@@ -228,14 +228,14 @@ export const ListProduct = ({ product }: ProductProps) => {
                     >
                         <motion.div
                             animate={{
-                                scale: wishItems.find(item => item._id === product._id) ? [1, 1.2, 1] : 1,
+                                scale: wishItems?.find(item => item._id === product._id) ? [1, 1.2, 1] : 1,
                                 transition: { duration: 0.3 }
                             }}
                         >
                             <Heart
                                 size={20}
                                 className={`${
-                                    wishItems.find(item => item._id === product._id)
+                                    wishItems?.find(item => item._id === product._id)
                                         ? 'fill-red-500 stroke-red-500'
                                         : 'stroke-black'
                                 } transition-colors duration-300`}

@@ -14,7 +14,7 @@ const page = () => {
 
     const hanldeMoveAllToCart = async () => {
         updateCartBulk(
-            wishItems.map(item => {
+            wishItems?.map(item => {
                 return { product: item, quantity: 1 }
             })
         )

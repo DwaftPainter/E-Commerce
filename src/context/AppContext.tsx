@@ -28,6 +28,7 @@ interface AppContextType {
     removeFromWishList: (productId: string) => void
     wishListCount: number
     previewProducts: ProductType[]
+    featureProducts: ProductType[]
 }
 
 const AppContext = React.createContext<AppContextType | null>(null)
@@ -37,6 +38,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const [cartItems, setCartItems] = React.useState<CartType[]>([])
     const [wishItems, setWishItems] = React.useState<ProductType[]>([])
     const [previewProducts, setPreviewProducts] = React.useState<ProductType[]>([])
+    const [featureProducts, setFeatureProducts] = React.useState<ProductType[]>([])
     const route = useRouter()
 
     //Fetch Data
@@ -47,10 +49,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 if (res.ok) {
                     const { data } = await res.json()
                     const { user, products } = data
+
                     setUser(user)
-                    setCartItems(user.cart)
-                    setWishItems(user.wishlist)
+                    setCartItems(user?.cart)
+                    setWishItems(user?.wishlist)
                     setPreviewProducts(products)
+                    setFeatureProducts(products.filter((product: ProductType) => product.isFeatured === true))
                 } else {
                     throw new Error(validate.user_notfound)
                 }
@@ -237,7 +241,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const addToWishList = async (product: ProductType) => {
         const productIndex = wishItems?.findIndex(item => item._id === product._id)
         if (productIndex !== -1) {
-            const updatedWishList = wishItems.filter(item => item._id !== product._id)
+            const updatedWishList = wishItems?.filter(item => item._id !== product._id)
             setWishItems(updatedWishList)
 
             console.log('running')
@@ -283,7 +287,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 addToWishList,
                 removeFromWishList,
                 wishListCount,
-                previewProducts
+                previewProducts,
+                featureProducts
             }}
         >
             {children}

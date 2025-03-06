@@ -9,6 +9,7 @@ export type ProductType = {
     image: string
     featuredImage?: [],
     category?: string
+    isFeatured?: boolean
     review?: number
     rating?: number
     countInStock: number

@@ -190,7 +190,7 @@ const page = () => {
                                     <div className='flex gap-[16px]'>
                                         {product?.sizes?.map((size: string, index: number) => (
                                             <div
-                                                className='flex items-center justify-center h-8 w-8 border rounded-sm hover:bg-secondary2 hover:text-text cursor-pointer'
+                                                className='flex items-center justify-center h-8 px-3 border rounded-sm hover:bg-secondary2 hover:text-text cursor-pointer'
                                                 key={index}
                                             >
                                                 <p className='text-[14px] font-medium'>{size}</p>
@@ -233,7 +233,7 @@ const page = () => {
                                 >
                                     <motion.div
                                         animate={{
-                                            scale: wishItems.find(item => item._id === product._id)
+                                            scale: wishItems?.find(item => item._id === product._id)
                                                 ? [1, 1.2, 1]
                                                 : 1,
                                             transition: { duration: 0.3 }
@@ -242,7 +242,7 @@ const page = () => {
                                         <Heart
                                             size={20}
                                             className={`${
-                                                wishItems.find(item => item._id === product._id)
+                                                wishItems?.find(item => item._id === product._id)
                                                     ? 'fill-red-500 stroke-red-500'
                                                     : 'stroke-black'
                                             } transition-colors duration-300`}
