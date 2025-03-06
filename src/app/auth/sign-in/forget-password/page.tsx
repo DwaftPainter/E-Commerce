@@ -65,7 +65,7 @@ const page = () => {
                         <h1 className='lg:font-medium font-bold lg:text-[36px] text-2xl lg:self-start self-center tracking-widest'>
                             Forgot password?
                         </h1>
-                        <p className=''>No worries, we'll send youreser instruction</p>
+                        <p className=''>No worries, we'll send you reset instruction</p>
                     </div>
                     <FormField
                         control={form.control}
