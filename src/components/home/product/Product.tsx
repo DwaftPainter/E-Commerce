@@ -8,6 +8,8 @@ import { useAppContext } from '@/context/AppContext'
 import { ProductType } from '@/types/product.type'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
+import { useAuthRedirect } from '@/hooks/use-auth-redirect'
 
 interface ProductProps {
     product: ProductType
@@ -17,9 +19,11 @@ interface ProductProps {
 }
 
 const Product = ({ product, isWishlist, className }: ProductProps) => {
-    const { addToCart, deleteFromCart, removeFromCart, addToWishList, wishItems, cartItems } = useAppContext()
+    const { addToCart, deleteFromCart, removeFromCart, addToWishList, wishItems, cartItems, user } =
+        useAppContext()
     const [quantity, setQuantity] = React.useState(1)
-    
+    const router = useRouter()
+
     React.useEffect(() => {
         const item = cartItems?.find(items => items?.product?._id === product?._id)
         if (item) {
@@ -65,7 +69,7 @@ const Product = ({ product, isWishlist, className }: ProductProps) => {
                         <button
                             className='w-[34px] h-[34px] rounded-full bg-primary flex items-center justify-center cursor-pointer'
                             onClick={e => {
-                                handleAddToWishListClick(product, e)
+                                if (useAuthRedirect(user, '/auth/sign-in', router)) handleAddToWishListClick(product, e)
                             }}
                         >
                             <Trash2 size={20} />
@@ -75,7 +79,7 @@ const Product = ({ product, isWishlist, className }: ProductProps) => {
                             <button
                                 className='w-[34px] h-[34px] rounded-full bg-primary flex items-center justify-center cursor-pointer'
                                 onClick={e => {
-                                    handleAddToWishListClick(product, e)
+                                    if (useAuthRedirect(user, '/auth/sign-in', router)) handleAddToWishListClick(product, e)
                                 }}
                             >
                                 <motion.div
@@ -128,7 +132,7 @@ const Product = ({ product, isWishlist, className }: ProductProps) => {
                             isWishlist ? 'visible' : 'sm:invisible group-hover:visible'
                         } `}
                         onClick={() => {
-                            handleAddToCartClick(product)
+                            if (useAuthRedirect(user, '/auth/sign-in', router)) handleAddToCartClick(product)
                         }}
                     >
                         Add To Cart

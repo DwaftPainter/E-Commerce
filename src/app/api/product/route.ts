@@ -109,9 +109,9 @@ export const PUT = async () => {
         await DBConnect()
         const products = await ProductModel.find({})
         products.forEach(async (product: Product) => {
-            await ProductModel.updateOne(
+            await ProductModel.updateMany(
                 { _id: product._id },
-                { $set: { discount: Math.floor(Math.random() * 100) } }
+                { $set: { featuredImage: [product?.image] } }
             )
         })
 

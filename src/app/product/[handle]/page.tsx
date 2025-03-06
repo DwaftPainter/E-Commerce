@@ -15,6 +15,7 @@ import { motion } from 'framer-motion'
 import { ProductType } from '@/types/product.type'
 import Loading2 from '@/components/ui/loading2'
 import ProductTab from './components/ProductTab'
+import { useAuthRedirect } from '@/hooks/use-auth-redirect'
 
 const page = () => {
     const [product, setProduct] = React.useState<ProductType | null>(null)
@@ -26,7 +27,7 @@ const page = () => {
     const [api, setApi] = React.useState<CarouselApi>()
     const [current, setCurrent] = React.useState(0)
     const slug = usePathname().split('/').pop()
-    const { wishItems, addToWishList, addToCart } = useAppContext()
+    const { wishItems, addToWishList, addToCart, user } = useAppContext()
     const router = useRouter()
     const [selectedImage, setSelectedImage] = React.useState(null)
 
@@ -79,8 +80,7 @@ const page = () => {
     }
 
     const handleBuyProduct = (product: ProductType, quantity: number) => {
-        if (quantity > 0)
-        addToCart(product, quantity)
+        if (quantity > 0) addToCart(product, quantity)
         router.push('/cart')
     }
 
@@ -114,7 +114,9 @@ const page = () => {
                     )}
                     <img
                         src={selectedImage || product?.image}
-                        className={`${product?.featuredImage ? '2xl:w-[600px]' : '2xl:w-full'} w-full sm:h-[580px] h-auto aspect-square rounded-sm object-cover object-center`}
+                        className={`${
+                            product?.featuredImage ? '2xl:w-[600px]' : '2xl:w-full'
+                        } w-full sm:h-[580px] h-auto aspect-square rounded-sm object-cover object-center`}
                     />
                 </div>
                 <div className='basis-[50%] xl:basis-[40%] flex flex-col gap-[30px] h-auto'>
@@ -217,14 +219,16 @@ const page = () => {
                                 </div>
                                 <Button
                                     className='py-[10px] sm:px-[48px] px-4 rounded-sm font-medium bg-button2 hover:bg-hover2 h-auto'
-                                    onClick={() => handleBuyProduct(product, quantity)}
+                                    onClick={() => {
+                                        if (useAuthRedirect(user, '/auth/sign-in', router)) handleBuyProduct(product, quantity)
+                                    }}
                                 >
                                     Buy Now
                                 </Button>
                                 <button
                                     className='w-10 h-10 flex justify-center items-center border rounded-sm cursor-pointer'
                                     onClick={e => {
-                                        handleAddToWishListClick(product, e)
+                                        if (useAuthRedirect(user, '/auth/sign-in', router)) handleAddToWishListClick(product, e)
                                     }}
                                 >
                                     <motion.div
